@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "02201e87c0428c419dc7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "94b86981bc545688585a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -2190,7 +2190,7 @@ module.exports = "<div class='main-nav'>\r\n    <div class='navbar navbar-invers
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>quynh like thong</h1>\r\n\r\n";
+module.exports = "<button type=\"button\" class=\"btn\">Create Asset</button>\r\n<br /> <br />\r\n\r\n<head>\r\n    <title>Bootstrap Example</title>\r\n    <meta charset=\"utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">\r\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js\"></script>\r\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js\"></script>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <h2>All Transactions</h2>\r\n        <p>This is the list of all the transactions</p>\r\n        <table class=\"table table-hover\">\r\n            <thead>\r\n                <tr>\r\n                    <th>Date, Time</th>\r\n                    <th>Entry Type</th>\r\n                    <th>Participant</th>\r\n                </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                    <td>2018-02-14, 21:51:27</td>\r\n                    <td>ActivateCurrentIdentity</td>\r\n                    <td>john</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>2018-02-14, 21:51:20</td>\r\n                    <td>StartBusinessNetwork</td>\r\n                    <td>mary</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>2018-02-14, 21:51:20</td>\r\n                    <td>IssueIdentity</td>\r\n                    <td>july</td>\r\n                </tr>\r\n            </tbody>\r\n        </table>\r\n    </div>\r\n\r\n</body>\r\n\r\n<br /> <br />\r\n       <body>\r\n\r\n           <div class=\"container\">\r\n               <h2>Search Asset</h2>\r\n               <div class=\"col-lg-6\">\r\n                   <div class=\"input-group\">\r\n                       <input type=\"text\" class=\"form-control\" placeholder=\"Search for...\">\r\n                       <span class=\"input-group-btn\">\r\n                           <button class=\"btn btn-default \" type=\"button\">Go!</button>\r\n                       </span>\r\n                   </div><!-- /input-group -->\r\n               </div><!-- /.col-lg-6 -->\r\n           </div>\r\n          \r\n\r\n       </body>";
 
 /***/ }),
 /* 29 */
