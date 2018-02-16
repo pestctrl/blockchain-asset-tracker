@@ -1,0 +1,17 @@
+﻿<h1>Assets Registry</h1>
+<p>Registry for adding and viewing Assets</p>
+
+<table class="table" *ngIf="assets">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let asset of assets">
+            <td> {{ assets.classId }} </td>
+            <td> {{ assets.assetId }} </td>
+        </tr>
+    </tbody>
+</table>
