@@ -7,7 +7,9 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]="['/home']">WebApplication1</a>
+            <a class='navbar-brand' [routerLink]="['/home']">Rice For Life, 
+            The Asian Life</a>
+            <img src="http://www.lailafoods.com/wp-content/themes/laila/images/ricelifepro2.png">
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
@@ -28,8 +30,18 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/webapp']">
-                        <span class='glyphicon glyphicon-th-list'></span> Web App
+                    <a [routerLink]="['/participants']">
+                        <span class="glyphicon glyphicon-user"></span> Sample Participant
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/assets']">
+                        <span class="glyphicon glyphicon-briefcase"></span> Sample Asset
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/transactions']">
+                        <span class='glyphicon glyphicon-th-list'></span> Transaction
                     </a>
                 </li>
             </ul>
