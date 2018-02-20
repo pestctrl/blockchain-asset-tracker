@@ -1,0 +1,7 @@
+Debug
+bin
+build
+.git
+TestResults
+packages
+obj
