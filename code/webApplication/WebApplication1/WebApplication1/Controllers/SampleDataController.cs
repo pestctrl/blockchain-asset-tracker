@@ -72,26 +72,22 @@ namespace WebApplication2.Controllers
         }
 
 
-        private static string[] ClassIds = new[]
-        {
-            "ActivateCurrentIdentity", "StartBusinessNetwork", "IssueIdentity", "AddParticipant"
-        };
-        private static string[] AssetIds = new[]
+        private static string[] Owners = new[]
         {
             "Xing", "Giang", "Nghia", "Benson", "Son"
         };
-
         [HttpGet("[action]")]
-        public IEnumerable<Assets> AssetsInfo()
+        public IEnumerable<Assets> Assetsinfo()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new Assets
             {
-                ClassId = ClassIds[rng.Next(ClassIds.Length)],
-                AssetId = AssetIds[rng.Next(AssetIds.Length)],
-                Owner = "Mik",
-                Value = "2300"
+                ClassId = rng.Next(10000, 99999).ToString(),
+                AssetId = rng.Next(10000, 99999).ToString(),
+                Owner = Owners[rng.Next(Owners.Length)],
+                Value = rng.Next(0, 5000).ToString()
             });
+
         }
 
         public class Assets

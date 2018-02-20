@@ -6,12 +6,16 @@
         <tr>
             <th>ID</th>
             <th>Data</th>
+            <th>Owner</th>
+            <th>Value</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let asset of assets">
-            <td> {{ assets.classId }} </td>
-            <td> {{ assets.assetId }} </td>
+            <td> {{ asset.classId }} </td>
+            <td> {{ asset.assetId }} </td>
+            <td> {{ asset.owner }} </td>
+            <td> {{ asset.value }} </td>
         </tr>
     </tbody>
 </table>
