@@ -12,13 +12,14 @@
             <th>Date, Time</th>
             <th>Entry Type</th>
             <th>Participant</th>
+
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let transaction of transactions">
             <td>{{ transaction.getDate }}</td>
             <td>{{ transaction.entry }}</td>
-            <td>{{ transaction.participant }}</td>
+            <td>{{ transaction.firstName }}</td>
         </tr>
     </tbody>
 </table>

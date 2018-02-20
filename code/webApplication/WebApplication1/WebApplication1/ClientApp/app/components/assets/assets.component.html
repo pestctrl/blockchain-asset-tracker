@@ -4,15 +4,15 @@
 <table class="table" *ngIf="assets">
     <thead>
         <tr>
+            <th>Class</th>
             <th>ID</th>
-            <th>Data</th>
             <th>Owner</th>
             <th>Value</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let asset of assets">
-            <td> {{ asset.classId }} </td>
+            <td> {{ asset.class }} </td>
             <td> {{ asset.assetId }} </td>
             <td> {{ asset.owner }} </td>
             <td> {{ asset.value }} </td>

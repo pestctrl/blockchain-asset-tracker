@@ -45,10 +45,11 @@ namespace WebApplication2.Controllers
         {
             "ActivateCurrentIdentity", "StartBusinessNetwork", "IssueIdentity", "AddParticipant"
         };
-        private static string[] Participants = new[]
+        private static string[] FirstNames = new[]
         {
             "Xing", "Giang", "Nghia", "Benson", "Son"
         };
+
 
         [HttpGet("[action]")]
         public IEnumerable<TransactionHistory> TransactionHistories()
@@ -59,7 +60,7 @@ namespace WebApplication2.Controllers
                 GetDate = DateTime.Today.ToString("d"),
                 GetTime = DateTime.Today.ToString(),
                 Entry = Entries[rng.Next(Entries.Length)],
-                Participant = Participants[rng.Next(Participants.Length)]
+                FirstName = FirstNames[rng.Next(FirstNames.Length)]
             });
         }
 
@@ -68,34 +69,47 @@ namespace WebApplication2.Controllers
             public string GetDate { get; set; }
             public string GetTime { get; set; }
             public string Entry { get; set; }
-            public string Participant { get; set; }
+            public string FirstName { get; set; }
         }
 
-
-        private static string[] Owners = new[]
-        {
-            "Xing", "Giang", "Nghia", "Benson", "Son"
-        };
         [HttpGet("[action]")]
         public IEnumerable<Assets> Assetsinfo()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new Assets
             {
-                ClassId = rng.Next(10000, 99999).ToString(),
+                Class = rng.Next(10000, 99999).ToString(),
                 AssetId = rng.Next(10000, 99999).ToString(),
-                Owner = Owners[rng.Next(Owners.Length)],
+                Owner = FirstNames[rng.Next(FirstNames.Length)],
                 Value = rng.Next(0, 5000).ToString()
             });
-
         }
 
         public class Assets
         {
-            public string ClassId { get; set; }
+            public string Class { get; set; }
             public string AssetId { get; set; }
             public string Owner { get; set; }
             public string Value { get; set; }
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<Participants> Participantsinfo()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new Participants
+            {
+                Class = rng.Next(10000, 99999).ToString(),
+                ParticipantId = rng.Next(10000, 99999).ToString(),
+                FirstName = FirstNames[rng.Next(FirstNames.Length)]
+            });
+
+        }
+        public class Participants
+        {
+            public string Class { get; set; }
+            public string ParticipantId { get; set; }
+            public string FirstName { get; set; }
         }
     }
 }

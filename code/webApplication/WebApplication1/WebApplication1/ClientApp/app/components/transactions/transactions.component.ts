@@ -19,5 +19,5 @@ interface TransactionHistory {
     getDate: string;
     getTime: string;
     entry: string;
-    participant: string;
+    firstName: string;
 }

@@ -15,8 +15,8 @@ export class AssetsComponent {
     }
 }
 
-interface Assets {
-    classId: string;
+class Assets {
+    class: string;
     assetId: string;
     owner: string;
     value: string;
