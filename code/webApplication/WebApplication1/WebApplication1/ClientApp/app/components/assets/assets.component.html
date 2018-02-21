@@ -1,38 +1,49 @@
 ﻿<h1>Assets Registry</h1>
 <p>Registry for adding and viewing Assets</p>
-<br />
 
-    <button (click)="createAsset()">Create an Asset</button>
-
-<br/><br />
-
-
-
-<br/><br/>
 <table class="table" *ngIf="assets">
     <thead>
-    <tr>
-        <th>Class</th>
-        <th>ID</th>
-        <th>Owner</th>
-        <th>Value</th>
-    </tr>
+        <tr>
+            <th>Class</th>
+            <th>ID</th>
+            <th>Owner</th>
+            <th>Value</th>
+        </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let asset of assets">
-        <td> {{ asset.class }} </td>
-        <td> {{ asset.assetId }} </td>
-        <td> {{ asset.owner }} </td>
-        <td> {{ asset.value }} </td>
-    </tr>
-    <tr>
-        <td> {{ class }} </td>
-        <td> {{ id }} </td>
-        <td> {{ owner }} </td>
-        <td> {{ value }} </td>
-    </tr>
+        <tr *ngFor="let asset of assets">
+            <td> {{ asset.class }} </td>
+            <td> {{ asset.assetId }} </td>
+            <td> {{ asset.owner }} </td>
+            <td> {{ asset.value }} </td>
+        </tr>
+        <tr>
+            <td> {{ class }} </td>
+            <td> {{ id }} </td>
+            <td> {{ owner }} </td>
+            <td> {{ value }} </td>
+        </tr>
     </tbody>
+</table>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Class</th>
+            <th>ID</th>
+            <th>Owner</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input name="class" placeholder="Enter Class" type="text"></td>
+            <td><input name="ID" placeholder="Enter AssetId" type="text"></td>
+            <td><input name="Owner" placeholder="Enter Owner" type="text"></td>
+            <td><input name="Value" placeholder="Enter Value" type="text"></td>
+            <td><input name="addAsset" type="Submit" value="+Add Asset">
+        </tr>
+    </tbody>
 </table>
 
 <!-- button for inputting search -->
@@ -45,7 +56,7 @@
         </span>
     </div><!-- /input-group -->
 </div><!-- /.col-lg-6 -->
-<br/><br/><br/>
+<br /><br /><br />
 
 
 <input #newAsset
