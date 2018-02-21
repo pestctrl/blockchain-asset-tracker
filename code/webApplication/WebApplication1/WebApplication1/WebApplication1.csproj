@@ -21,10 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\assets\assets.spec.ts" />
     <None Remove="ClientApp\app\components\webapp\webapp.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\assets\assets.spec.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\webapp\webapp.component.ts" />
   </ItemGroup>
 
