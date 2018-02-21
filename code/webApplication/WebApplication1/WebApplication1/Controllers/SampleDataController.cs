@@ -41,11 +41,11 @@ namespace WebApplication2.Controllers
             }
         }
 
-        private static string[] Entries = new[]
+        private string[] Entries = new[]
         {
             "ActivateCurrentIdentity", "StartBusinessNetwork", "IssueIdentity", "AddParticipant"
         };
-        private static string[] FirstNames = new[]
+        private string[] FirstNames = new[]
         {
             "Xing", "Giang", "Nghia", "Benson", "Son"
         };
