@@ -1,0 +1,34 @@
+﻿<h1>Transactions</h1>
+
+<p>Lists the transactions</p>
+
+
+
+<table class='table'>
+    <thead>
+        <tr>
+            <th> Date</th>
+            <th> Entry Type</th>
+            <th> Participant</th>
+            <th> Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ transactions.date }}</td>
+            <td>{{ transactions.entryType}}</td>
+            <td>{{ transactions.participant}}</td>
+            <td>{{ transactions.value}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container-fluid">
+<input #search
+       (keyup.enter)="searchTransaction(transactionId.value)"
+       (blur)="searchTransaction(transactionId.value); transactionId.value='' ">
+
+<button type="button" class="btn btn-primary" (click)="searchTransaction(searchTransactionId.value)">Search Transaction ID</button>
+</div>
+
