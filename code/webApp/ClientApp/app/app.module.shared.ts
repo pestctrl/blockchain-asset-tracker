@@ -11,7 +11,6 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
 
-
 @NgModule({
     declarations: [
         AppComponent,
