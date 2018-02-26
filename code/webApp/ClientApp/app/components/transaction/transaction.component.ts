@@ -7,13 +7,14 @@
 
 export class TransactionComponent {
     public transactions: transaction = new transaction("12-12-1212", "setupNetwork", "John", "1234", "123");
-    searchResult: transaction = new transaction("", "", "", "", "");
+    searchResult: transaction = new transaction("Test", "", "", "", "");
 
 
     searchTransaction(transactionId: string) {
-    
-            this.searchResult = this.transactions;        
-
+        if (transactionId == this.transactions.transactionId) {
+            this.searchResult = this.transactions;
+        }
+        
     };
 }
 
