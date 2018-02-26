@@ -14,12 +14,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>{{ transactions.date }}</td>
-            <td>{{ transactions.entryType}}</td>
-            <td>{{ transactions.participant}}</td>
-            <td>{{ transactions.value}}</td>
-            <td>{{ transactions.transactionId}}</td>
+        <tr *ngFor ="let transaction of transactions">
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.entryType}}</td>
+            <td>{{ transaction.participant}}</td>
+            <td>{{ transaction.value}}</td>
+            <td>{{ transaction.transactionId}}</td>
         </tr>
     </tbody>
 </table>

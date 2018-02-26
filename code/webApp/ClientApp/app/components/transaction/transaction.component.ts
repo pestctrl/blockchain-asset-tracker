@@ -1,41 +1,34 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { TransactionService } from './transaction.service'
+import {ITransaction} from './transaction'
 
 @Component({
     selector: 'transaction',
-    templateUrl: './transaction.component.html'
+    templateUrl: './transaction.component.html',
+    providers: [TransactionService]
 })
 
-export class TransactionComponent {
-    public transactions: transaction = new transaction("12-12-1212", "setupNetwork", "John", "1234", "123");
-    searchResult: transaction = new transaction("Test", "", "", "", "");
+export class TransactionComponent implements OnInit {
+ 
+    public transactions : ITransaction[];
 
+    constructor(private transactionService: TransactionService) {}
+
+    ngOnInit() {
+        this.transactions= this.transactionService.getTransaction();
+    }
+
+    searchResult: ITransaction;
 
     searchTransaction(transactionId: string) {
-        if (transactionId == this.transactions.transactionId) {
-            this.searchResult = this.transactions;
-        }
-        
+        this.searchResult = ((this.transactions.find(x => x.transactionId == transactionId)) as any);
     };
-}
-
-
-
-class transaction {
-    date: string;
-    entryType: string;
-    participant: string;
-    value: string;
-    transactionId: string;
-    constructor(date: string, entryType: string,
-        participant: string, value: string, transactionId: string) {
-        this.date = date;
-        this.entryType = entryType;
-        this.participant = participant;
-        this.value = value;
-        this.transactionId = transactionId;
-    }
     
 }
+
+
+
+
 
 
 
