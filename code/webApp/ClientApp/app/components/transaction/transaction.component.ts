@@ -21,7 +21,7 @@ export class TransactionComponent implements OnInit {
     searchResult: ITransaction;
 
     searchTransaction(transactionId: string) {
-        this.searchResult = ((this.transactions.find(x => x.transactionId == transactionId)) as any);
+        this.searchResult = ((this.transactions.find(x => x.transactionId === transactionId)) as ITransaction);
     };
     
 }
