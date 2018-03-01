@@ -2,22 +2,63 @@
 import { assert } from 'chai';
 import { TransactionComponent } from './transaction.component';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TransactionService } from './transaction.service'
-import { ITransaction } from './transaction'
 
-let fixture: ComponentFixture<TransactionComponent>;
-let component: TransactionComponent;
 
-describe('Canary Test', () => {
-    it('true is true', () => expect(true).toBe(true));
-});
+describe('Transactioncomponent tests',
+    () => {
+        let fixture: ComponentFixture<TransactionComponent>;
+        let component: TransactionComponent;
 
-describe('Transaction component', () => {
-    beforeEach(() => {
-        TestBed.configureTestingModule({ declarations: [TransactionComponent] });
-        fixture = TestBed.createComponent(TransactionComponent);
-        fixture.detectChanges();
-    });
+        beforeEach(async() => {
+            TestBed.configureTestingModule({
+                    declarations: [TransactionComponent]
+                })
+                .compileComponents();
+        });
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TransactionComponent);
+            fixture.detectChanges();
+            component = fixture.componentInstance;
+        });
+
+        it('should pass this test', function() {
+            expect(true).toBeTruthy();
+        });
+
+        it('should have selector set',
+            function() {
+                const annotations = Reflect.getMetadata('annotations', TransactionComponent)[0];
+
+                expect(annotations.selector).toEqual('transaction');
+            });
+
+        it('should have an empty transations list on create', function () {
+            component.ngOnInit();
+        
+
+            let transaction = [
+                {
+                    date: "12-12-1212",
+                    entryType: "setupNetwork",
+                    participant: "John",
+                    value: "1234",
+                    transactionId: "123"
+                },
+                {
+                    date: "12-13-1212",
+                    entryType: "addAsset",
+                    participant: "John",
+                    value: "4563",
+                    transactionId: "342"
+                }
+            ];
+
+                expect(component.transactions).toEqual(transaction);
+        });
+
+
+
 
 
     it('Displays the title', async(() => {
