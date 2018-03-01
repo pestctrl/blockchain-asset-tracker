@@ -44,7 +44,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr *ngIf="searchResult">
             <td id="date">{{ searchResult.date }}</td>
             <td id="entry">{{ searchResult.entryType}}</td>
             <td id="participant">{{ searchResult.participant}}</td>
