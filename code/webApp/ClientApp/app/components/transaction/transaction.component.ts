@@ -10,9 +10,10 @@ import {ITransaction} from './transaction'
 
 export class TransactionComponent implements OnInit {
  
-    transactions: ITransaction[];
+    transactions: ITransaction[] = [];
 
-    constructor(private transactionService: TransactionService) {}
+    constructor(private transactionService: TransactionService) {
+    }
 
     ngOnInit() {
         this.transactions = this.transactionService.getTransaction();
