@@ -6,3 +6,4 @@ TestResults
 packages
 obj
 node_modules
+.vs
