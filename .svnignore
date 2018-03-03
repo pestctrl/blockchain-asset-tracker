@@ -1,3 +1,5 @@
+*.bna
+*.card
 Debug
 bin
 build
