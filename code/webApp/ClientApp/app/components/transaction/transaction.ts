@@ -1,4 +1,4 @@
-﻿export interface ITransaction {
+﻿export class ITransaction {
     date: string;
     entryType: string;
     participant: string;

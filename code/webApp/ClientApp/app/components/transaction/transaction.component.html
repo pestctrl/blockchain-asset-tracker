@@ -1,4 +1,4 @@
-﻿<h1>Transactions</h1>
+﻿﻿<h1>Transactions</h1>
 
 <p>Lists the transactions</p>
 
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor ="let transaction of transactions">
+        <tr *ngFor="let transaction of transactions">
             <td>{{ transaction.date }}</td>
             <td>{{ transaction.entryType}}</td>
             <td>{{ transaction.participant}}</td>
@@ -26,14 +26,14 @@
 
 
 <div class="container-fluid">
-<input #transactionId
-       (keyup.enter)="searchTransaction(transactionId.value)">
+    <input #transactionId
+           (keyup.enter)="searchTransaction(transactionId.value)">
 
-<button type="button" class="btn btn-primary" (click)="searchTransaction(transactionId.value)">Search Transaction ID</button>
+    <button type="button" class="btn btn-primary" (click)="searchTransaction(transactionId.value)">Search Transaction ID</button>
 </div>
 
 <h2>Search Result</h2>
-<table class='table'>
+<table class='table' *ngIf="searchResult">
     <thead>
         <tr>
             <th> Date</th>

@@ -1,6 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿﻿import { Component, OnInit } from '@angular/core';
 import { TransactionService } from './transaction.service'
-import {ITransaction} from './transaction'
+import { ITransaction } from './transaction'
 
 @Component({
     selector: 'transaction',
@@ -9,7 +9,7 @@ import {ITransaction} from './transaction'
 })
 
 export class TransactionComponent implements OnInit {
- 
+
     transactions: ITransaction[] = [];
 
     constructor(private transactionService: TransactionService) {
@@ -24,7 +24,7 @@ export class TransactionComponent implements OnInit {
     searchTransaction(transactionId: string) {
         this.searchResult = ((this.transactions.find(x => x.transactionId === transactionId)) as ITransaction);
     };
-    
+
 }
 
 
