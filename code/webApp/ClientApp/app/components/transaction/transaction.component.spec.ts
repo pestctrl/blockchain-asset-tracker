@@ -77,7 +77,6 @@ describe('Transactioncomponent tests',
             searchButton.click();
             fixture.detectChanges();
 
-            const transactionId = fixture.nativeElement.querySelector("#transactionId");
             let searchTransaction =
                 {
                     date: "12-12-1212",
