@@ -10,12 +10,15 @@ namespace BlockChain
         private IBlockChainService _blockChainService;
 
         public List<String> Assets { get; private set; }
-        
+
         public UserWallet()
-        {}
+        {
+            Assets = new List<string>();
+        }
 
         public UserWallet(IBlockChainService blockChainService)
         {
+            Assets = new List<string>();
             _blockChainService = blockChainService;
         }
 
@@ -56,7 +59,7 @@ namespace BlockChain
 
         public void ReceiveAssets(List<String> assets)
         {
-            Assets = assets;
+            Assets.AddRange(assets.ToArray());
         }
 
         public void SendVerifiedTransaction(Tuple<String, List<String>, bool> verifiedTrasaction)

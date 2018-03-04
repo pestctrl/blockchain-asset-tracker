@@ -45,6 +45,28 @@ namespace Wallet.Tests
         }
 
         [TestMethod]
+        public void SendOneAssetToWalletWithExistenceListOfAsset()
+        {
+            UserWallet wallet = new UserWallet();
+            var assetA = new List<string>()
+                { "Asset A" };
+            var assetB = new List<string>()
+                { "Asset B" };
+
+
+            wallet.ReceiveAssets(assetA);
+            wallet.ReceiveAssets(assetB);
+
+            var expectedResult = new List<String>()
+            {
+                "Asset A",
+                "Asset B"
+            };
+            Assert.IsTrue(expectedResult.SequenceEqual(wallet.Assets));
+
+        }
+
+        [TestMethod]
         public void GetVerifiedTransactionOneAsset()
         {
             Mock<IBlockChainService> mockBlockChainService = new Mock<IBlockChainService>();
@@ -123,32 +145,6 @@ namespace Wallet.Tests
             {
                 "Asset C",
             };
-            Assert.IsTrue(expectedResult.SequenceEqual(wallet.Assets));
-        }
-
-        [TestMethod]
-        public void SendSuccessfulAllAccessFromVerifiedTransaction()
-        {
-            UserWallet wallet = new UserWallet();
-            var assets = new List<string>()
-            {
-                "Asset B",
-                "Asset A",
-                "Asset C",
-            };
-
-            var sendAssets = new List<string>()
-            {
-                "Asset B",
-                "Asset A",
-                "Asset C"
-            };
-
-            wallet.ReceiveAssets(assets);
-            var verifiedTransaction = new Tuple<String, List<String>, bool>("John address", sendAssets, true);
-            wallet.SendVerifiedTransaction(verifiedTransaction);
-
-            var expectedResult = new List<String>();
             Assert.IsTrue(expectedResult.SequenceEqual(wallet.Assets));
         }  
     }
