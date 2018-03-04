@@ -8,17 +8,11 @@ namespace BlockChain
     public class UserWallet
     {
         private IBlockChainService _blockChainService;
-        public List<String> assets = new List<String>()
-        {
-            "Asset A",
-            "Asset B",
-            "Asset C"
-        };
 
+        public List<String> Assets { get; private set; }
+        
         public UserWallet()
-        {
-
-        }
+        {}
 
         public UserWallet(IBlockChainService blockChainService)
         {
@@ -45,26 +39,24 @@ namespace BlockChain
         //    return _receiverAddress;
         //}
 
-        public Tuple<String, List<String>, bool> GetTransactionVerify(String _receiverAddress, List<String> _asset)
+        public Tuple<String, List<String>, bool> VerifyTransaction(String receiverAddress, List<String> assets)
         {
-            bool verify;
+            bool verified;
+
             try
             {
-                verify = _blockChainService.VerifiedTransaction(_receiverAddress, _asset);
+                verified = _blockChainService.VerifiedTransaction(receiverAddress, assets);
             }
             catch (Exception ex)
             {
-                verify = false;
+                verified = false;
             }
-
-            var transactionVerify = new Tuple<String, List<String>, bool>(_receiverAddress, _asset, verify);
-            return transactionVerify;
+            return new Tuple<String, List<String>, bool>(receiverAddress, assets, verified);
         }
 
-        public void ReceivedAsset(List<String> _assets)
+        public void ReceiveAssets(List<String> assets)
         {
-            foreach (String asset in _assets)
-                assets.Add(asset);
+            Assets = assets;
         }
 
         public void SendVerifiedTransaction(Tuple<String, List<String>, bool> verifiedTrasaction)
@@ -72,9 +64,7 @@ namespace BlockChain
             foreach (var asset in verifiedTrasaction.Item2)
             {
                 if (verifiedTrasaction.Item3 == true)
-                {
-                    assets.Remove(asset);
-                }
+                    Assets.Remove(asset);
             }
         }
     }

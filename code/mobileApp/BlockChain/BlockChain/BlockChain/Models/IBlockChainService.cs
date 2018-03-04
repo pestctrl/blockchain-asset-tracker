@@ -6,6 +6,6 @@ namespace BlockChain.Models
 {
     public interface IBlockChainService
     {
-        bool VerifiedTransaction(String receiverAddress, List<String> Asset);
+        bool VerifiedTransaction(String receiverAddress, List<String> assets);
     }
 }
