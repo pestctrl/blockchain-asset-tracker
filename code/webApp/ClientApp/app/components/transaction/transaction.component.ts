@@ -2,6 +2,7 @@
 import { TransactionService } from './transaction.service'
 import { ITransaction } from './transaction'
 ﻿
+﻿
 
 @Component({
     selector: 'transaction',
@@ -11,7 +12,7 @@ import { ITransaction } from './transaction'
 
 export class TransactionComponent implements OnInit {
 
-    transactions: ITransaction[];
+    transactions: ITransaction[] = [];
 
     constructor(private transactionService: TransactionService) {
     }
@@ -21,7 +22,6 @@ export class TransactionComponent implements OnInit {
             .subscribe((transactionData) => this.transactions = transactionData);
     }
     
-
     searchResult: ITransaction;
 
     searchTransaction(transactionId: string) {
