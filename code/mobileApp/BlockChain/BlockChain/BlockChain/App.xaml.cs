@@ -11,9 +11,9 @@ namespace BlockChain
 	{
 		public App ()
 		{
-			InitializeComponent();
+			//InitializeComponent();
 
-			MainPage = new BlockChain.MainPage();
+            MainPage = new NavigationPage(new BlockChain.MainPage());
 		}
 
 		protected override void OnStart ()

@@ -9,7 +9,7 @@
             <Label TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name"/>
         </Frame>
         <Frame Padding="1" VerticalOptions="CenterAndExpand" BackgroundColor="#bfb">
-            <ListView x:Name="asset_list">
+            <ListView x:Name="current_asset_list">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
