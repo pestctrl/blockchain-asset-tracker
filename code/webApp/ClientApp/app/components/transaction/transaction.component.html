@@ -6,20 +6,20 @@
 <table class='table'>
     <thead>
         <tr>
-            <th> Date</th>
-            <th> Entry Type</th>
-            <th> Participant</th>
-            <th> Value</th>
-            <th> Transaction ID </th>
+            <th> Class</th>
+            <th> Property</th>
+            <th> New Owner</th>
+            <th> Transaction ID</th>
+            <th> Time Stamp </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let transaction of transactions">
-            <td>{{ transaction.date }}</td>
-            <td>{{ transaction.entryType}}</td>
-            <td>{{ transaction.participant}}</td>
-            <td>{{ transaction.value}}</td>
+            <td>{{ transaction.$class }}</td>
+            <td>{{ transaction.property}}</td>
+            <td>{{ transaction.newOwner}}</td>
             <td>{{ transaction.transactionId}}</td>
+            <td>{{ transaction.timestamp}}</td>
         </tr>
     </tbody>
 </table>
@@ -45,11 +45,11 @@
     </thead>
     <tbody>
         <tr>
-            <td id="date">{{ searchResult.date }}</td>
-            <td id="entry">{{ searchResult.entryType}}</td>
-            <td id="participant">{{ searchResult.participant}}</td>
-            <td id="value">{{ searchResult.value}}</td>
-            <td id="transactionId">{{ searchResult.transactionId}}</td>
+            <td id="date">{{ searchResult.$class }}</td>
+            <td id="entry">{{ searchResult.property}}</td>
+            <td id="participant">{{ searchResult.newOwner}}</td>
+            <td id="value">{{ searchResult.transactionId}}</td>
+            <td id="transactionId">{{ searchResult.timestamp}}</td>
         </tr>
     </tbody>
 </table>

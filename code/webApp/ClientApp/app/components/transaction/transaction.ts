@@ -1,7 +1,7 @@
 ﻿export class ITransaction {
-    date: string;
-    entryType: string;
-    participant: string;
-    value: string;
+    $class: string;
+    property: string;
+    newOwner: string;
     transactionId: string;
+    timestamp: string;
 }

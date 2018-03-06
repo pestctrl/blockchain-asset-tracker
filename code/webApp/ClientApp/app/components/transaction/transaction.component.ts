@@ -1,6 +1,7 @@
 ﻿﻿import { Component, OnInit } from '@angular/core';
 import { TransactionService } from './transaction.service'
 import { ITransaction } from './transaction'
+﻿
 
 @Component({
     selector: 'transaction',
@@ -10,14 +11,16 @@ import { ITransaction } from './transaction'
 
 export class TransactionComponent implements OnInit {
 
-    transactions: ITransaction[] = [];
+    transactions: ITransaction[];
 
     constructor(private transactionService: TransactionService) {
     }
 
     ngOnInit() {
-        this.transactions = this.transactionService.getTransaction();
+        this.transactionService.getTransaction()
+            .subscribe((transactionData) => this.transactions = transactionData);
     }
+    
 
     searchResult: ITransaction;
 

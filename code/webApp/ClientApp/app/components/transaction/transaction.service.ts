@@ -1,12 +1,16 @@
 ﻿import { Injectable } from '@angular/Core';
 import { ITransaction } from './transaction'
+import { Http, Response } from '@angular/http'
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class TransactionService {
-    getTransaction(): ITransaction[] {
-        return [
-            { date: "12-12-1212", entryType: "setupNetwork", participant: "John", value: "1234", transactionId: "123" },
-            { date: "12-13-1212", entryType: "addAsset", participant: "John", value: "4563", transactionId: "342" }
-        ];
+
+    constructor(private http: Http) { }
+    
+    getTransaction(): Observable<ITransaction[]> {
+        return this.http.get("http://129.213.108.205:3000/api/org.acme.biznet.Trade")
+            .map((response: Response) => <ITransaction[]>response.json());
     }
 }

@@ -32,28 +32,37 @@ describe('Transactioncomponent tests',
                 expect(annotations.selector).toEqual('transaction');
             });
 
+        it('should have templateUrl set',
+            function () {
+                const annotations = Reflect.getMetadata('annotations', TransactionComponent)[0].template;
+               // fixture.detectChanges();
+                expect(annotations.templateUrl).toEqual('sd');
+            });
+
         it('should have an empty transition list on create', function () {
             expect(component.transactions).toEqual([]);
         });
 
+
+/*
         it('should have an displace the information when ngOnInit is call', function () {
             component.ngOnInit();
 
 
             let transaction = [
                 {
-                    date: "12-12-1212",
-                    entryType: "setupNetwork",
-                    participant: "John",
-                    value: "1234",
-                    transactionId: "123"
+                    "$class": "org.acme.biznet.Trade",
+                    "property": "resource:org.acme.biznet.Property#Asset%20A",
+                    "newOwner": "resource:org.acme.biznet.Trader#TRADER3",
+                    "transactionId": "3ea7f320f98957afc09e7780ba4b3be7aa8579ab55218b0a91881c2577138661",
+                    "timestamp": "2018-03-05T22:49:13.553Z"
                 },
                 {
-                    date: "12-13-1212",
-                    entryType: "addAsset",
-                    participant: "John",
-                    value: "4563",
-                    transactionId: "342"
+                    "$class": "org.acme.biznet.Trade",
+                    "property": "resource:org.acme.biznet.Property#Asset%20A",
+                    "newOwner": "resource:org.acme.biznet.Trader#TRADER2",
+                    "transactionId": "4c00e0194de55c1e56916937edaeeb4910a9c181557936f4ed79668b75c755c6",
+                    "timestamp": "2018-03-05T22:41:47.457Z"
                 }
             ];
 
@@ -87,4 +96,5 @@ describe('Transactioncomponent tests',
                 };
             expect(component.searchResult).toEqual(searchTransaction);
         }));
+        */
     });
