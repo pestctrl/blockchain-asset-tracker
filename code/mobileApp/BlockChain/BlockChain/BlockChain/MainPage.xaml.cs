@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -11,19 +13,41 @@ namespace BlockChain
 	{
         static int loginCode = 0;
 
+
+        public class Trader
+        {
+            [JsonProperty("$class")]
+            public string objectType { get; set; }
+            public string traderId { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+        }
+
         public MainPage()
 		{
 			InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
+        public async Task<String> getName(string traderID)
+        {
+            HttpClient client = new HttpClient();
+            var requestURL = String.Format("http://129.213.108.205:3000/api/org.acme.biznet.Trader/{0}",traderID);
+            var results = await client.GetAsync(requestURL);
+
+            var resultsString = await results.Content.ReadAsStringAsync();
+            var obj = JsonConvert.DeserializeObject<Trader>(resultsString);
+            return String.Format("{0} {1}", obj.firstName, obj.lastName);
+        }
+
         async void LoginButton(object sender, EventArgs args)
         {
+            string name = Task.Run(() => getName(login_id.Text)).Result;
             switch (loginCode)
             {
                 case 0:
-                    DisplayAlert("Alert", "Login Successful" + login_id.Text + " " + login_password.Text, "OK");
-                    Navigation.PushAsync(new UserPage());
+                    await DisplayAlert("Alert", "Login Successful" + login_id.Text + " " + login_password.Text, "OK");
+                    await Navigation.PushAsync(new UserPage(login_id.Text, name));
                     break;
                 case 1:
                     DisplayAlert("Alert", "Login Failed", "OK");
@@ -35,8 +59,6 @@ namespace BlockChain
                     DisplayAlert("Alert", "System Error", "OK");
                     break;
             }
-            
-            ++loginCode;
         }
 
         async void RegisterButton(object sender, EventArgs args)
