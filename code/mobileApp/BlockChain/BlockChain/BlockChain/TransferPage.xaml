@@ -8,6 +8,14 @@
                 <Label x:Name="propertyId"/>
                 </Frame>
             <Frame>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="Latitude: "/>
+                    <Label x:Name="latitude" Text="Unknown" />
+                    <Label Text=" Longitude: "/>
+                    <Label x:Name="longitude" Text="Unknown"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
                 <Entry x:Name="RecipientID" Placeholder="Enter Recipient ID"/>
                 </Frame>
             <Frame>
