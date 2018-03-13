@@ -27,8 +27,8 @@
             <Frame Padding = "1" VerticalOptions="End" BackgroundColor="Gray">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Button x:Name="button_Receive" BackgroundColor="#eee" TextColor="#333" Text="Received" />
-                    <Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton"/>
-                    <Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout"/>
+                    <!--<Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton"/>-->
+                    <!--<Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout"/>-->
                 </StackLayout>
             </Frame>
         </StackLayout>

@@ -26,7 +26,7 @@ namespace BlockChain
 
         async void TransactionButt(object sender, EventArgs args)
         {
-            await Navigation.Popasync();
+            await Navigation.PopAsync();
 
         }
     }
