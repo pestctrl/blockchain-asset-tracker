@@ -3,27 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BlockChain"
              x:Class="BlockChain.MainPage">
-
-    <StackLayout Orientation="Vertical">
-        <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#222">
-            <StackLayout>
-                <Label TextColor="#eee" VerticalOptions="Start" FontSize = "14" HorizontalTextAlignment="Center" Text="Welcome to"/>
-                <Label TextColor="#eee" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Oracle's Asset Tracker"/>
-            </StackLayout>
-        </Frame>
-        <Frame VerticalOptions="CenterAndExpand" >
-            <StackLayout Orientation="Vertical" >
-                <Label TextColor="#444" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Login Information"/>
-                <Entry x:Name="login_id" Placeholder="Login ID" HorizontalTextAlignment="Center"/>
-                <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" HorizontalTextAlignment="Center"/>
-            </StackLayout>
-        </Frame>
-        <Frame Padding = "1" VerticalOptions="End">
-            <StackLayout>
-                <Button x:Name="submit_login" Text="Login" Clicked="LoginButton"/>
-                <Button x:Name="register_button" Text="Register" Clicked="RegisterButton"/>
-            </StackLayout>
-        </Frame>
-    </StackLayout>
-
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#222">
+                <StackLayout>
+                    <Label TextColor="#eee" VerticalOptions="Start" FontSize = "14" HorizontalTextAlignment="Center" Text="Welcome to"/>
+                    <Label TextColor="#eee" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Oracle's Asset Tracker"/>
+                </StackLayout>
+            </Frame>
+            <Frame VerticalOptions="CenterAndExpand" >
+                <StackLayout Orientation="Vertical" >
+                    <Label TextColor="#444" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Login Information"/>
+                    <Entry x:Name="login_id" Placeholder="Login ID" HorizontalTextAlignment="Center"/>
+                    <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding = "1" VerticalOptions="End">
+                <StackLayout>
+                    <Button x:Name="submit_login" Text="Login" Clicked="LoginButton"/>
+                    <Button x:Name="register_button" Text="Register" Clicked="RegisterButton"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

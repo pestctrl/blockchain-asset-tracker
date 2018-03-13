@@ -88,5 +88,10 @@ namespace BlockChain
         {
             Navigation.PopAsync();
         }
-	}
+
+        async void TransactionButton(object sender, EventArgs args)
+        {
+            await Navigation.PushAsync(new HistoryPage());
+        }
+    }
 }

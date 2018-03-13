@@ -1,27 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:BlockChain"
-             x:Class="BlockChain.UserPage">
+             x:Class="BlockChain.HistoryPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
-                <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name"/>
+                <Label TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Transaction History"/>
             </Frame>
-            <Frame Padding="1" VerticalOptions="CenterAndExpand" BackgroundColor="#bfb">
-                <ListView x:Name="current_asset_list">
+            <Frame Padding="1" VerticalOptions="CenterAndExpand" BackgroundColor="#eee">
+                <ListView x:Name="transaction_history_list">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-
                                 <StackLayout BackgroundColor="#eee" Orientation="Vertical">
                                     <StackLayout Orientation="Horizontal">
-                                        <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename}, Path=Text}"/>
-                                        <Label x:Name="titlename" Text="{Binding title}" TextColor="#611" />
-                                        <Label Text="{Binding subtitle}" HorizontalOptions="EndAndExpand" TextColor="#811"/>
+                                        <Label Text="{Binding transactionDate}" HorizontalOptions="StartAndExpand" TextColor="#111" />
+                                        <Label Text="{Binding assetID}" HorizontalOptions="EndAndExpand" TextColor="#aaa"/>
+                                        <Label Text="{Binding assetStatus}" HorizontalOptions="StartAndExpand" TextColor="#aaa"/>
                                     </StackLayout>
                                 </StackLayout>
-
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -36,5 +33,4 @@
             </Frame>
         </StackLayout>
     </ContentPage.Content>
-
 </ContentPage>

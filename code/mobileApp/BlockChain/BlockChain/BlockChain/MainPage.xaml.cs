@@ -46,7 +46,7 @@ namespace BlockChain
             switch (loginCode)
             {
                 case 0:
-                    await DisplayAlert("Alert", "Login Successful" + login_id.Text + " " + login_password.Text, "OK");
+                    await DisplayAlert("Alert", "Login Successful\n" + login_id.Text + "\n" + login_password.Text, "OK");
                     await Navigation.PushAsync(new UserPage(login_id.Text, name));
                     break;
                 case 1:
