@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlockchainAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace BlockchainApp
 	{
 		public App ()
 		{
-			//InitializeComponent();
+            //InitializeComponent();
 
             MainPage = new NavigationPage(new BlockchainApp.MainPage());
 		}

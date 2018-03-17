@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using BlockchainAPI;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,9 +14,11 @@ namespace BlockchainApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TransferPage : ContentPage
 	{
+        private BlockchainClient client;
 
-        public TransferPage (String pid)
+        public TransferPage (BlockchainClient client, String pid)
 		{
+            this.client = client;
             getLocation();
 			InitializeComponent ();
             propertyId.Text = pid;
@@ -29,35 +32,9 @@ namespace BlockchainApp
             longitude.Text = position.Longitude.ToString();
         }
 
-
-
-
-
-
-
-        // BAD, MAKE INTO LIBRARY
-        public async Task<bool> sendProperty(String propertyID, String recipientID, String latitude, String longitude)
-        {
-            // BAD, INSTANTIATE ELSEWHERE
-            HttpClient client = new HttpClient();
-
-            Dictionary<String,String> parameters = new Dictionary<string, string>
-            {
-                { "property",propertyID },
-                { "newOwner",recipientID },
-                { "latitude", latitude},
-                { "longitude", longitude}
-            };
-            // BAD, SET IN WEB CONFIG
-            var results = await client.PostAsync("http://129.213.108.205:3000/api/org.acme.biznet.Trade", 
-                new FormUrlEncodedContent(parameters));
-            var stringResults = await results.Content.ReadAsStringAsync();
-            
-            return true;
-        }
         async Task sendAsset()
         {
-            if (await sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text))
+            if (client.sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text))
             {
                 await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
                 await Navigation.PopAsync();
