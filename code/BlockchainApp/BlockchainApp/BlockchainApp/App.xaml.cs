@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 namespace BlockchainApp
 {
+    //delete comment
 	public partial class App : Application
 	{
 		public App ()
