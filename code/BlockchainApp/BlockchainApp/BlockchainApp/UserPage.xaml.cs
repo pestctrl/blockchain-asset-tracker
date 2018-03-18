@@ -49,7 +49,8 @@ namespace BlockchainApp
 
         void Handle_Refreshing(object sender, EventArgs e)
         {
-            BlockchainClient clientUpdate = new BlockchainClient(client.username);
+            HyperLedgerComposerBlockChain blockChainService = new HyperLedgerComposerBlockChain();
+            BlockchainClient clientUpdate = new BlockchainClient(client.username, blockChainService);
 
             updateAssetList(clientUpdate);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BlockchainAPI.Models;
 
 namespace BlockchainAPI.Tests
 {
@@ -15,7 +16,8 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public void ConstructorOfBlockchainMethodShouldSetUsername()
         {
-            BlockchainClient client = new BlockchainClient("TRADER1");
+            HyperLedgerComposerBlockChain blockChainService = new HyperLedgerComposerBlockChain();
+            BlockchainClient client = new BlockchainClient("TRADER1", blockChainService);
 
             Assert.IsTrue(client.username == "TRADER1");
         }

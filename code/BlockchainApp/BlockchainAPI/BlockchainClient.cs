@@ -16,9 +16,11 @@ namespace BlockchainAPI
         List<Property> properties;
         public bool userExist;
         private List<Transaction> transactions = new List<Transaction>();
+        IBlockChain blockChainService;
 
-        public BlockchainClient(string username)
+        public BlockchainClient(string username, IBlockChain blockChain)
         {
+            blockChainService = blockChain;
             userExist = false;
             client = new HttpClient();
             this.username = username;
@@ -35,7 +37,7 @@ namespace BlockchainAPI
 
         private void LoadUserTransactions()
         {
-            var requestURL = "http://129.213.108.205:3000/api/org.acme.biznet.Trade";
+            var requestURL = blockChainService.GetTransactionsURL();
             var results = Task.Run(() => client.GetAsync(requestURL)).Result;
             var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
 
@@ -57,7 +59,7 @@ namespace BlockchainAPI
 
         private void parseTrader()
         {
-            var requestURL = String.Format("http://129.213.108.205:3000/api/org.acme.biznet.Trader/{0}", username);
+            var requestURL = blockChainService.GetTraderURL(username);
             var results = Task.Run(() => client.GetAsync(requestURL)).Result;
 
             var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
@@ -71,9 +73,7 @@ namespace BlockchainAPI
 
         private void updatePropertyList()
         {
-            string requestURL = String.Format("http://129.213.108.205:3000/api/queries/MyAssets" +
-                "?ownerParam=resource%3Aorg.acme.biznet.Trader%23{0}",
-                username);
+            string requestURL = blockChainService.GetPropertiesByUserURL(username);
             var results = Task.Run(() => client.GetAsync(requestURL)).Result;
             var stuff = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
             properties = JsonConvert.DeserializeObject<List<Property>>(stuff);
@@ -81,23 +81,18 @@ namespace BlockchainAPI
 
         private void CheckUserExisting()
         {
-            string requestURL = "http://129.213.108.205:3000/api/org.acme.biznet.Trader";
+            string requestURL = blockChainService.GetTradersURL();
             var results = Task.Run(() => client.GetAsync(requestURL)).Result;
             var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
-            List<Trader> traders = new List<Trader>();
 
-            resultsString = resultsString.Substring(1, resultsString.Length - 2);
-            foreach (String trader in Regex.Split(resultsString, @"(?<=\}),"))
-            {
-                traders.Add(JsonConvert.DeserializeObject<Trader>(trader));
-            }
+            List<Trader> traders = new List<Trader>();       
+            traders = JsonConvert.DeserializeObject<List<Trader>>(resultsString);
 
             foreach (Trader trader in traders)
             {
                 if (trader.traderId == username)
                     userExist = true;
             }
-
 
         }
 
@@ -111,9 +106,9 @@ namespace BlockchainAPI
                 //{ "longitude", longitude}
             };
 
-            var results = Task.Run(() => client.PostAsync("http://129.213.108.205:3000/api/org.acme.biznet.Trade",
+            var results = Task.Run(() => client.PostAsync(blockChainService.GetTransactionsURL(),
                 new FormUrlEncodedContent(parameters))).Result;
-            var stringResults = Task.Run(() => results.Content.ReadAsStringAsync());
+            //var stringResults = Task.Run(() => results.Content.ReadAsStringAsync());
 
             return true;
         }
@@ -127,9 +122,9 @@ namespace BlockchainAPI
                 {"lastName", lastName }
             };
 
-            var results = Task.Run(() => client.PostAsync("http://129.213.108.205:3000/api/org.acme.biznet.Trader",
+            var results = Task.Run(() => client.PostAsync(blockChainService.GetTradersURL(),
                 new FormUrlEncodedContent(parameters))).Result;
-            var stringResults = Task.Run(() => results.Content.ReadAsByteArrayAsync());
+            
         }
 
         public string getName()

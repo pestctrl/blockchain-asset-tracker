@@ -1,4 +1,5 @@
 ﻿using BlockchainAPI;
+using BlockchainAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace BlockchainApp
 
         async void CompletedRegister(object sender, EventArgs  e)
         {
-            BlockchainClient blockChainClient = new BlockchainClient(userId.Text);
+            HyperLedgerComposerBlockChain blockChainService = new HyperLedgerComposerBlockChain();
+            BlockchainClient blockChainClient = new BlockchainClient(userId.Text,blockChainService);
 
             if (blockChainClient.userExist)
             {

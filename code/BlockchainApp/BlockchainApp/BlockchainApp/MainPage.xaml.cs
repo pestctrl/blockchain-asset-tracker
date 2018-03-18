@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using BlockchainAPI;
+using BlockchainAPI.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,11 @@ namespace BlockchainApp
         async void LoginButton(object sender, EventArgs args)
         {
             BlockchainClient client;
-
+            HyperLedgerComposerBlockChain blockChainService = new HyperLedgerComposerBlockChain();
             using (UserDialogs.Instance.Loading("Loading"))
             {
                 await Task.Delay(10);
-                client = new BlockchainClient(login_id.Text);
+                client = new BlockchainClient(login_id.Text, blockChainService);
             }
 
   
