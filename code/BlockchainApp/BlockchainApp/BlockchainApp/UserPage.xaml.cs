@@ -17,7 +17,7 @@ namespace BlockchainApp
 {
 	public partial class UserPage : ContentPage
     {
-        ObservableCollection<AssetView> obc = new ObservableCollection<AssetView>();
+        
         private BlockchainClient client;
 
         public class AssetView
@@ -33,17 +33,27 @@ namespace BlockchainApp
             InitializeComponent();
             welcomeMessage.Text = String.Format("Hello, {0}!", client.getName());
             NavigationPage.SetHasNavigationBar(this, false);
-            updateAssetList();
+            updateAssetList(client);
         }
         
-        void updateAssetList()
+        void updateAssetList(BlockchainClient localClient)
         {
-            foreach (Property obj in client.getMyAssets())
+            ObservableCollection<AssetView> obc = new ObservableCollection<AssetView>();
+            foreach (Property obj in localClient.getMyAssets())
             {
                 obc.Add(new AssetView() { title = obj.PropertyId, subtitle = obj.description });
             }
 
             current_asset_list.ItemsSource = obc;
+        }
+
+        void Handle_Refreshing(object sender, EventArgs e)
+        {
+            BlockchainClient clientUpdate = new BlockchainClient(client.username);
+
+            updateAssetList(clientUpdate);
+
+            current_asset_list.EndRefresh();
         }
 
         async void Submit_Send_Clicked(object Sender, EventArgs e)
