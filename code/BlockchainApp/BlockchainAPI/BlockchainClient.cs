@@ -18,9 +18,11 @@ namespace BlockchainAPI
 
         public BlockchainClient(string username)
         {
+            userExist = false;
             client = new HttpClient();
             properties = new List<Property>();
             this.username = username;
+            
             CheckUserExisting();
 
             if (userExist)
@@ -75,8 +77,6 @@ namespace BlockchainAPI
             {
                 if (trader.traderId == username)
                     userExist = true;
-
-                userExist = false;
             }
 
 
