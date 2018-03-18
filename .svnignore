@@ -13,3 +13,4 @@ obj
 *.pidb
 *.userprefs
 *.plist
+*.csproj.user

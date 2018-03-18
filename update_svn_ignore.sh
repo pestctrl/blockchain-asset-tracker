@@ -1,3 +1,3 @@
 #!/bin/bash
 
-svn propset svn:global-ignores "$(cat .svnignore)" .
+svn propset svn:ignore "$(cat .svnignore)" .
