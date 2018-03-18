@@ -14,14 +14,20 @@ namespace BlockchainAPI
         public string username;
         Trader thisTrader;
         List<Property> properties;
+        public bool userExist;
 
         public BlockchainClient(string username)
         {
             client = new HttpClient();
             properties = new List<Property>();
             this.username = username;
-            parseTrader();
-            updatePropertyList();
+            CheckUserExisting();
+
+            if (userExist)
+            {
+                parseTrader();
+                updatePropertyList();
+            }
         }
 
         private void parseTrader()
@@ -50,6 +56,30 @@ namespace BlockchainAPI
             {
                 properties.Add(JsonConvert.DeserializeObject<Property>(s));
             }
+        }
+
+        private void CheckUserExisting()
+        {
+            string requestURL = "http://129.213.108.205:3000/api/org.acme.biznet.Trader";
+            var results = Task.Run(() => client.GetAsync(requestURL)).Result;
+            var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
+            List<Trader> traders = new List<Trader>();
+
+            resultsString = resultsString.Substring(1, resultsString.Length - 2);
+            foreach (String trader in Regex.Split(resultsString, @"(?<=\}),"))
+            {
+                traders.Add(JsonConvert.DeserializeObject<Trader>(trader));
+            }
+
+            foreach (Trader trader in traders)
+            {
+                if (trader.traderId == username)
+                    userExist = true;
+
+                userExist = false;
+            }
+
+
         }
 
         public bool sendProperty(String propertyID, String recipientID, String latitude, String longitude)
