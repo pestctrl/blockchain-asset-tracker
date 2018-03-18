@@ -33,10 +33,10 @@ namespace BlockchainApp
             InitializeComponent();
             welcomeMessage.Text = String.Format("Hello, {0}!", client.getName());
             NavigationPage.SetHasNavigationBar(this, false);
-            populateAssetList();
+            updateAssetList();
         }
         
-        void populateAssetList()
+        void updateAssetList()
         {
             foreach (Property obj in client.getMyAssets())
             {
@@ -48,16 +48,11 @@ namespace BlockchainApp
 
         async void Submit_Send_Clicked(object Sender, EventArgs e)
         {
-            Button b = (Button)Sender;
-            string PropertyId = b.CommandParameter.ToString();
+            string PropertyId = ((Button)Sender).CommandParameter.ToString();
+
             await Navigation.PushAsync(new TransferPage(client,PropertyId));
-            for(int i = obc.Count()-1; i >=0 ; i--)
-            {
-                if(obc.ElementAt<AssetView>(i).title == PropertyId)
-                {
-                    obc.RemoveAt(i);
-                }
-            }
+
+            updateAssetList();
         }
 
         void logout(object Sender, EventArgs e)

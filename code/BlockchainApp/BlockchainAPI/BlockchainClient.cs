@@ -20,7 +20,6 @@ namespace BlockchainAPI
         {
             userExist = false;
             client = new HttpClient();
-            properties = new List<Property>();
             this.username = username;
             
             CheckUserExisting();
@@ -52,12 +51,7 @@ namespace BlockchainAPI
                 username);
             var results = Task.Run(() => client.GetAsync(requestURL)).Result;
             var stuff = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
-
-            stuff = stuff.Substring(1, stuff.Length - 2);
-            foreach (String s in Regex.Split(stuff, @"(?<=\}),"))
-            {
-                properties.Add(JsonConvert.DeserializeObject<Property>(s));
-            }
+            properties = JsonConvert.DeserializeObject<List<Property>>(stuff);
         }
 
         private void CheckUserExisting()
