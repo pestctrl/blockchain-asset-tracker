@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using BlockchainAPI;
 using Plugin.Geolocator;
 using Xamarin.Forms;
@@ -34,7 +35,13 @@ namespace BlockchainApp
 
         async Task sendAsset()
         {
-            if (client.sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text))
+            bool result;
+            using (UserDialogs.Instance.Loading("Sending"))
+            {
+                await Task.Delay(10);
+                result = client.sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text);
+            }
+            if (result)
             {
                 await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
                 await Navigation.PopAsync();

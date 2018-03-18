@@ -1,4 +1,5 @@
-﻿using BlockchainAPI;
+﻿using Acr.UserDialogs;
+using BlockchainAPI;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,14 @@ namespace BlockchainApp
 
         async void LoginButton(object sender, EventArgs args)
         {
-            BlockchainClient client = new BlockchainClient(login_id.Text);
+            BlockchainClient client;
+
+            using (UserDialogs.Instance.Loading("Loading"))
+            {
+                await Task.Delay(10);
+                client = new BlockchainClient(login_id.Text);
+            }
+            
 
             switch (loginCode)
             {
