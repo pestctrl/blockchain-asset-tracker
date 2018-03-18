@@ -47,7 +47,8 @@ namespace BlockchainAPI
 
         private void updatePropertyList()
         {
-            string requestURL = String.Format("http://129.213.108.205:3000/api/org.acme.biznet.Property?filter=%7B%22where%22%3A%20%7B%22owner%22%3A%20%22resource%3Aorg.acme.biznet.Trader%23{0}%22%7D%7D",
+            string requestURL = String.Format("http://129.213.108.205:3000/api/queries/MyAssets" +
+                "?ownerParam=resource%3Aorg.acme.biznet.Trader%23{0}",
                 username);
             var results = Task.Run(() => client.GetAsync(requestURL)).Result;
             var stuff = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
