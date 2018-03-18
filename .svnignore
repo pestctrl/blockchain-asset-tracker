@@ -6,6 +6,7 @@ TestResults
 packages
 node_modules
 .vs
+.idea
 
 build
 bin
