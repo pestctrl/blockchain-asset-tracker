@@ -57,7 +57,7 @@ namespace BlockchainApp
 
         async void RegisterButton(object sender, EventArgs args)
         {
-
+            await Navigation.PushAsync(new RegisterPage());
         }
     }
 }
