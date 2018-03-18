@@ -30,7 +30,12 @@ namespace BlockchainApp
                 await Task.Delay(10);
                 client = new BlockchainClient(login_id.Text);
             }
-            
+
+
+            if (client.userExist)
+                loginCode = 0;
+            else
+                loginCode = 1;
 
             switch (loginCode)
             {
