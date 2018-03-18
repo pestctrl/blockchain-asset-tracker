@@ -16,7 +16,7 @@ def makeTraders():
     with open("traders.txt","r") as file:
         for line in file:
             split = line.split(" ")
-            makeTrader(split[0],split[1],split[2])
+            makeTrader(split[0],split[1],split[2].rstrip('\n'))
 
 def makeProperty(i, description, ownerId):
     data = {
@@ -25,7 +25,7 @@ def makeProperty(i, description, ownerId):
         "description": description, 
         "owner": "TRADER%d" % ownerId
     }
-    requests.post(url,data=data)
+    result = requests.post(url,data=data)
 
 def makeProperties():
     for i in ascii_uppercase:
@@ -35,7 +35,7 @@ def makeProperties():
 
 def main():
     makeTraders()
-    makeAssets()
+    makeProperties()
 
 if __name__ == "__main__":
     main()
