@@ -15,7 +15,9 @@ namespace BlockchainApp
 		{
             //InitializeComponent();
 
-            MainPage = new NavigationPage(new BlockchainApp.MainPage());
+            MainPage = new NavigationPage(new BlockchainApp.MainPage()) {
+                BarBackgroundColor = Color.FromRgb(5, 5, 5)
+            };
 		}
 
 		protected override void OnStart ()

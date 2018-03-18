@@ -7,27 +7,26 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using BlockchainAPI.Models;
+
 namespace BlockchainApp
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HistoryPage : ContentPage
 	{
-		public HistoryPage ()
+		public HistoryPage (List<Transaction> transactions)
 		{
+
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent ();
-            TransactionHistory();
+
+            listView.ItemsSource = transactions;
+
 		}
 
-        void TransactionHistory()
-        {
-
-        }
-
-        async void TransactionButt(object sender, EventArgs args)
+        async void Back_User_page(object sender, EventArgs args)
         {
             await Navigation.PopAsync();
-
         }
     }
 }

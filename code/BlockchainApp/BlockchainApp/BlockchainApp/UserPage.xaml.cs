@@ -51,8 +51,6 @@ namespace BlockchainApp
             string PropertyId = ((Button)Sender).CommandParameter.ToString();
 
             await Navigation.PushAsync(new TransferPage(client,PropertyId));
-
-            updateAssetList();
         }
 
         void logout(object Sender, EventArgs e)
@@ -62,7 +60,8 @@ namespace BlockchainApp
 
         async void TransactionButton(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new HistoryPage());
+            List<Transaction> transactions = client.GetUserTransactions();
+            await Navigation.PushAsync(new HistoryPage(transactions));
         }
     }
 }

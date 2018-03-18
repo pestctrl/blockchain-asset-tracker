@@ -15,6 +15,7 @@ namespace BlockchainAPI
         Trader thisTrader;
         List<Property> properties;
         public bool userExist;
+        private List<Transaction> transactions = new List<Transaction>();
 
         public BlockchainClient(string username)
         {
@@ -28,7 +29,30 @@ namespace BlockchainAPI
             {
                 parseTrader();
                 updatePropertyList();
+                LoadUserTransactions();
             }
+        }
+
+        private void LoadUserTransactions()
+        {
+            var requestURL = "http://129.213.108.205:3000/api/org.acme.biznet.Trade";
+            var results = Task.Run(() => client.GetAsync(requestURL)).Result;
+            var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
+
+            transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
+
+            for (int i = transactions.Count - 1; i >= 0; i--)
+            {
+                if(transactions[i].newOwner.Substring(32) == username)
+                {
+                    transactions[i].property = transactions[i].property.Substring(34);
+                    transactions[i].property = transactions[i].property.Replace("%20", " ");
+                }else
+                {
+                    transactions.Remove(transactions[i]);
+                }
+            }
+   
         }
 
         private void parseTrader()
@@ -116,6 +140,11 @@ namespace BlockchainAPI
         public List<Property> getMyAssets()
         {
             return properties;
+        }
+
+        public List<Transaction> GetUserTransactions()
+        {
+            return transactions;
         }
     }
 }
