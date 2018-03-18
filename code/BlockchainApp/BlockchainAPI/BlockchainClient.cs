@@ -94,6 +94,20 @@ namespace BlockchainAPI
             return true;
         }
 
+        public void RegisterNewTrader(string UserId, string firstName, string lastName)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>
+            {
+                {"traderId", UserId },
+                {"firstName", firstName },
+                {"lastName", lastName }
+            };
+
+            var results = Task.Run(() => client.PostAsync("http://129.213.108.205:3000/api/org.acme.biznet.Trader",
+                new FormUrlEncodedContent(parameters))).Result;
+            var stringResults = Task.Run(() => results.Content.ReadAsByteArrayAsync());
+        }
+
         public string getName()
         {
             return String.Format("{0} {1}", thisTrader.firstName, thisTrader.lastName);
