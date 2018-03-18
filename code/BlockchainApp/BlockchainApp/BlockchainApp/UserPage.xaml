@@ -15,8 +15,9 @@
                             <ViewCell>
 
                                 <StackLayout BackgroundColor="#eee" Orientation="Vertical">
-                                    <StackLayout Orientation="Horizontal" Padding="5, 0, 5, 0">
-                                        <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename}, Path=Text}" VerticalOptions="Center"/>
+                                    <StackLayout Orientation="Horizontal" Padding="5, 1, 5, 2" >
+                                        <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename},
+                                            Path=Text}" VerticalOptions="Center" />
                                         <Label x:Name="titlename" Text="{Binding title}" TextColor="#611" VerticalOptions="Center"/>
                                         <Label Text="{Binding subtitle}" HorizontalOptions="EndAndExpand" TextColor="#811" VerticalOptions="Center"/>
                                     </StackLayout>
@@ -27,11 +28,11 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Frame>
-            <Frame Padding = "1" VerticalOptions="End" BackgroundColor="Gray">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button x:Name="button_Receive" BackgroundColor="#eee" TextColor="#333" Text="Received" />
-                    <Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton"/>
-                    <Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout"/>
+            <Frame Padding = "0" VerticalOptions="End" BackgroundColor="Gray">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                    <Button x:Name="button_Receive" BackgroundColor="#eee" TextColor="#333" Text="Received" FontSize="9" WidthRequest="80"/>
+                    <Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton" FontSize="9" WidthRequest="80"/>
+                    <Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout" FontSize="9" WidthRequest="80"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
