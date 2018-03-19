@@ -38,8 +38,7 @@ namespace BlockchainAPI
         private void LoadUserTransactions()
         {
             var requestURL = blockChainService.GetTransactionsURL();
-            var results = Task.Run(() => client.GetAsync(requestURL)).Result;
-            var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
+            var resultsString = GetJsonString(requestURL);
 
             transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
 
@@ -60,9 +59,8 @@ namespace BlockchainAPI
         private void parseTrader()
         {
             var requestURL = blockChainService.GetTraderURL(username);
-            var results = Task.Run(() => client.GetAsync(requestURL)).Result;
+            var resultsString = GetJsonString(requestURL);
 
-            var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
             thisTrader =  JsonConvert.DeserializeObject<Trader>(resultsString);
         }
 
@@ -74,16 +72,15 @@ namespace BlockchainAPI
         private void updatePropertyList()
         {
             string requestURL = blockChainService.GetPropertiesByUserURL(username);
-            var results = Task.Run(() => client.GetAsync(requestURL)).Result;
-            var stuff = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
+            var stuff = GetJsonString(requestURL);
+
             properties = JsonConvert.DeserializeObject<List<Property>>(stuff);
         }
 
         private void CheckUserExisting()
         {
             string requestURL = blockChainService.GetTradersURL();
-            var results = Task.Run(() => client.GetAsync(requestURL)).Result;
-            var resultsString = Task.Run(() => results.Content.ReadAsStringAsync()).Result;
+            var resultsString = GetJsonString(requestURL);
 
             List<Trader> traders = new List<Trader>();       
             traders = JsonConvert.DeserializeObject<List<Trader>>(resultsString);
@@ -140,6 +137,12 @@ namespace BlockchainAPI
         public List<Transaction> GetUserTransactions()
         {
             return transactions;
+        }
+
+        public String GetJsonString(string Url)
+        {
+            var results = Task.Run(() => client.GetAsync(Url)).Result;
+            return Task.Run(() => results.Content.ReadAsStringAsync()).Result;
         }
     }
 }
