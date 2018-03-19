@@ -9,6 +9,7 @@ using BlockchainAPI;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ZXing.Net.Mobile.Forms;
 
 namespace BlockchainApp
 {
@@ -46,6 +47,24 @@ namespace BlockchainApp
                 await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
                 await Navigation.PopAsync();
             }
+        }
+
+        private async void ScanCode()
+        {
+            ZXingScannerPage scanPage = new ZXingScannerPage();
+            scanPage.OnScanResult += (result) => {
+                // Stop scanning
+                scanPage.IsScanning = false;
+
+                // Pops the page, returns to TransferPage, and displays result of the scanned code
+                Device.BeginInvokeOnMainThread(() => {
+                    Navigation.PopAsync();
+                    DisplayAlert("Scanned Code", result.Text, "OK");
+                    txtBarcode.Text = result.Text;
+                });
+            };
+
+            await Navigation.PushAsync(scanPage);
         }
     }
 }

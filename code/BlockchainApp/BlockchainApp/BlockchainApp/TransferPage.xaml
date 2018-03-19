@@ -21,6 +21,15 @@
             <Frame>
                 <Button Text="Send" Clicked="sendAsset"/>
                 </Frame>
+            <Frame>
+                <StackLayout>
+                    <Button Text="Click"  
+                    x:Name="btnScan"  
+                    Clicked="ScanCode"/>
+                    <Entry x:Name="txtBarcode"  
+                   Placeholder="Barcode"/>
+                </StackLayout>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
