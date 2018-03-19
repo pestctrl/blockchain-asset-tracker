@@ -121,12 +121,29 @@ namespace BlockchainAPI
 
             var results = Task.Run(() => client.PostAsync(blockChainService.GetTradersURL(),
                 new FormUrlEncodedContent(parameters))).Result;
-            
+        }
+
+        public void RegisterNewAsset(string assetID, string description, string owner)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>
+            {
+                {"PropertyId", assetID },
+                {"description", description },
+                {"owner", owner }
+            };
+
+            var results = Task.Run(() => client.PostAsync(blockChainService.GetPropertyURL(),
+                new FormUrlEncodedContent(parameters))).Result;
         }
 
         public string getName()
         {
             return String.Format("{0} {1}", thisTrader.firstName, thisTrader.lastName);
+        }
+
+        public string getUserID()
+        {
+            return thisTrader.traderId;
         }
 
         public List<Property> getMyAssets()

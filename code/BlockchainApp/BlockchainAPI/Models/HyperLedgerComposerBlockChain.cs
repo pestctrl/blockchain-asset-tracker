@@ -27,5 +27,10 @@ namespace BlockchainAPI.Models
         {
             return "http://129.213.108.205:3000/api/org.acme.biznet.Trade"; 
         }
+
+        public string GetPropertyURL()
+        {
+            return "http://129.213.108.205:3000/api/org.acme.biznet.Property";
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace BlockchainAPI.Models
         String GetPropertiesByUserURL(string userName);
         String GetTransactionsURL();
         String GetTradersURL();
+        String GetPropertyURL();
     }
 }

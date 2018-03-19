@@ -9,7 +9,6 @@
             <Entry Placeholder="UserID" Keyboard="Text" x:Name="userId"/>
             <Entry Placeholder="First Name" Keyboard="Text" x:Name="fName"/>
             <Entry Placeholder="Last Name" Keyboard="Text" x:Name="lName"/>
-       
 
             <Button Text="Register"  Clicked="CompletedRegister"/>
         </StackLayout>
