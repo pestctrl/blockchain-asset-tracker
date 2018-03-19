@@ -30,9 +30,18 @@ namespace BlockchainApp
             }
             else
             {
-                blockChainClient.RegisterNewTrader(userId.Text, fName.Text, lName.Text);
-                await DisplayAlert("Alert", "Sucessful register with user ID" + userId.Text, "Ok");
-                await Navigation.PopAsync();
+                if (userId.Text != "" && fName.Text != "" && lName.Text != "" 
+                    && userId.Text != null && fName.Text != null && lName.Text != null)
+                {
+                    blockChainClient.RegisterNewTrader(userId.Text, fName.Text, lName.Text);
+                    await DisplayAlert("Alert", "Sucessful register with user ID" + userId.Text, "Ok");
+                    await Navigation.PopAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Alert", "Make sure you fill all the box", "Ok");
+                }
+                
             }
         }
 	}
