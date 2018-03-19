@@ -18,6 +18,13 @@ namespace BlockchainAPI
         private List<Transaction> transactions = new List<Transaction>();
         IBlockChain blockChainService;
 
+        public BlockchainClient(IBlockChain blockChain)
+        {
+            blockChainService = blockChain;
+            userExist = false;
+            client = new HttpClient();
+        }
+
         public BlockchainClient(string username, IBlockChain blockChain)
         {
             blockChainService = blockChain;
@@ -25,7 +32,7 @@ namespace BlockchainAPI
             client = new HttpClient();
             this.username = username;
             
-            CheckUserExisting();
+            CheckUserExisting(this.username);
 
             if (userExist)
             {
@@ -77,7 +84,7 @@ namespace BlockchainAPI
             properties = JsonConvert.DeserializeObject<List<Property>>(stuff);
         }
 
-        private void CheckUserExisting()
+        public void CheckUserExisting(string traderID)
         {
             string requestURL = blockChainService.GetTradersURL();
             var resultsString = GetJsonString(requestURL);
@@ -87,7 +94,7 @@ namespace BlockchainAPI
 
             foreach (Trader trader in traders)
             {
-                if (trader.traderId == username)
+                if (trader.traderId == traderID)
                     userExist = true;
             }
 
@@ -123,13 +130,13 @@ namespace BlockchainAPI
                 new FormUrlEncodedContent(parameters))).Result;
         }
 
-        public void RegisterNewAsset(string assetID, string description, string owner)
+        public void RegisterNewAsset(string assetID, string description, string ownerID)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 {"PropertyId", assetID },
                 {"description", description },
-                {"owner", owner }
+                {"owner", ownerID }
             };
 
             var results = Task.Run(() => client.PostAsync(blockChainService.GetPropertyURL(),
