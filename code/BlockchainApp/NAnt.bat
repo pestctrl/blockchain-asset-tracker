@@ -1,2 +1,2 @@
 @echo off
-"nant-0.92\bin\NAnt.exe" %*
+"packages\NAnt.0.92.0\tools\NAnt.exe" %*

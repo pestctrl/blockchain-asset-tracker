@@ -3,16 +3,18 @@
   <property name="current.dir" value="${directory::get-current-directory()}" />
   <property name="classes.dir"  value="build/classes" />
   <property name="testclasses.dir" value="build/testClasses" />
-  <property name="lib.dir" value="../lib" />
-  <property name="nunit.dir" value="${lib.dir}/nunit" />
+  <property name="lib.dir" value="packages" />
+  <property name="nunit.dir" value="${lib.dir}/NUnit.3.10.1/lib/net45"/>
 
-  <property name="opencover.dir" value="${lib.dir}\OpenCover"/>
-  <property name="reportGeneratorExePath" value="${lib.dir}\ReportGenerator\bin\ReportGenerator.exe"/>
+  <property name="opencover.dir" value="${lib.dir}\OpenCover.4.6.519"/>
+  <property name="reportGeneratorExePath" value="${lib.dir}\ReportGenerator.3.1.2\tools\ReportGenerator.exe"/>
   <property name="coverage.reports.dir" value="build\coverage"/>
 
-  <property name="nunitExePath" value="${nunit.dir}/nunit3-console.exe"/>
+  <property name="nunitExePath" value="packages\NUnit.ConsoleRunner.3.8.0\tools/nunit3-console.exe"/>
 
   <property name="msbuild" value="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" />
+  
+  <property name ="references.dir" value ="BlockchainAPI.Tests\bin\Debug"/>
   
   <target name="clean">
     <delete dir="build"/>
@@ -22,35 +24,57 @@
     <mkdir dir="${classes.dir}"/>
     <csc target="library" output="${classes.dir}/assign.dll" debug="true">
       <sources>
-        <include name="BlockchainAPI/*.cs" />
+        <include name="**/BlockchainClient.cs" />
+			
+		
       </sources>
+	  <references>
+		<include name="BlockchainAPI\Models\*.cs"/>
+		
+	  </references>
       <arg line="/pdb:${classes.dir}/assign"/>
     </csc>
   </target>
 
+  
+  
+  
+  
   <target name="compileTests" depends="compile">
     <mkdir dir="${testclasses.dir}"/>
     <csc target="library" output="${testclasses.dir}/assigntest.dll">
       <sources>
-        <include name="BlockchainAPI.Tests/*.cs" />
+        <include name="**/BlockchainClientTest.cs" />
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-        <include name="${classes.dir}/*.dll" />
+		 <include name="C:\Users\giang ha\Desktop\SDP\code\BlockchainApp\packages\NUnit.3.10.1\lib\net45\*.dll" />
       </references>
     </csc>
   </target>
+  
+
+
+   
+
+
+
+
+
 
   <target name="runTests" depends="compileTests">
+     
     <copy todir="${testclasses.dir}">
       <fileset basedir="${classes.dir}">
         <include name="*.dll" />
         <include name="*.pdb" />
+		
       </fileset>
     </copy>
     <copy todir="${testclasses.dir}">
       <fileset basedir="${nunit.dir}">
-        <include name="nunit.framework.dll" />				
+	    <include name="nunit.framework.dll" />			
+
       </fileset>
     </copy>
     <nunit2>
@@ -61,7 +85,7 @@
 
   <target name="opencover" depends= "runTests">
     <mkdir dir="${coverage.reports.dir}"/>
-    <exec program="${opencover.dir}\OpenCover.Console.exe">
+    <exec program="${opencover.dir}\tools\OpenCover.Console.exe">
       <arg line= "-register:user"/>
       <arg line="-target:${nunitExePath}" />
       <arg line="-targetdir:${testclasses.dir}"/>
