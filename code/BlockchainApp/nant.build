@@ -22,6 +22,8 @@
 	
   <target name="compile" depends="clean">
     <mkdir dir="${classes.dir}"/>
+	
+
     <csc target="library" output="${classes.dir}/assign.dll" debug="true">
       <sources>
         <include name="**/BlockchainClient.cs" />
@@ -29,7 +31,11 @@
 		
       </sources>
 	  <references>
-		<include name="BlockchainAPI\Models\*.cs"/>
+		<include name="BlockchainAPI\bin\Debug\netstandard2.0\BlockchainAPI.dll" />
+
+		<include name="packages\Newtonsoft.Json.11.0.1\lib\netstandard2.0\Newtonsoft.Json.dll"/>
+
+		<include name ="BlockchainApp\BlockchainApp.Android\obj\Debug\linksrc\System.Net.Http.dll"/>
 		
 	  </references>
       <arg line="/pdb:${classes.dir}/assign"/>
