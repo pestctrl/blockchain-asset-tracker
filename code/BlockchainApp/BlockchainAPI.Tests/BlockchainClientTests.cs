@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BlockchainAPI.Models;
 using Moq;
+using System.Threading.Tasks;
 
 namespace BlockchainAPI.Tests
 {
@@ -12,7 +13,6 @@ namespace BlockchainAPI.Tests
         private HyperLedgerComposerBlockChain blockChainService;
         private BlockchainClient client;
         private List<String> propertiesID;
-
 
         [TestInitialize]
         public void beforeEach()
@@ -91,7 +91,15 @@ namespace BlockchainAPI.Tests
             Assert.IsTrue(isContain);
         }
 
+        [TestMethod]
+        public void BlockchainServiceShouldDetermineWhatComesBackFromObject()
+        {
+            var mock = new Mock<IBlockChain>();
+            mock.Setup(foo => foo.InvokeGet(It.IsAny<String>()))
+                .Returns(Task.FromResult("[]"));
 
-       
+            
+            Assert.IsTrue(true);
+        }
     }
 }

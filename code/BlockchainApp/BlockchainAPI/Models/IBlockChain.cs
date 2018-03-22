@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BlockchainAPI.Models
 {
@@ -11,5 +13,6 @@ namespace BlockchainAPI.Models
         String GetTransactionsURL();
         String GetTradersURL();
         String GetPropertyURL();
+        Task<String> InvokeGet(String url);
     }
 }

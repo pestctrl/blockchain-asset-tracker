@@ -55,7 +55,8 @@ namespace BlockchainAPI
                 {
                     transactions[i].property = transactions[i].property.Substring(34);
                     transactions[i].property = transactions[i].property.Replace("%20", " ");
-                }else
+                }
+                else
                 {
                     transactions.Remove(transactions[i]);
                 }
