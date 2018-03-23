@@ -4,21 +4,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BlockchainAPI.Models;
 using Moq;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace BlockchainAPI.Tests
 {
     [TestClass]
     public class BlockchainClientTests
     {
-        private HyperLedgerComposerBlockChain blockChainService;
+        private IBlockchainService blockchainService;
         private BlockchainClient client;
-        private List<String> propertiesID;
+        Mock<IBlockchainService> mockBlockService;
+        string testUsername1 = "Hello";
 
-        [TestInitialize]
-        public void beforeEach()
+        [TestInitialize()]
+        public void MockSetup()
         {
-            blockChainService = new HyperLedgerComposerBlockChain();
-            propertiesID = new List<string>();
+            mockBlockService = new Mock<IBlockchainService>();
         }
 
         [TestMethod]
@@ -28,78 +29,52 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public void ConstructorOfBlockchainMethodShouldSetUsername()
+        public async Task Login_Method_for_client_should_set_username()
         {
-           client = new BlockchainClient("TRADER1", blockChainService);
+            client = new BlockchainClient(new Mock<IBlockchainService>().Object);
 
-            Assert.IsTrue(client.username == "TRADER1");
+            await client.login(testUsername1);
+
+            Assert.IsTrue(client.username == testUsername1);
         }
 
         [TestMethod]
-        public void TestIfRealUserExist()
+        public async Task Login_Method_will_call_invokeget_to_check_for_users_existance()
         {
-            client = new BlockchainClient("TRADER1", blockChainService);
-            
-            client.CheckUserExisting("TRADER1");
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>())).Returns(Task.FromResult("{}"));
+            client = new BlockchainClient(mockBlockService.Object);
 
-            Assert.IsTrue(client.userExist);
+            await client.login(testUsername1);
+
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(testUsername1)));
         }
 
         [TestMethod]
-        public void TestIfNonUserExist()
+        public async Task If_username_does_not_exist_then_login_return_false()
         {
-            client = new BlockchainClient("unknown", blockChainService);
+            var mockBlockService = new Mock<IBlockchainService>();
+            mockBlockService.Setup(m => 
+                                    m.InvokeGet(HyperledgerConsts.TraderQueryURL(testUsername1)))
+                            .ThrowsAsync(new System.Net.Http.HttpRequestException());
+            client = new BlockchainClient(mockBlockService.Object);
 
-            client.CheckUserExisting("unknown");
+            var loginSuccess = await client.login(testUsername1);
 
-            Assert.IsFalse(client.userExist);
+            Assert.IsFalse(loginSuccess);
         }
 
         [TestMethod]
-        public void RegisterUserTest()
+        public async Task Failed_logins_will_also_not_set_username()
         {
-            client = new BlockchainClient(blockChainService);
-            client.RegisterNewTrader("1", "John", "Smith");
+            var mockBlockService = new Mock<IBlockchainService>();
+            mockBlockService.Setup(m =>
+                                    m.InvokeGet(HyperledgerConsts.TraderQueryURL(testUsername1)))
+                            .ThrowsAsync(new HttpRequestException());
+            client = new BlockchainClient(mockBlockService.Object);
 
-            client.CheckUserExisting("1");
+            var results = await client.login(testUsername1);
 
-            Assert.IsTrue(client.userExist);
-        }
-
-        public void GetPropertiesId(BlockchainClient theClient)
-        {
-            foreach (var property in theClient.getMyAssets())
-            {
-               propertiesID.Add(property.PropertyId); 
-            }
-        }
-
-        [TestMethod]
-        public void CreateAssetTest()
-        {
-            bool isContain = false;
-            client = new BlockchainClient("TRADER1", blockChainService);
-
-            client.RegisterNewAsset("1234", "test", "TRADER1");
-            GetPropertiesId(client);
-            foreach (var i in propertiesID)
-            {
-                if (i == "1234")
-                    isContain = true;
-            }
-
-            Assert.IsTrue(isContain);
-        }
-
-        [TestMethod]
-        public void BlockchainServiceShouldDetermineWhatComesBackFromObject()
-        {
-            var mock = new Mock<IBlockChain>();
-            mock.Setup(foo => foo.InvokeGet(It.IsAny<String>()))
-                .Returns(Task.FromResult("[]"));
-
-            
-            Assert.IsTrue(true);
+            Assert.IsTrue(client.username != testUsername1);
         }
     }
 }

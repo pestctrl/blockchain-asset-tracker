@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockchainAPI.Models
 {
-    public interface IBlockChain
+    public interface IBlockchainService
     {
         String GetTraderURL(string userName);
         String GetPropertiesByUserURL(string userName);
@@ -14,5 +14,6 @@ namespace BlockchainAPI.Models
         String GetTradersURL();
         String GetPropertyURL();
         Task<String> InvokeGet(String url);
+        Task<String> InvokeGet(String url, object parameter);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlockchainAPI.Models
 {
-    public class HyperLedgerComposerBlockChain : IBlockChain
+    public class HyperLedgerComposerBlockChain : IBlockchainService
     {
         HttpClient client;
 
@@ -46,6 +46,12 @@ namespace BlockchainAPI.Models
         public async Task<String> InvokeGet(String url)
         {
             var response = await client.GetAsync(Path.Combine(HyperledgerConsts.ipAddress, url));
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> InvokeGet(string url, object parameter)
+        {
+            var response = await client.GetAsync(Path.Combine(HyperledgerConsts.ipAddress, url, parameter.ToString()));
             return await response.Content.ReadAsStringAsync();
         }
     }

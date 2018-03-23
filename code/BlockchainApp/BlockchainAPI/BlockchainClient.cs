@@ -16,18 +16,18 @@ namespace BlockchainAPI
         List<Property> properties;
         public bool userExist;
         private List<Transaction> transactions = new List<Transaction>();
-        IBlockChain blockChainService;
+        IBlockchainService blockchainService;
 
-        public BlockchainClient(IBlockChain blockChain)
+        public BlockchainClient(IBlockchainService blockChain)
         {
-            blockChainService = blockChain;
+            blockchainService = blockChain;
             userExist = false;
             client = new HttpClient();
         }
 
-        public BlockchainClient(string username, IBlockChain blockChain)
+        public BlockchainClient(string username, IBlockchainService blockChain)
         {
-            blockChainService = blockChain;
+            blockchainService = blockChain;
             userExist = false;
             client = new HttpClient();
             this.username = username;
@@ -42,10 +42,9 @@ namespace BlockchainAPI
             }
         }
 
-        private void LoadUserTransactions()
+        private async void LoadUserTransactions()
         {
-            var requestURL = blockChainService.GetTransactionsURL();
-            var resultsString = GetJsonString(requestURL);
+            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.TransactionUrl);
 
             transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
 
@@ -66,20 +65,29 @@ namespace BlockchainAPI
 
         private void parseTrader()
         {
-            var requestURL = blockChainService.GetTraderURL(username);
+            var requestURL = blockchainService.GetTraderURL(username);
             var resultsString = GetJsonString(requestURL);
 
             thisTrader =  JsonConvert.DeserializeObject<Trader>(resultsString);
         }
 
-        public Task login(string text)
+        public async Task<bool> login(string text)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var results = await blockchainService.InvokeGet(HyperledgerConsts.TraderQueryURL(text));
+                username = text;
+                return true;
+            }
+            catch (System.Net.Http.HttpRequestException e)
+            {
+                return false;
+            }
         }
 
         private void updatePropertyList()
         {
-            string requestURL = blockChainService.GetPropertiesByUserURL(username);
+            string requestURL = blockchainService.GetPropertiesByUserURL(username);
             var stuff = GetJsonString(requestURL);
 
             properties = JsonConvert.DeserializeObject<List<Property>>(stuff);
@@ -87,7 +95,7 @@ namespace BlockchainAPI
 
         public void CheckUserExisting(string traderID)
         {
-            string requestURL = blockChainService.GetTradersURL();
+            string requestURL = blockchainService.GetTradersURL();
             var resultsString = GetJsonString(requestURL);
 
             List<Trader> traders = new List<Trader>();       
@@ -111,7 +119,7 @@ namespace BlockchainAPI
                 //{ "longitude", longitude}
             };
 
-            var results = Task.Run(() => client.PostAsync(blockChainService.GetTransactionsURL(),
+            var results = Task.Run(() => client.PostAsync(blockchainService.GetTransactionsURL(),
                 new FormUrlEncodedContent(parameters))).Result;
             //var stringResults = Task.Run(() => results.Content.ReadAsStringAsync());
 
@@ -127,7 +135,7 @@ namespace BlockchainAPI
                 {"lastName", lastName }
             };
 
-            var results = Task.Run(() => client.PostAsync(blockChainService.GetTradersURL(),
+            var results = Task.Run(() => client.PostAsync(blockchainService.GetTradersURL(),
                 new FormUrlEncodedContent(parameters))).Result;
         }
 
@@ -140,7 +148,7 @@ namespace BlockchainAPI
                 {"owner", ownerID }
             };
 
-            var results = Task.Run(() => client.PostAsync(blockChainService.GetPropertyURL(),
+            var results = Task.Run(() => client.PostAsync(blockchainService.GetPropertyURL(),
                 new FormUrlEncodedContent(parameters))).Result;
         }
 
