@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
-                <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name"/>
+                <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name" AutomationId="welcome"/>
             </Frame>
             <Frame Padding="0" VerticalOptions="CenterAndExpand" BackgroundColor="#bfb">
                 <ListView x:Name="current_asset_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flurl;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -43,10 +44,10 @@ namespace BlockchainAPI.Models
             return "http://129.213.108.205:3000/api/org.acme.biznet.Property";
         }
 
-        public async Task<String> InvokeGet(String url)
+        public async Task<String> InvokeGet(String request)
         {
-            var response = await client.GetAsync(Path.Combine(HyperledgerConsts.ipAddress, url));
-            return await response.Content.ReadAsStringAsync();
+            var url = Url.Combine(HyperledgerConsts.ipAddress, request);
+            return await client.GetStringAsync(url);
         }
 
         public async Task<string> InvokeGet(string url, object parameter)

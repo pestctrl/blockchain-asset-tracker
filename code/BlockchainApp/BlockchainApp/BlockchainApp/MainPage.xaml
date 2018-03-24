@@ -14,13 +14,13 @@
             <Frame VerticalOptions="CenterAndExpand" >
                 <StackLayout Orientation="Vertical" >
                     <Label TextColor="#444" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Login Information"/>
-                    <Entry x:Name="login_id" Placeholder="Login ID" HorizontalTextAlignment="Center"/>
-                    <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" HorizontalTextAlignment="Center"/>
+                    <Entry x:Name="login_id" Placeholder="Login ID" HorizontalTextAlignment="Center" AutomationId="login"/>
+                    <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" HorizontalTextAlignment="Center" AutomationId="password"/>
                 </StackLayout>
             </Frame>
             <Frame Padding = "1" VerticalOptions="End">
                 <StackLayout>
-                    <Button x:Name="submit_login" Text="Login" Clicked="LoginButton"/>
+                    <Button x:Name="submit_login" Text="Login" Clicked="LoginButton" AutomationId="clicky"/>
                     <Button x:Name="register_button" Text="Register" Clicked="RegisterButton"/>
                 </StackLayout>
             </Frame>

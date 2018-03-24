@@ -15,9 +15,11 @@ namespace BlockchainApp
     public partial class MainPage : ContentPage
     {
         static int loginCode = 0;
+        IBlockchainService blockchainService;
 
         public MainPage()
         {
+            blockchainService = new HyperLedgerComposerBlockChain();
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
@@ -26,14 +28,15 @@ namespace BlockchainApp
         {
             BlockchainClient client;
             HyperLedgerComposerBlockChain blockChainService = new HyperLedgerComposerBlockChain();
+            bool loginSuccess = true;
             using (UserDialogs.Instance.Loading("Loading"))
             {
-                await Task.Delay(10);
-                client = new BlockchainClient(login_id.Text, blockChainService);
+                client = new BlockchainClient(blockChainService);
+                loginSuccess = await client.login(login_id.Text);
             }
 
   
-            if (client.userExist)
+            if (loginSuccess)
                 loginCode = 0;
             else
                 loginCode = 1;

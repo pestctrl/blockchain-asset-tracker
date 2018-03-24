@@ -33,6 +33,7 @@ namespace BlockchainAPI.Tests
         {
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
+
             await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
 
             Assert.AreEqual(clientWithMock.thisTrader.traderId, TestJsonObjectConsts.Trader1ID);
@@ -92,6 +93,19 @@ namespace BlockchainAPI.Tests
             var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
 
             AssertTradersEqual(expectedTrader,clientWithMock.thisTrader);
+        }
+
+        [TestMethod]
+        public async Task Get_My_Assets_Will_InvokeGet_From_BlockchainService()
+        {
+            var expectedResults = JsonConvert.DeserializeObject<List<Property>>(TestJsonObjectConsts.listOfProperties);
+            mockBlockService.Setup(m =>
+                                    m.InvokeGet(HyperledgerConsts.MyAssetsUrl(TestJsonObjectConsts.Trader1ID)))
+                            .ReturnsAsync(TestJsonObjectConsts.listOfProperties);
+
+            var results = await clientWithMock.getMyAssets();
+
+            Assert.AreEqual(expectedResults, results);
         }
     }
 }

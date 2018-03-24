@@ -39,7 +39,8 @@ namespace BlockchainApp
         void updateAssetList(BlockchainClient localClient)
         {
             ObservableCollection<AssetView> obc = new ObservableCollection<AssetView>();
-            foreach (Property obj in localClient.getMyAssets())
+            var assets = Task.Run(() => localClient.getMyAssets()).Result;
+            foreach (Property obj in assets)
             {
                 obc.Add(new AssetView() { title = obj.PropertyId, subtitle = obj.description });
             }

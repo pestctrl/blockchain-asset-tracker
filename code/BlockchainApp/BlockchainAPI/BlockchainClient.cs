@@ -75,7 +75,8 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokeGet(HyperledgerConsts.TraderQueryURL(text));
+                var request = HyperledgerConsts.TraderQueryURL(text);
+                var results = await blockchainService.InvokeGet(request);
                 thisTrader = JsonConvert.DeserializeObject<Trader>(results);
                 return true;
             }
@@ -162,9 +163,17 @@ namespace BlockchainAPI
             return thisTrader.traderId;
         }
 
-        public List<Property> getMyAssets()
+        public async Task<List<Property>> getMyAssets()
         {
-            return properties;
+            try
+            {
+                var results = await blockchainService.InvokeGet(HyperledgerConsts.MyAssetsUrl(thisTrader.traderId));
+                return JsonConvert.DeserializeObject<List<Property>>(results);
+            }
+            catch(HttpRequestException e)
+            {
+                return null;
+            }
         }
 
         public List<Transaction> GetUserTransactions()
