@@ -11,12 +11,12 @@ namespace BlockchainAPI
     public class BlockchainClient
     {
         HttpClient client;
-        public string username;
-        Trader thisTrader;
+        public Trader thisTrader;
         List<Property> properties;
         public bool userExist;
         private List<Transaction> transactions = new List<Transaction>();
         IBlockchainService blockchainService;
+        public string username;
 
         public BlockchainClient(IBlockchainService blockChain)
         {
@@ -76,7 +76,7 @@ namespace BlockchainAPI
             try
             {
                 var results = await blockchainService.InvokeGet(HyperledgerConsts.TraderQueryURL(text));
-                username = text;
+                thisTrader = JsonConvert.DeserializeObject<Trader>(results);
                 return true;
             }
             catch (System.Net.Http.HttpRequestException e)
