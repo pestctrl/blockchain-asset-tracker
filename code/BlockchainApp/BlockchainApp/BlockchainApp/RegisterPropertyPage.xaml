@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BlockchainApp.RegisterAssetPage"
+             x:Class="BlockchainApp.RegisterPropertyPage"
              xmlns:local="clr-namespace:BlockchainApp">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="Property ID" Keyboard="Text" x:Name="asset_id"/>
+            <Entry Placeholder="Property ID" Keyboard="Text" x:Name="property_id"/>
             <Entry Placeholder="description" Keyboard="Text" x:Name="description"/>
 
-            <Button Text="Register Asset"  Clicked="CreateAsset"/>
+            <Button Text="Register Property"  Clicked="CreateProperty"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

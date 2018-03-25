@@ -12,19 +12,23 @@ using Xamarin.Forms.Xaml;
 namespace BlockchainApp
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RegisterAssetPage : ContentPage
+	public partial class RegisterPropertyPage : ContentPage
 	{
         private BlockchainClient client;
 
-        public RegisterAssetPage(BlockchainClient blockchainclient)
+        public RegisterPropertyPage(BlockchainClient blockchainclient)
         {
             InitializeComponent();
             client = blockchainclient;
         }
 
-        async void CreateAsset(object sender, EventArgs e)
+        async void CreateProperty(object sender, EventArgs e)
 	    {
-	       client.RegisterNewProperty(asset_id.Text, description.Text, client.thisTrader.traderId);
+            Property p = new Property();
+            p.PropertyId = property_id.Text;
+            p.description = description.Text;
+            p.owner = client.thisTrader.traderId;
+	        await client.RegisterNewProperty(p);
 	        await DisplayAlert("Alert", "Sucessful create Asset", "Ok");
         }
 	}
