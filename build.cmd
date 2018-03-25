@@ -1,5 +1,6 @@
 @echo off
-cd code/BlockchainApp
+echo "Hello, world!"
+cd code\BlockchainApp
 call NAnt.bat
 
 exit %ERRORLEVEL%
