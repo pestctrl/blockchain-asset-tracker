@@ -63,7 +63,7 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task Failed_logins_will_also_not_set_username()
+        public async Task Failed_logins_will_also_not_set_trader_object()
         {
             mockBlockService.Setup(m =>
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
@@ -71,7 +71,7 @@ namespace BlockchainAPI.Tests
 
             var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
 
-            Assert.AreNotEqual(clientWithMock.username, TestJsonObjectConsts.Trader1ID);
+            Assert.IsNull(clientWithMock.thisTrader);
         }
 
         public void AssertTradersEqual(Trader t1, Trader t2)
@@ -103,7 +103,7 @@ namespace BlockchainAPI.Tests
                                     m.InvokeGet(HyperledgerConsts.MyAssetsUrl(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync(TestJsonObjectConsts.listOfProperties);
 
-            var results = await clientWithMock.getMyAssets();
+            var results = await clientWithMock.getMyProperties();
 
             Assert.AreEqual(expectedResults, results);
         }

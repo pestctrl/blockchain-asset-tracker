@@ -24,7 +24,7 @@ namespace BlockchainApp
 
         async void CreateAsset(object sender, EventArgs e)
 	    {
-	       client.RegisterNewAsset(asset_id.Text, description.Text, client.getUserID());
+	       client.RegisterNewProperty(asset_id.Text, description.Text, client.thisTrader.traderId);
 	        await DisplayAlert("Alert", "Sucessful create Asset", "Ok");
         }
 	}

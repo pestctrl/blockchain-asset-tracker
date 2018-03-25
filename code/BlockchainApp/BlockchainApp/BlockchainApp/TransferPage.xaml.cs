@@ -40,7 +40,7 @@ namespace BlockchainApp
             using (UserDialogs.Instance.Loading("Sending"))
             {
                 await Task.Delay(10);
-                result = client.sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text);
+                result = await client.sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text);
             }
             if (result)
             {

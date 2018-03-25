@@ -31,7 +31,7 @@ namespace BlockchainApp
             this.client = client;
 
             InitializeComponent();
-            welcomeMessage.Text = String.Format("Hello, {0}!", client.getName());
+            welcomeMessage.Text = String.Format("Hello, {0}!", client.fullName);
             NavigationPage.SetHasNavigationBar(this, false);
             updateAssetList(client);
         }
@@ -39,7 +39,7 @@ namespace BlockchainApp
         void updateAssetList(BlockchainClient localClient)
         {
             ObservableCollection<AssetView> obc = new ObservableCollection<AssetView>();
-            var assets = Task.Run(() => localClient.getMyAssets()).Result;
+            var assets = Task.Run(() => localClient.getMyProperties()).Result;
             foreach (Property obj in assets)
             {
                 obc.Add(new AssetView() { title = obj.PropertyId, subtitle = obj.description });
@@ -50,10 +50,7 @@ namespace BlockchainApp
 
         void Handle_Refreshing(object sender, EventArgs e)
         {
-            HyperLedgerComposerBlockChain blockChainService = new HyperLedgerComposerBlockChain();
-            BlockchainClient clientUpdate = new BlockchainClient(client.username, blockChainService);
-
-            updateAssetList(clientUpdate);
+            updateAssetList(client);
 
             current_asset_list.EndRefresh();
         }
@@ -72,7 +69,7 @@ namespace BlockchainApp
 
         async void TransactionButton(object sender, EventArgs args)
         {
-            List<Transaction> transactions = client.GetUserTransactions();
+            List<Transaction> transactions = await client.GetUserTransactions();
             await Navigation.PushAsync(new HistoryPage(transactions));
         }
 

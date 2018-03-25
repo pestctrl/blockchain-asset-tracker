@@ -12,63 +12,27 @@ namespace BlockchainAPI
     {
         HttpClient client;
         public Trader thisTrader;
-        List<Property> properties;
-        public bool userExist;
-        private List<Transaction> transactions = new List<Transaction>();
         IBlockchainService blockchainService;
-        public string username;
+        public string fullName { get { return String.Format("{0} {1}", thisTrader.firstName, thisTrader.lastName); } }
 
         public BlockchainClient(IBlockchainService blockChain)
         {
             blockchainService = blockChain;
-            userExist = false;
             client = new HttpClient();
         }
 
-        public BlockchainClient(string username, IBlockchainService blockChain)
+        public async Task<bool> userExists(string text)
         {
-            blockchainService = blockChain;
-            userExist = false;
-            client = new HttpClient();
-            this.username = username;
-            
-            CheckUserExisting(this.username);
-
-            if (userExist)
+            try
             {
-                parseTrader();
-                updatePropertyList();
-                LoadUserTransactions();
+                var request = HyperledgerConsts.TraderQueryURL(text);
+                var results = await blockchainService.InvokeGet(request);
+                return true;
             }
-        }
-
-        private async void LoadUserTransactions()
-        {
-            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.TransactionUrl);
-
-            transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
-
-            for (int i = transactions.Count - 1; i >= 0; i--)
+            catch (System.Net.Http.HttpRequestException e)
             {
-                if(transactions[i].newOwner.Substring(32) == username)
-                {
-                    transactions[i].property = transactions[i].property.Substring(34);
-                    transactions[i].property = transactions[i].property.Replace("%20", " ");
-                }
-                else
-                {
-                    transactions.Remove(transactions[i]);
-                }
+                return false;
             }
-   
-        }
-
-        private void parseTrader()
-        {
-            var requestURL = blockchainService.GetTraderURL(username);
-            var resultsString = GetJsonString(requestURL);
-
-            thisTrader =  JsonConvert.DeserializeObject<Trader>(resultsString);
         }
 
         public async Task<bool> login(string text)
@@ -86,31 +50,7 @@ namespace BlockchainAPI
             }
         }
 
-        private void updatePropertyList()
-        {
-            string requestURL = blockchainService.GetPropertiesByUserURL(username);
-            var stuff = GetJsonString(requestURL);
-
-            properties = JsonConvert.DeserializeObject<List<Property>>(stuff);
-        }
-
-        public void CheckUserExisting(string traderID)
-        {
-            string requestURL = blockchainService.GetTradersURL();
-            var resultsString = GetJsonString(requestURL);
-
-            List<Trader> traders = new List<Trader>();       
-            traders = JsonConvert.DeserializeObject<List<Trader>>(resultsString);
-
-            foreach (Trader trader in traders)
-            {
-                if (trader.traderId == traderID)
-                    userExist = true;
-            }
-
-        }
-
-        public bool sendProperty(String propertyID, String recipientID, String latitude, String longitude)
+        public async Task<bool> sendProperty(String propertyID, String recipientID, String latitude, String longitude)
         {
             Dictionary<String, String> parameters = new Dictionary<string, string>
             {
@@ -120,14 +60,18 @@ namespace BlockchainAPI
                 //{ "longitude", longitude}
             };
 
-            var results = Task.Run(() => client.PostAsync(blockchainService.GetTransactionsURL(),
-                new FormUrlEncodedContent(parameters))).Result;
-            //var stringResults = Task.Run(() => results.Content.ReadAsStringAsync());
-
-            return true;
+            try
+            {
+                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl,parameters);
+                return true;
+            }
+            catch(HttpRequestException e)
+            {
+                return true;
+            }
         }
 
-        public void RegisterNewTrader(string UserId, string firstName, string lastName)
+        public async Task<bool> RegisterNewTrader(string UserId, string firstName, string lastName)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
@@ -135,12 +79,19 @@ namespace BlockchainAPI
                 {"firstName", firstName },
                 {"lastName", lastName }
             };
-
-            var results = Task.Run(() => client.PostAsync(blockchainService.GetTradersURL(),
-                new FormUrlEncodedContent(parameters))).Result;
+            
+            try
+            {
+                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl,parameters);
+                return true;
+            }
+            catch(HttpRequestException e)
+            {
+                return false;
+            }
         }
 
-        public void RegisterNewAsset(string assetID, string description, string ownerID)
+        public async Task<bool> RegisterNewProperty(string assetID, string description, string ownerID)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
@@ -148,36 +99,49 @@ namespace BlockchainAPI
                 {"description", description },
                 {"owner", ownerID }
             };
-
-            var results = Task.Run(() => client.PostAsync(blockchainService.GetPropertyURL(),
-                new FormUrlEncodedContent(parameters))).Result;
+            
+            try
+            {
+                await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, parameters);
+                return true;
+            }
+            catch(HttpRequestException e)
+            {
+                return false;
+            }
         }
 
-        public string getName()
-        {
-            return String.Format("{0} {1}", thisTrader.firstName, thisTrader.lastName);
-        }
-
-        public string getUserID()
-        {
-            return thisTrader.traderId;
-        }
-
-        public async Task<List<Property>> getMyAssets()
+        public async Task<List<Property>> getMyProperties()
         {
             try
             {
                 var results = await blockchainService.InvokeGet(HyperledgerConsts.MyAssetsUrl(thisTrader.traderId));
                 return JsonConvert.DeserializeObject<List<Property>>(results);
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
                 return null;
             }
         }
 
-        public List<Transaction> GetUserTransactions()
+        public async Task<List<Transaction>> GetUserTransactions()
         {
+            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.TransactionUrl);
+
+            var transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
+
+            for (int i = transactions.Count - 1; i >= 0; i--)
+            {
+                if (transactions[i].newOwner.Substring(32) == thisTrader.traderId)
+                {
+                    transactions[i].property = transactions[i].property.Substring(34);
+                    transactions[i].property = transactions[i].property.Replace("%20", " ");
+                }
+                else
+                {
+                    transactions.Remove(transactions[i]);
+                }
+            }
             return transactions;
         }
 
