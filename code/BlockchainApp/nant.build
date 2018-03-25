@@ -5,6 +5,7 @@
 	<property name="testclasses.dir" value="build/testClasses" />
 	<property name="lib.dir" value="packages" />
 	<property name="nunit.dir" value="${lib.dir}/NUnit.3.10.1/lib/net45"/>
+	<property name="DLLPATH" value="C:\Windows\Microsoft.NET\Framework64\v4.0.30319" />
 
 	<property name="opencover.dir" value="${lib.dir}\OpenCover.4.6.519"/>
 	<property name="reportGeneratorExePath" value="${lib.dir}\ReportGenerator.3.1.2\tools\ReportGenerator.exe"/>
@@ -26,11 +27,13 @@
 		<csc target="library" output="${classes.dir}/assign.dll" debug="true">
 			<sources>
 				<include name=".\BlockchainAPI\*.cs" />
+				<include name=".\BlockchainAPI\Models\*.cs" />
 			</sources>
 
 			<references>
-				<include name=".\BlockchainAPI\bin\Debug\netstandard2.0\BlockchainAPI.dll" />
-				<include name=".\packages\Newtonsoft.Json.11.0.1\lib\netstandard2.0\Newtonsoft.Json.dll"/>
+				<include name=".\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll"/>
+				<!--<include name=".\packages\NETStandard.Library.2.0.1\build\netstandard2.0\ref\netstandard.dll" />-->
+				<include name=".\packages\Flurl.2.7.0\lib\netstandard2.0\Flurl.dll"/>
 				<include name=".\BlockchainApp\BlockchainApp.Android\obj\Debug\linksrc\System.Net.Http.dll"/>
 				<include name=".\BlockchainApp\BlockchainApp.Android\obj\Debug\android\assets\System.ObjectModel.dll"/>
 				<include name=".\BlockchainAPI.Tests\bin\Debug\System.Runtime.dll"/>
