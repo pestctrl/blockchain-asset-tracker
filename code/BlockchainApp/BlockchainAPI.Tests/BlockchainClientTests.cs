@@ -112,18 +112,13 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task Full_Name_is_determined_by_trader_object_retrieved_from_login()
+        public async Task Trader_object_has_extra_fullname_field_for_convenience()
         {
             Trader t = new Trader();
             t.firstName = "Hello";
             t.lastName = "World";
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
-                            .ReturnsAsync(JsonConvert.SerializeObject(t));
 
-            await clientWithMock.login("","");
-            var fullName = clientWithMock.fullName;
-
-            Assert.AreEqual(fullName, String.Format("{0} {1}", t.firstName, t.lastName));
+            Assert.AreEqual(t.fullName, String.Format("{0} {1}", t.firstName, t.lastName));
         }
 
         [TestMethod]
@@ -189,5 +184,13 @@ namespace BlockchainAPI.Tests
 
             mockBlockService.Verify(m => m.InvokePost(expectedUrl, JsonConvert.SerializeObject(t)));
         }
+
+        [TestMethod]
+        public void JsonConvertCanDeserializeEvenWhenThereAreExtraFields()
+        {
+            var results = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.Trader1);
+            Assert.AreEqual(results.fullName, String.Format("{0} {1}", results.firstName, results.lastName));
+        }
+
     }
 }

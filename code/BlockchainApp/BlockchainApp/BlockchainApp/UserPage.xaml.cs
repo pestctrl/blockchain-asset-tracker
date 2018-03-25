@@ -31,7 +31,7 @@ namespace BlockchainApp
             this.client = client;
 
             InitializeComponent();
-            welcomeMessage.Text = String.Format("Hello, {0}!", client.fullName);
+            welcomeMessage.Text = String.Format("Hello, {0}!", client.thisTrader.fullName);
             NavigationPage.SetHasNavigationBar(this, false);
             updateAssetList(client);
         }
@@ -75,7 +75,7 @@ namespace BlockchainApp
 
         async void CreateAsset(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new RegisterAssetPage(this.client));
+            await Navigation.PushAsync(new RegisterPropertyPage(this.client));
         }
     }
 }

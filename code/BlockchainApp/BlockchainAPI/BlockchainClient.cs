@@ -13,7 +13,6 @@ namespace BlockchainAPI
         HttpClient client;
         public Trader thisTrader;
         IBlockchainService blockchainService;
-        public string fullName { get { return String.Format("{0} {1}", thisTrader.firstName, thisTrader.lastName); } }
 
         public BlockchainClient(IBlockchainService blockChain)
         {
