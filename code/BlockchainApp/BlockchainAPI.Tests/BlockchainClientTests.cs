@@ -110,5 +110,20 @@ namespace BlockchainAPI.Tests
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)));
         }
+
+        [TestMethod]
+        public async Task Full_Name_is_determined_by_trader_object_retrieved_from_login()
+        {
+            Trader t = new Trader();
+            t.firstName = "Hello";
+            t.lastName = "World";
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync(JsonConvert.SerializeObject(t));
+
+            await clientWithMock.login("","");
+            var fullName = clientWithMock.fullName;
+
+            Assert.AreEqual(fullName, String.Format("{0} {1}", t.firstName, t.lastName));
+        }
     }
 }

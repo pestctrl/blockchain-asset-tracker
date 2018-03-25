@@ -4,6 +4,7 @@ dotnet build
 
 cd BlockchainAPI.Tools
 
+dotnet restore
 dotnet minicover instrument --workdir ../ --assemblies BlockchainAPI.Tests/**/bin/**/*.dll --sources BlockchainAPI/**/*.cs
 dotnet minicover reset
 
