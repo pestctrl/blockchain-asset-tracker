@@ -1,6 +1,6 @@
 @echo off
-dotnet restore
-dotnet build
+
+msbuild /t:restore BlockchainApp.sln
 
 cd BlockchainAPI.Tools
 
