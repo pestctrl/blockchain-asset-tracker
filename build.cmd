@@ -1,5 +1,5 @@
 @echo off
 cd code\BlockchainApp
-where nuget
+call package.cmd
 
 exit %ERRORLEVEL%
