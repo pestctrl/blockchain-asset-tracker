@@ -50,19 +50,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> sendProperty(String propertyID, String recipientID, String latitude, String longitude)
+        public async Task<bool> sendProperty(Transaction t)
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>
-            {
-                { "property",propertyID },
-                { "newOwner",recipientID },
-                //{ "latitude", latitude},
-                //{ "longitude", longitude}
-            };
-
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, parameters);
+                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
                 return true;
             }
             catch (HttpRequestException e)
@@ -71,18 +63,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> RegisterNewTrader(string UserId, string firstName, string lastName)
+        public async Task<bool> RegisterNewTrader(Trader t)
         {
-            Dictionary<string, string> parameters = new Dictionary<string, string>
-            {
-                {"traderId", UserId },
-                {"firstName", firstName },
-                {"lastName", lastName }
-            };
-
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, parameters);
+                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, JsonConvert.SerializeObject(t));
                 return true;
             }
             catch (HttpRequestException e)
@@ -91,18 +76,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> RegisterNewProperty(string assetID, string description, string ownerID)
+        public async Task<bool> RegisterNewProperty(Property p)
         {
-            Dictionary<string, string> parameters = new Dictionary<string, string>
-            {
-                {"PropertyId", assetID },
-                {"description", description },
-                {"owner", ownerID }
-            };
-
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, parameters);
+                await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(p));
                 return true;
             }
             catch (HttpRequestException e)
@@ -144,6 +122,8 @@ namespace BlockchainAPI
             }
             return transactions;
         }
+
+        
     }
 
 }

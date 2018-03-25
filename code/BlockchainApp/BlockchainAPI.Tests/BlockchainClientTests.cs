@@ -125,5 +125,69 @@ namespace BlockchainAPI.Tests
 
             Assert.AreEqual(fullName, String.Format("{0} {1}", t.firstName, t.lastName));
         }
+
+        [TestMethod]
+        public async Task Existance_of_user_will_InvokeGet_on_TraderQueryURL()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync(JsonConvert.SerializeObject(new Trader()));
+
+            var expectedUrl = HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID);
+            await clientWithMock.userExists(TestJsonObjectConsts.Trader1ID);
+
+            mockBlockService.Verify(m => m.InvokeGet(expectedUrl));
+        }
+
+        [TestMethod]
+        public async Task If_trader_was_not_found_return_false()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+
+            var results = await clientWithMock.userExists("");
+
+            Assert.IsFalse(results);
+        }
+
+        [TestMethod]
+        public async Task RegisterNewTrader_will_invoke_post()
+        {
+            var expectedUrl = HyperledgerConsts.TraderUrl;
+            Trader t = new Trader();
+            t.traderId = "a";
+            t.firstName = "b";
+            t.lastName = "c";
+
+            await clientWithMock.RegisterNewTrader(t);
+
+            mockBlockService.Verify(m => m.InvokePost(expectedUrl, JsonConvert.SerializeObject(t)));
+        }
+
+        [TestMethod]
+        public async Task RegisterNewProperty_will_invoke_post()
+        {
+            var expectedUrl = HyperledgerConsts.PropertyUrl;
+
+            Property p = new Property();
+            p.PropertyId = "a";
+            p.description = "b";
+            p.owner = "c";
+            await clientWithMock.RegisterNewProperty(p);
+
+            mockBlockService.Verify(m => m.InvokePost(expectedUrl, JsonConvert.SerializeObject(p)));
+        }
+
+        [TestMethod]
+        public async Task sendProperty_will_invoke_post()
+        {
+            var expectedUrl = HyperledgerConsts.TransactionUrl;
+
+            Transaction t = new Transaction();
+            t.newOwner = "a";
+            t.property = "b";
+            await clientWithMock.sendProperty(t);
+
+            mockBlockService.Verify(m => m.InvokePost(expectedUrl, JsonConvert.SerializeObject(t)));
+        }
     }
 }

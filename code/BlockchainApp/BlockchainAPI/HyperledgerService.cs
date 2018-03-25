@@ -23,10 +23,10 @@ namespace BlockchainAPI
             return await client.GetStringAsync(url);
         }
 
-        public async Task<string> InvokePost(string request, Dictionary<string, string> parameters)
+        public async Task<string> InvokePost(string request, String jsonObject)
         {
             var url = Url.Combine(HyperledgerConsts.ipAddress, request);
-            var results = await client.PostAsync(url, new FormUrlEncodedContent(parameters));
+            var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));
             return await results.Content.ReadAsStringAsync();
         }
     }

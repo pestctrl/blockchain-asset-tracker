@@ -9,6 +9,6 @@ namespace BlockchainAPI
     public interface IBlockchainService
     {
         Task<String> InvokeGet(String url);
-        Task<String> InvokePost(String url, Dictionary<String, String> parameters);
+        Task<String> InvokePost(String url, String jsonObject);
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using BlockchainAPI;
+using BlockchainAPI.Models;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -39,8 +40,12 @@ namespace BlockchainApp
             bool result;
             using (UserDialogs.Instance.Loading("Sending"))
             {
-                await Task.Delay(10);
-                result = await client.sendProperty(propertyId.Text, RecipientID.Text, latitude.Text, longitude.Text);
+                Transaction tr = new Transaction();
+                tr.property = propertyId.Text;
+                tr.newOwner = RecipientID.Text;
+                //tr.latitude = latitude.Text;
+                //tr.longitude = longitude.Text;
+                result = await client.sendProperty(tr);
             }
             if (result)
             {

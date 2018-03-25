@@ -32,7 +32,11 @@ namespace BlockchainApp
                 if (userId.Text != "" && fName.Text != "" && lName.Text != "" 
                     && userId.Text != null && fName.Text != null && lName.Text != null)
                 {
-                    client.RegisterNewTrader(userId.Text, fName.Text, lName.Text);
+                    Trader t = new Trader();
+                    t.traderId = userId.Text;
+                    t.firstName = fName.Text;
+                    t.lastName = lName.Text;
+                    await client.RegisterNewTrader(t);
                     await DisplayAlert("Alert", "Sucessful register with user ID" + userId.Text, "Ok");
                     await Navigation.PopAsync();
                 }
