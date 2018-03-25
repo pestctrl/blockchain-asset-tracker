@@ -103,6 +103,7 @@ namespace BlockchainAPI.Tests
                                     m.InvokeGet(HyperledgerConsts.MyAssetsUrl(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync(TestJsonObjectConsts.listOfProperties);
 
+            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
             var results = await clientWithMock.getMyProperties();
 
             Assert.AreEqual(expectedResults, results);
