@@ -213,5 +213,30 @@ namespace BlockchainAPI.Tests
 
             Assert.IsFalse(results);
         }
+
+        [TestMethod]
+        public async Task If_network_is_down_cant_register_trader()
+        {
+            mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+
+            var results = await clientWithMock.RegisterNewTrader(new Trader());
+
+            Assert.IsFalse(results);
+        }
+
+        [TestMethod]
+        public async Task If_network_is_down_cant_get_property()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
+                            .ReturnsAsync(TestJsonObjectConsts.Trader1);
+
+            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            var results = await clientWithMock.getMyProperties();
+
+            Assert.IsNull(results);
+        }
     }
 }
