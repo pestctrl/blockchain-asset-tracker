@@ -2,6 +2,8 @@
 echo "Hello, world!"
 cd code\BlockchainApp
 echo "cd was successful"
-call NAnt.bat
+pwd
+dir
+NAnt.bat
 
 exit %ERRORLEVEL%
