@@ -1,6 +1,6 @@
 @echo off
 set path=%Path%;c:\programs\nuget
-nuget install Netwonsoft.JSON=
+nuget install Netwonsoft.JSON
 dir
 cd packages
 dir
