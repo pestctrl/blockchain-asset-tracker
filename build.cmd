@@ -1,5 +1,6 @@
 @echo off
-cd code\BlockchainApp
-call package.cmd
+cd code\BlockchainApp\BlockchainAPI.Tests
+dotnet build
+dotnet test --logger trx
 
 exit %ERRORLEVEL%
