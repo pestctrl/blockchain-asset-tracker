@@ -1,6 +1,6 @@
 @echo off
 cd code\BlockchainApp
 dir
-call code\BlockchainApp\package.cmd
+call package.cmd
 
 exit %ERRORLEVEL%
