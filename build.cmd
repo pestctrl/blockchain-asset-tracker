@@ -1,6 +1,5 @@
-echo "this will run your assignment build eventually" 
-
+@echo off
 cd code/BlockchainApp
-call nant 
+call NAnt.bat
 
 exit %ERRORLEVEL%
