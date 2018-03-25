@@ -4,6 +4,6 @@ cd code\BlockchainApp
 echo "cd was successful"
 pwd
 dir
-NAnt.bat
+call NAnt.bat
 
 exit %ERRORLEVEL%
