@@ -54,7 +54,7 @@
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-		 <include name="C:\Users\giang ha\Desktop\SDP\code\BlockchainApp\packages\NUnit.3.10.1\lib\net45\*.dll" />
+		<include name="C:\Users\giang ha\Desktop\SDP\code\BlockchainApp\packages\NUnit.3.10.1\lib\net45\*.dll" />
       </references>
     </csc>
   </target>
