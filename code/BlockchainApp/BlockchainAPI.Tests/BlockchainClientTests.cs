@@ -34,7 +34,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
+            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
 
             Assert.AreEqual(clientWithMock.thisTrader.traderId, TestJsonObjectConsts.Trader1ID);
         }
@@ -45,7 +45,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync("{}");
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
+            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)));
         }
@@ -57,7 +57,7 @@ namespace BlockchainAPI.Tests
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ThrowsAsync(new System.Net.Http.HttpRequestException());
 
-            var loginSuccess = await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
+            var loginSuccess = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
 
             Assert.IsFalse(loginSuccess);
         }
@@ -69,7 +69,7 @@ namespace BlockchainAPI.Tests
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
+            var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
 
             Assert.IsNull(clientWithMock.thisTrader);
         }
@@ -90,7 +90,7 @@ namespace BlockchainAPI.Tests
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
 
-            var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID);
+            var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
 
             AssertTradersEqual(expectedTrader,clientWithMock.thisTrader);
         }

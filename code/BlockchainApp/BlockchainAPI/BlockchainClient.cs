@@ -35,7 +35,7 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> login(string text)
+        public async Task<bool> login(string text, string password)
         {
             try
             {
@@ -62,10 +62,10 @@ namespace BlockchainAPI
 
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl,parameters);
+                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, parameters);
                 return true;
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
                 return true;
             }
@@ -79,13 +79,13 @@ namespace BlockchainAPI
                 {"firstName", firstName },
                 {"lastName", lastName }
             };
-            
+
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl,parameters);
+                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, parameters);
                 return true;
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
                 return false;
             }
@@ -99,13 +99,13 @@ namespace BlockchainAPI
                 {"description", description },
                 {"owner", ownerID }
             };
-            
+
             try
             {
                 await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, parameters);
                 return true;
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
                 return false;
             }
@@ -144,11 +144,6 @@ namespace BlockchainAPI
             }
             return transactions;
         }
-
-        public String GetJsonString(string Url)
-        {
-            var results = Task.Run(() => client.GetAsync(Url)).Result;
-            return Task.Run(() => results.Content.ReadAsStringAsync()).Result;
-        }
     }
+
 }
