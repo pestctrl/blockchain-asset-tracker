@@ -58,7 +58,7 @@ namespace BlockchainAPI
             }
             catch (HttpRequestException e)
             {
-                return true;
+                return false;
             }
         }
 

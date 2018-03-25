@@ -192,5 +192,26 @@ namespace BlockchainAPI.Tests
             Assert.AreEqual(results.fullName, String.Format("{0} {1}", results.firstName, results.lastName));
         }
 
+        [TestMethod]
+        public async Task If_network_is_down_sendProperty_return_false()
+        {
+            mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+
+            var results = await clientWithMock.sendProperty(new Transaction());
+
+            Assert.IsFalse(results);
+        }
+
+        [TestMethod]
+        public async Task If_network_is_down_cant_register_properties()
+        {
+            mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+
+            var results = await clientWithMock.RegisterNewProperty(new Property());
+
+            Assert.IsFalse(results);
+        }
     }
 }
