@@ -13,8 +13,6 @@ namespace BlockchainAPI.Tests
     public class HyperledgerServiceTest
     {
         private HyperledgerService hyperledgerService;
-        Trader trader;
-        Transaction transaction;
 
         [TestInitialize]
         public void init()
@@ -29,25 +27,25 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task TestInvokeGetMethodAsync()
+        public async Task TestInvokeGetMethod()
         {
             var results = await hyperledgerService.InvokeGet("/api/org.acme.biznet.Trader/TRADER1");
-            trader = JsonConvert.DeserializeObject<Trader>(results);
+            Trader trader = JsonConvert.DeserializeObject<Trader>(results);
 
             Assert.AreEqual("TRADER1", trader.traderId);
         }
         
-        String trader1Transaction = "{\"$class\":\"org.acme.biznet.Trade\",\"property\": \"Asset A\", \"newOwner\": \"TRADER1\"}";
+        String trader1Transaction = "{\"$class\":\"org.acme.biznet.Trade\",\"property\": \"Asset CC\", \"newOwner\": \"TRADER1\"}";
 
-        /*
+
         [TestMethod]
-        public async Task a()
+        public async Task TestInokePostMethod()
         {
             var result = await hyperledgerService.InvokePost("/api/org.acme.biznet.Trade", trader1Transaction);
-            transaction = JsonConvert.DeserializeObject<Transaction>(result);
+            Transaction transaction = JsonConvert.DeserializeObject<Transaction>(result);
 
             Assert.AreEqual("TRADER1", transaction.newOwner);
         }
-        */
+        
     }
 }
