@@ -53,7 +53,7 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task If_username_does_not_exist_then_login_return_false()
         {
-            mockBlockService.Setup(m => 
+            mockBlockService.Setup(m =>
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ThrowsAsync(new System.Net.Http.HttpRequestException());
 
@@ -81,7 +81,7 @@ namespace BlockchainAPI.Tests
             Assert.AreEqual(t1.objectType, t2.objectType);
             Assert.AreEqual(t1.traderId, t2.traderId);
         }
-        
+
         [TestMethod]
         public async Task Successful_login_will_set_trader_object_to_serialized_json()
         {
@@ -92,9 +92,9 @@ namespace BlockchainAPI.Tests
 
             var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
 
-            AssertTradersEqual(expectedTrader,clientWithMock.thisTrader);
+            AssertTradersEqual(expectedTrader, clientWithMock.thisTrader);
         }
-        
+
         [TestMethod]
         public async Task Get_My_Assets_Will_InvokeGet_From_BlockchainService()
         {
@@ -237,6 +237,20 @@ namespace BlockchainAPI.Tests
             var results = await clientWithMock.getMyProperties();
 
             Assert.IsNull(results);
+        }
+
+        [TestMethod]
+        public async Task Get_User_Transaction()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TransactionUrl))
+                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader2ID)))
+                            .ReturnsAsync(TestJsonObjectConsts.Trader2);
+
+            await clientWithMock.login(TestJsonObjectConsts.Trader2ID, "");
+            var results = await clientWithMock.GetUserTransactions();
+
+           Assert.AreEqual(TestJsonObjectConsts.Trader2TransactionId, results[0].transactionId);
         }
     }
 }
