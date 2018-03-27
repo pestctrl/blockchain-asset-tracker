@@ -49,11 +49,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> sendProperty(Transaction t)
+        public async Task<bool> RegisterNewTrader(Trader t)
         {
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
+                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, JsonConvert.SerializeObject(t));
                 return true;
             }
             catch (HttpRequestException e)
@@ -62,11 +62,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> RegisterNewTrader(Trader t)
+        public async Task<bool> sendProperty(Transaction t)
         {
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, JsonConvert.SerializeObject(t));
+                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
                 return true;
             }
             catch (HttpRequestException e)
