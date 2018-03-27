@@ -39,9 +39,16 @@ def makeProperties():
 
 def makeTransaction(propId, t1id, t2id, longitude, latitude): 
     data = {
-
+        "property" : propId,
+        "origOwner" : t1id,
+        "newOwner" : t2id,
+        "longitude" : longitude,
+        "latitude" : latitude,
     }
+    result = requests.post(url3, data=data)
 
+def makeTransactions():
+    print("I don't do anything yet")
 
 def main():
     makeTraders()
