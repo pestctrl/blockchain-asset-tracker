@@ -41,6 +41,7 @@ namespace BlockchainApp.UITests
         public void Logging_in_as_TRADER1_should_display_name_in_next_screen()
         {
             app.EnterText("login", "TRADER1");
+            app.DismissKeyboard();
             app.Tap("clicky");
             app.WaitForElement("button2");
             app.Tap("button2");
@@ -55,6 +56,7 @@ namespace BlockchainApp.UITests
         public void Logging_in_as_trader_does_not_work()
         {
             app.EnterText("login", "trader");
+            app.DismissKeyboard();
             app.Tap("clicky");
             app.WaitForElement("message");
 
