@@ -1,15 +1,24 @@
 from flask_restful import Resource, reqparse
 from models import UserModel, RevokedTokenModel
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
+from flask import jsonify, json
+import requests
 
-parser = reqparse.RequestParser()
-parser.add_argument('username', help = 'This field cannot be blank', required = True)
-parser.add_argument('password', help = 'This field cannot be blank', required = True)
+
+registerParser = reqparse.RequestParser()
+registerParser.add_argument('username', help = 'This field cannot be blank', required = True)
+registerParser.add_argument('firstName', help = 'This field cannot be blank', required = True)
+registerParser.add_argument('lastName', help = 'This field cannot be blank', required = True)
+registerParser.add_argument('password', help = 'This field cannot be blank', required = True)
+
+loginParser = reqparse.RequestParser()
+loginParser.add_argument('username', help = 'This field cannot be blank', required = True)
+loginParser.add_argument('password', help = 'This field cannot be blank', required = True)
 
 
 class UserRegistration(Resource):
     def post(self):
-        data = parser.parse_args()
+        data = registerParser.parse_args()
 
         if UserModel.find_by_username(data['username']):
             return {'message': 'User {} already exists'. format(data['username'])}
@@ -33,7 +42,7 @@ class UserRegistration(Resource):
 
 class UserLogin(Resource):
     def post(self):
-        data = parser.parse_args()
+        data = loginParser.parse_args()
         current_user = UserModel.find_by_username(data['username'])
         if not current_user:
             return {'message': 'User {} doesn\'t exist'.format(data['username'])}
@@ -46,7 +55,6 @@ class UserLogin(Resource):
             'access_token': access_token,
             'refresh_token': refresh_token
             }
-
         else:
             return {'message': 'Wrong credentials'}
 
@@ -94,6 +102,6 @@ class AllUsers(Resource):
 class SecretResource(Resource):
     @jwt_required
     def get(self):
-        return {
-            'answer': 42
-        }
+        traderId=get_jwt_identity()
+        resp =  requests.get('http://129.213.108.205:3000/api/queries/MyAssets?ownerParam=resource%3Aorg.acme.biznet.Trader%23' + traderId)
+        return (resp.json())
