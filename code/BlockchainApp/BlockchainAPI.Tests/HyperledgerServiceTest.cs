@@ -34,14 +34,13 @@ namespace BlockchainAPI.Tests
 
             Assert.AreEqual("TRADER1", trader.traderId);
         }
-        
-        String trader1Transaction = "{\"$class\":\"org.acme.biznet.Trade\",\"property\": \"Asset CC\", \"newOwner\": \"TRADER1\"}";
 
 
         [TestMethod]
         public async Task TestInokePostMethod()
-        {
-            var result = await hyperledgerService.InvokePost("/api/org.acme.biznet.Trade", trader1Transaction);
+        { 
+            var testTransaction = "{\"$class\":\"org.acme.biznet.Trade\",\"property\": \"Asset CC\", \"newOwner\": \"TRADER1\"}";
+            var result = await hyperledgerService.InvokePost("/api/org.acme.biznet.Trade", testTransaction);
             Transaction transaction = JsonConvert.DeserializeObject<Transaction>(result);
 
             Assert.AreEqual("TRADER1", transaction.newOwner);

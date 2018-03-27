@@ -42,9 +42,10 @@ namespace BlockchainApp
             {
                 Transaction tr = new Transaction();
                 tr.property = propertyId.Text;
+                tr.origOwner = client.thisTrader.traderId;
                 tr.newOwner = RecipientID.Text;
-                //tr.latitude = latitude.Text;
-                //tr.longitude = longitude.Text;
+                tr.latitude = latitude.Text;
+                tr.longitude = longitude.Text;
                 result = await client.sendProperty(tr);
             }
             if (result)
