@@ -17,4 +17,6 @@ obj
 *.csproj.user
 *.csproj.bak
 
+*.log
+
 coverage*
