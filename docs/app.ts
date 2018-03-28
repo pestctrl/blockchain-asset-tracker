@@ -5,9 +5,10 @@ export interface ILocation{
   
   $class: string;
   property: string;
+  origOwner: string;
   newOwner: string;
-  longiture: string;
-  latitude: string;
+  longitude: number;
+  latitude: number;
   transactionId: string;
   timestamp: string;
 }

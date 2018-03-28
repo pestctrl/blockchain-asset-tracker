@@ -10,13 +10,13 @@ export class LocationService {
   constructor(private http: Http) {}
   
 
-  getLocations(): Observable<ILocation[]> {
+  getLocations(locationID: string): Observable<ILocation[]> {
     return this.http.get("http://129.213.108.205:3000/api/queries/AssetHistory?propId=resource%3Aorg.acme.biznet.Property%23Property%2520A")
       .map((response: Response) => <ILocation[]>response.json());
   }
   
   /*
-   getLocations(): ILocation[] {
+   getLocations(): ILocation[] { 
      return [
   {
       lat: '51.678418',

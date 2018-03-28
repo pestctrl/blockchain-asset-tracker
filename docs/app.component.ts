@@ -13,76 +13,69 @@ export class AppComponent implements OnInit {
 	
 
   locations: ILocation[];
-  locationsToNumber: ILocationNum[] = [];
-	zoom: number = 5;
-	lat: number = 51.678418;
-	lng: number = 9.809007;
+  locationsToNumber: ILocationNum[];
+	zoom: number = 10;
+    lat: number = 29.72552
+    lng: number = -95.348388
+
 
  constructor(private locationService: LocationService){
   }	
+ 
+ ngOnInit() {
 
-  
-
-
-
-
-   
-  /*
-  ngOnInit() {
-    this.locations = this._locationService.getLocations();
-
-
-    for (var i in this.locations) {
-      this.locationsToNumber[i].lat = parseFloat(this.locations[i].lat)
-      this.locationsToNumber[i].lng = parseFloat(this.locations[i].lng)
-    }}
-  
-  */
-
-    ngOnInit() {
-      this.locationService.getLocations()
-        .subscribe((locationsData) => this.locations = locationsData);
-
-      this.locationsToNumber = [
-        {
-          lat: parseFloat('51.678418'),
-          lng: parseFloat('9.809007'),
-        },
-        {
-          lat: 51.678418,
-          lng: 6.809007,
-        },
-        {
-          lat: 49.678418,
-          lng: 6.809007,
-        },
-        {
-          lat: 49.678418,
-          lng: 9.809007,
-        }
-      ];
-      }
+ }
     
 
-  searchLocations() {
+ searchLocations(locationID: string) {
+    /*
     this.locationsToNumber = [
       {
-        lat: parseFloat('51.678418'),
-        lng: parseFloat('9.809007'),
+        latitude: parseFloat('	29.72552'),
+        longitude: parseFloat('-95'),
       },
       {
-        lat: 51.678418,
-        lng: 6.809007,
+        latitude: 30,
+        longitude: -96,
       },
       {
-        lat: 49.678418,
-        lng: 6.809007,
-      },
-      {
-        lat: 49.678418,
-        lng: 9.809007,
+        latitude: 28,
+        longitude: -97,
       }
     ];
+    */
+    this.locationService.getLocations(locationID)
+     .subscribe((locationsData) => this.locations = locationsData);
+
+
+
+   /*
+   this.locationsToNumber[0].latitude = parseFloat(this.locations[0].latitude)
+   this.locationsToNumber[0].longitude = parseFloat(this.locations[0].longiture)
+   this.locationsToNumber[1].latitude = parseFloat(this.locations[0].latitude)
+   this.locationsToNumber[1].longitude = parseFloat(this.locations[0].longiture)
+   this.locationsToNumber[2].latitude = parseFloat(this.locations[0].latitude)
+   this.locationsToNumber[2].longitude = parseFloat(this.locations[0].longiture)
+
+   */
+   /*
+    this.locationsToNumber[0].latitude = 29
+    this.locationsToNumber[0].longitude = -95
+    this.locationsToNumber[1].latitude = 28
+    this.locationsToNumber[1].longitude =-96
+    this.locationsToNumber[2].latitude = 27
+    this.locationsToNumber[2].longitude = -94
+   
+
+   
+   */
+
+   
+   
+
+    
+
+
     }
   }
   
