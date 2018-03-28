@@ -1,0 +1,19 @@
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" >
+
+
+  <agm-marker 
+		*ngFor="let marker of markers"
+		
+  [latitude]="marker.lat" 
+  [longitude]="marker.lng"
+  ></agm-marker>
+  
+  <agm-polyline [strokeColor]="'red'" >
+                            <agm-polyline-point 
+								*ngFor="let data of markers"
+                              [latitude]="data.lat"
+                              [longitude]="data.lng">
+                            </agm-polyline-point>
+              </agm-polyline>
+ 
+</agm-map>
