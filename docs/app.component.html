@@ -1,19 +1,18 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" >
+﻿<h1>Transactions</h1>
+<h2><button type="button" class="btn btn-primary" (click)="searchLocations()">Search Locations</button></h2>
+<p>
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
 
+    <agm-marker *ngFor="let location of locationsToNumber"
+                [latitude]="location.lat"
+                [longitude]="location.lng"></agm-marker>
 
-  <agm-marker 
-		*ngFor="let marker of markers"
-		
-  [latitude]="marker.lat" 
-  [longitude]="marker.lng"
-  ></agm-marker>
-  
-  <agm-polyline [strokeColor]="'red'" >
-                            <agm-polyline-point 
-								*ngFor="let data of markers"
-                              [latitude]="data.lat"
-                              [longitude]="data.lng">
-                            </agm-polyline-point>
-              </agm-polyline>
- 
-</agm-map>
+    <agm-polyline [strokeColor]="'red'">
+      <agm-polyline-point *ngFor="let data of locationsToNumber"
+                          [latitude]="data.lat"
+                          [longitude]="data.lng">
+      </agm-polyline-point>
+    </agm-polyline>
+
+  </agm-map>
+</p>
