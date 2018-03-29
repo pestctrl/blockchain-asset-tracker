@@ -4,3 +4,10 @@ query MyAssets{
       SELECT org.acme.biznet.Property
           WHERE (owner == _$ownerParam)
 }
+
+query AssetHistory {
+  description: "Get an asset's location history"
+  statement: 
+      SELECT org.acme.biznet.Trade
+          WHERE (property == _$propId)
+}
