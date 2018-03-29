@@ -37,18 +37,20 @@ def makeProperties():
                      "Test description",
                      ord(i)%5+1)
 
-def makeTransaction(propId, t1id, t2id, longitude, latitude): 
+def makeTransaction(propId, t1id, t2id, latitude, longitude): 
     data = {
         "property" : propId,
         "origOwner" : t1id,
         "newOwner" : t2id,
-        "longitude" : longitude,
         "latitude" : latitude,
+        "longitude" : longitude,
     }
     result = requests.post(url3, data=data)
 
 def makeTransactions():
-    print("I don't do anything yet")
+    makeTransaction("Property A", "TRADER1", "TRADER2", 29.721115, -95.342308)
+    makeTransaction("Property A", "TRADER2", "TRADER1", 29.722037, -95.349048)
+    makeTransaction("Property A", "TRADER1", "TRADER3", 29.725520, -95.348388)
 
 def main():
     makeTraders()
