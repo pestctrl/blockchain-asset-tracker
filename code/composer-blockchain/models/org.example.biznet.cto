@@ -16,6 +16,6 @@ transaction Trade {
     --> Property property
     --> Trader origOwner
     --> Trader newOwner
-    --> String longitude
-    --> String latitude
+    o Double longitude
+    o Double latitude
 }
