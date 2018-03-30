@@ -106,6 +106,44 @@ namespace BlockchainApp.UITests
             app.Tap(c => c.Marked("Confirm"));
             app.Tap(c => c.Text("Logout"));
         }
+        [Test]
+        public void Logging_in_with_no_loginID()
+        {
+            app.EnterText("login", "");
+            app.EnterText("password", "pass1");
+            app.Tap("clicky");
+            app.WaitForElement("message");
+
+            var message = app.Query("message").First().Text;
+
+            Assert.AreEqual(message, "Login Failed");
+        }
+
+        [Test]
+        public void Logging_in_with_no_password()
+        {
+            app.EnterText("login", "TRADER1");
+            app.EnterText("password", "");
+            app.Tap("clicky");
+            app.WaitForElement("message");
+
+            var message = app.Query("message").First().Text;
+
+            Assert.AreEqual(message, "Login Failed");
+        }
+
+        [Test]
+        public void Logging_in_with_no_loginID_and_no_password()
+        {
+            app.EnterText("login", "");
+            app.EnterText("password", "");
+            app.Tap("clicky");
+            app.WaitForElement("message");
+
+            var message = app.Query("message").First().Text;
+
+            Assert.AreEqual(message, "Login Failed");
+        }
     }
 }
 
