@@ -64,6 +64,48 @@ namespace BlockchainApp.UITests
 
             Assert.AreEqual(message, "Login Failed");
         }
+
+        [Test]
+        public void ClickRegisterWithExistingUserAndGoBackToMainPage()
+        {
+            app.Tap("clicky2");
+            app.EnterText(c => c.Id("NoResourceEntry-15"), "TRADER1");
+            app.EnterText(c => c.Id("NoResourceEntry-16"), "tom");
+            app.EnterText(c => c.Id("NoResourceEntry-17"), "Vuong");
+            app.Tap(c => c.Id("NoResourceEntry-18"));
+            app.Tap(c => c.Text("Ok"));
+            app.Back();
+        }
+
+        [Test]
+        public void LoginWithTrader1ClickSendFirstAssetGoBackLogout()
+        {
+            app.EnterText(c => c.Marked("login"), "TRADER1");
+            app.DismissKeyboard();
+            app.Tap("clicky");
+            app.Tap("button2");
+            app.Tap(c => c.Id("NoResourceEntry-30"));
+            app.WaitForElement(c => c.Marked("Send"));
+            app.Back();
+            app.Tap(c => c.Text("Completed"));
+            app.Tap(c => c.Text("Back"));
+            app.Tap(c => c.Text("Logout"));
+        }
+
+        [Test]
+        public void LoginWithTrader1SendFirstAssetToTrader2ScollDown()
+        {
+            app.EnterText("login", "TRADER1");
+            app.DismissKeyboard();
+            app.Tap("clicky");
+            app.Tap("button2");
+            app.Tap(c => c.Id("NoResourceEntry-24"));
+            app.EnterText("NoResourceEntry-47", "TRADER2");
+            app.DismissKeyboard();
+            app.Tap(c => c.Text("Send"));
+            app.Tap(c => c.Marked("Confirm"));
+            app.Tap(c => c.Text("Logout"));
+        }
     }
 }
 

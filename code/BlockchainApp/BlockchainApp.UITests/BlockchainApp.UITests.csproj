@@ -67,6 +67,10 @@
       <Project>{1492f12d-09c4-4cd9-8231-eaf6f691ee39}</Project>
       <Name>BlockchainApp.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlockchainApp\BlockchainApp\BlockchainApp.csproj">
+      <Project>{9428f836-dc40-4c11-aa20-b74f63b69b72}</Project>
+      <Name>BlockchainApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
