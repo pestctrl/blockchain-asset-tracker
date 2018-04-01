@@ -25,7 +25,7 @@ namespace BlockchainWebApp
         {
             services.AddMvc();
 
-            services.AddTransient<BlockchainClient, BlockchainClient>();
+            services.AddTransient<IBlockchainService, HyperledgerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
