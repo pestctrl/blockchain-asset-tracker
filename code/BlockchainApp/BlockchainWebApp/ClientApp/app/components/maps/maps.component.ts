@@ -4,6 +4,7 @@ import { TransactionService } from '../transaction/transaction.service';
 import { google, GoogleMap } from '@agm/core/services/google-maps-types';
 import { LatLngBounds } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
+import { ITransaction } from '../transaction/transaction';
 
 @Component({
 	selector: 'maps',
@@ -16,19 +17,23 @@ export class MapsComponent implements OnInit {
 	lat: number = 51.678418;
     lng: number = 9.809007;
     markers: marker[];
+    
+    searchLocations(PropertyID: string) { }
 
-    async searchLocations(PropertyID: string) {
-        this.markers = await this.mapsService.getLocations(PropertyID);
+    async ngOnInit() {
+        this.updateMap(await this.mapsService.getTransaction());
+    }
+
+    async searchHistory(propId: string) {
+        this.updateMap(await this.mapsService.getPropertyHistory(encodeURI(propId)));
+    }
+
+    updateMap(transactions: ITransaction[]) {
+        this.markers = transactions;
         let lastElement = this.markers.length - 1;
         this.lat = this.markers[lastElement].latitude;
         this.lng = this.markers[lastElement].longitude;
     }
-
-    async ngOnInit() {
-
-    }
-
-    
 
     constructor(private mapsService: TransactionService) {
     }

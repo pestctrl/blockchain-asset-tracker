@@ -1,7 +1,7 @@
 <input #PropertyId
-       (keyup.enter)="searchLocations(PropertyId.value)">
+       (keyup.enter)="searchHistory(PropertyId.value)">
 <td></td>
-<h2><button type="button" class="btn btn-primary" (click)="searchLocations(PropertyId.value)">Search Locations</button></h2>
+<h2><button type="button" class="btn btn-primary" (click)="searchHistory(PropertyId.value)">Search Locations</button></h2>
 <div class="map-wrapper">
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
         <agm-marker *ngFor="let marker of markers"

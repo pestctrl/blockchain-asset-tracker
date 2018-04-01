@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "355ace72c8727c720690"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "25b4980ddf4b6dbabf2f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -3823,6 +3823,19 @@ var TransactionService = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.http.get("http://129.213.108.205:3000/api/org.acme.biznet.Trade").toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response.json()];
+                }
+            });
+        });
+    };
+    TransactionService.prototype.getPropertyHistory = function (propId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.get("http://129.213.108.205:3000/api/queries/AssetHistory?propId=resource%3Aorg.acme.biznet.Property%23" + encodeURI(propId)).toPromise()];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response.json()];
@@ -20015,23 +20028,42 @@ var MapsComponent = (function () {
         this.lat = 51.678418;
         this.lng = 9.809007;
     }
+    MapsComponent.prototype.searchLocations = function (PropertyID) { };
     MapsComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, lastElement;
+            var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = this;
+                        _a = this.updateMap;
                         return [4 /*yield*/, this.mapsService.getTransaction()];
                     case 1:
-                        _a.markers = _b.sent();
-                        lastElement = this.markers.length - 1;
-                        this.lat = this.markers[lastElement].latitude;
-                        this.lng = this.markers[lastElement].longitude;
+                        _a.apply(this, [_b.sent()]);
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    MapsComponent.prototype.searchHistory = function (propId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.updateMap;
+                        return [4 /*yield*/, this.mapsService.getPropertyHistory(encodeURI(propId))];
+                    case 1:
+                        _a.apply(this, [_b.sent()]);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MapsComponent.prototype.updateMap = function (transactions) {
+        this.markers = transactions;
+        var lastElement = this.markers.length - 1;
+        this.lat = this.markers[lastElement].latitude;
+        this.lng = this.markers[lastElement].longitude;
     };
     MapsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -20563,7 +20595,7 @@ module.exports = "<h1>Hello, world!</h1>\r\n<p>Welcome to your new single-page a
 /* 60 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-wrapper\">\r\n    <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"zoom\">\r\n        <agm-marker *ngFor=\"let marker of markers\"\r\n                    [latitude]=\"marker.latitude\"\r\n                    [longitude]=\"marker.longitude\"></agm-marker>\r\n\r\n        <agm-circle [latitude]=\"lat\" \r\n                    [longitude]=\"lng\" \r\n                    [radius]=\"50\"\r\n                    [fillOpacity]=\".7\" \r\n                    [fillColor]=\"'CornflowerBlue'\"></agm-circle>\r\n\r\n        <agm-polyline [strokeColor]=\"'red'\">\r\n            <agm-polyline-point *ngFor=\"let data of markers\"\r\n                                [latitude]=\"data.latitude\"\r\n                                [longitude]=\"data.longitude\">\r\n            </agm-polyline-point>\r\n        </agm-polyline>\r\n    </agm-map>\r\n</div>\r\n";
+module.exports = "<input #PropertyId\r\n       (keyup.enter)=\"searchHistory(PropertyId.value)\">\r\n<td></td>\r\n<h2><button type=\"button\" class=\"btn btn-primary\" (click)=\"searchHistory(PropertyId.value)\">Search Locations</button></h2>\r\n<div class=\"map-wrapper\">\r\n    <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"zoom\">\r\n        <agm-marker *ngFor=\"let marker of markers\"\r\n                    [latitude]=\"marker.latitude\"\r\n                    [longitude]=\"marker.longitude\"></agm-marker>\r\n\r\n        <agm-circle [latitude]=\"lat\"\r\n                    [longitude]=\"lng\"\r\n                    [radius]=\"50\"\r\n                    [fillOpacity]=\".7\"\r\n                    [fillColor]=\"'CornflowerBlue'\"></agm-circle>\r\n\r\n        <agm-polyline [strokeColor]=\"'red'\">\r\n            <agm-polyline-point *ngFor=\"let data of markers\"\r\n                                [latitude]=\"data.latitude\"\r\n                                [longitude]=\"data.longitude\">\r\n            </agm-polyline-point>\r\n        </agm-polyline>\r\n    </agm-map>\r\n</div>\r\n";
 
 /***/ }),
 /* 61 */
