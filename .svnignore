@@ -20,3 +20,5 @@ obj
 *.log
 
 coverage*
+
+dist
