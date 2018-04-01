@@ -7,7 +7,7 @@ namespace BlockchainAPI.Models
 {
     public class Transaction
     {
-        [JsonProperty("$Class")]
+        [JsonProperty("$class")]
         public string objectType { get; set; }
         public string property { get; set; }
         public string origOwner { get; set; }
