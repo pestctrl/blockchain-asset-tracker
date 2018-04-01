@@ -1,13 +1,17 @@
+<input #PropertyId
+       (keyup.enter)="searchLocations(PropertyId.value)">
+<td></td>
+<h2><button type="button" class="btn btn-primary" (click)="searchLocations()">Search Locations</button></h2>
 <div class="map-wrapper">
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
         <agm-marker *ngFor="let marker of markers"
                     [latitude]="marker.latitude"
                     [longitude]="marker.longitude"></agm-marker>
 
-        <agm-circle [latitude]="lat" 
-                    [longitude]="lng" 
+        <agm-circle [latitude]="lat"
+                    [longitude]="lng"
                     [radius]="50"
-                    [fillOpacity]=".7" 
+                    [fillOpacity]=".7"
                     [fillColor]="'CornflowerBlue'"></agm-circle>
 
         <agm-polyline [strokeColor]="'red'">

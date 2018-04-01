@@ -17,6 +17,8 @@ export class MapsComponent implements OnInit {
     lng: number = 9.809007;
     markers: marker[];
 
+    searchLocations(PropertyID: string) { }
+
     async ngOnInit() {
         this.markers = await this.mapsService.getTransaction();
         let lastElement = this.markers.length - 1;
