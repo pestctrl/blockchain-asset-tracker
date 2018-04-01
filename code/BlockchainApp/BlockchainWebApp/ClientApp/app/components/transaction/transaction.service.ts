@@ -15,7 +15,7 @@ export class TransactionService {
     }
 
     async getPropertyHistory(propId : string): Promise<ITransaction[]> {
-        const response = await this.http.get("http://129.213.108.205:3000/api/queries/AssetHistory?propId=resource%3Aorg.acme.biznet.Property%23" + encodeURI(propId)).toPromise();
+        const response = await this.http.get("http://129.213.108.205:3000/api/queries/PropertyHistory?propId=resource%3Aorg.acme.biznet.Property%23" + encodeURI(propId)).toPromise();
         return response.json();
     }
 }
