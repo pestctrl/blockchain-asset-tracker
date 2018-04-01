@@ -5,6 +5,7 @@ from flask import jsonify, json
 import requests
 
 
+
 registerParser = reqparse.RequestParser()
 registerParser.add_argument('username', help = 'This field cannot be blank', required = True)
 registerParser.add_argument('firstName', help = 'This field cannot be blank', required = True)
@@ -33,6 +34,13 @@ class UserRegistration(Resource):
             new_user.save_to_db()
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
+            print (data['username'])
+            url='http://129.213.108.205:3000/api/org.acme.biznet.Trader'
+            payload={"$class": "org.acme.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'] }
+            headers={'Content-Type': 'application/json'}
+            response = requests.post(url, data=json.dumps(payload), headers=headers)
+
+
             return {
                 'message': 'User {} was created'.format( data['username'])
             }
