@@ -288,5 +288,16 @@ namespace BlockchainAPI.Tests
 
             transactions.ForEach(t => Assert.AreEqual(t.property, String.Format("resource:org.acme.biznet.Property#{0}",escapedPropId)));
         }
+
+        [TestMethod]
+        public async Task GetAllTransactionsWillInvokeGet()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
+
+            await clientWithMock.GetAllTransactions();
+
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl));
+        }
     }
 }
