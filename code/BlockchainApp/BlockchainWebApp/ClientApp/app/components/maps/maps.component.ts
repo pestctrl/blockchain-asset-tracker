@@ -13,26 +13,25 @@ import { ITransaction } from '../transaction/transaction';
 	providers: [TransactionService]
 })
 export class MapsComponent implements OnInit {
-	zoom: number = 15;
-	lat: number = 51.678418;
-    lng: number = 9.809007;
+	zoom: number = 2;
+	lat: number;
+    lng: number;
     markers: marker[];
-    
-    searchLocations(PropertyID: string) { }
 
     async ngOnInit() {
-        this.updateMap(await this.mapsService.getTransaction());
     }
 
     async searchHistory(propId: string) {
         this.updateMap(await this.mapsService.getPropertyHistory(encodeURI(propId)));
     }
 
+
     updateMap(transactions: ITransaction[]) {
         this.markers = transactions;
         let lastElement = this.markers.length - 1;
         this.lat = this.markers[lastElement].latitude;
         this.lng = this.markers[lastElement].longitude;
+        this.zoom = 15;
     }
 
     constructor(private mapsService: TransactionService) {
@@ -40,7 +39,6 @@ export class MapsComponent implements OnInit {
 }
 
 interface marker {
-
 	latitude: number;
 	longitude: number;
 }
