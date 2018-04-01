@@ -6,20 +6,26 @@
 <table class='table'>
     <thead>
         <tr>
-            <th> Class</th>
-            <th> Property</th>
-            <th> New Owner</th>
-            <th> Transaction ID</th>
-            <th> Time Stamp </th>
+            <th>Class</th>
+            <th>Property</th>
+            <th>Original Owner </th>
+            <th>New Owner</th>
+            <th>Transaction ID</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Time Stamp </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let transaction of transactions">
             <td>{{ transaction.$class }}</td>
-            <td>{{ transaction.property}}</td>
-            <td>{{ transaction.newOwner}}</td>
-            <td>{{ transaction.transactionId}}</td>
-            <td>{{ transaction.timestamp}}</td>
+            <td>{{ transaction.property.substr(34) }}</td>
+            <td>{{ transaction.origOwner.substr(32) }}</td>
+            <td>{{ transaction.newOwner.substr(32) }}</td>
+            <td>{{ transaction.latitude }}</td>
+            <td>{{ transaction.longitude }}</td>
+            <td>{{ transaction.transactionId }}</td>
+            <td>{{ transaction.timestamp }}</td>
         </tr>
     </tbody>
 </table>
