@@ -103,7 +103,7 @@ namespace BlockchainAPI
 
         public async Task<List<Transaction>> GetUserTransactions()
         {
-            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.TransactionUrl);
+            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.OrderedTransactionUrl);
 
             var transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
 
@@ -122,7 +122,11 @@ namespace BlockchainAPI
             return transactions;
         }
 
-        
+        public async Task<List<Transaction>> GetPropertyHistory(string property)
+        {
+            var results = await blockchainService.InvokeGet(HyperledgerConsts.PropertyHistoryUrl(Uri.EscapeDataString(property)));
+            return JsonConvert.DeserializeObject<List<Transaction>>(results);
+        }
     }
 
 }

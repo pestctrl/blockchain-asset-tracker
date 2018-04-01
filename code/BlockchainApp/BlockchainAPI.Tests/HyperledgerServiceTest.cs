@@ -35,7 +35,7 @@ namespace BlockchainAPI.Tests
             Assert.AreEqual("TRADER1", trader.traderId);
         }
 
-
+        /*
         [TestMethod]
         public async Task TestInokePostMethod()
         { 
@@ -44,7 +44,7 @@ namespace BlockchainAPI.Tests
             Transaction transaction = JsonConvert.DeserializeObject<Transaction>(result);
 
             Assert.AreEqual("TRADER1", transaction.newOwner);
-        }
+        }*/
         
     }
 }

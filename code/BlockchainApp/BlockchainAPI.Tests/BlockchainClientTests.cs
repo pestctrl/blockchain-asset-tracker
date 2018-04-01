@@ -242,15 +242,51 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task Get_User_Transaction()
         {
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TransactionUrl))
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl))
                             .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader2ID)))
-                            .ReturnsAsync(TestJsonObjectConsts.Trader2);
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
+                            .ReturnsAsync(TestJsonObjectConsts.Trader1);
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader2ID, "");
+            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
             var results = await clientWithMock.GetUserTransactions();
 
-           Assert.AreEqual(TestJsonObjectConsts.Trader2TransactionId, results[0].transactionId);
+            Assert.AreEqual(TestJsonObjectConsts.Trader1TransactionId, results[0].transactionId);
+        }
+
+        [TestMethod]
+        public async Task GettingAllTransactionsWillNowInvokeTheTransactionsInOrder()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync("[]");
+
+            await clientWithMock.GetUserTransactions();
+
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl));
+        }
+
+        [TestMethod]
+        public async Task GetPropertyTransactionsWillInvokeGetWithPropertyHistoryURL()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync("[]");
+            string property = Uri.EscapeDataString("Property A");
+
+            await clientWithMock.GetPropertyHistory("Property A");
+
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PropertyHistoryUrl(property)));
+        }
+
+        [TestMethod]
+        public async Task GetPropertyHistoryWillOnlyReturnTransactionsInvolvingASingleProperty()
+        { 
+            string propId = "Property A";
+            string escapedPropId = Uri.EscapeDataString(propId);
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
+
+            List<Transaction> transactions = await clientWithMock.GetPropertyHistory(propId);
+
+            transactions.ForEach(t => Assert.AreEqual(t.property, String.Format("resource:org.acme.biznet.Property#{0}",escapedPropId)));
         }
     }
 }
