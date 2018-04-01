@@ -1,2 +1,2 @@
 
-./build.sh; sudo ./restartFabric.sh; ./deploy.sh; ./rest.sh
+./build.sh; sudo ./restartFabric.sh; ./deploy.sh; ./enableTimestampQuery.sh; ./rest.sh

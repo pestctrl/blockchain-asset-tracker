@@ -1,13 +1,21 @@
-query MyAssets{
+query MyProperties{
   description: "Select all assets owned by a certain individual"
   statement:
       SELECT org.acme.biznet.Property
           WHERE (owner == _$ownerParam)
 }
 
-query AssetHistory {
+query PropertyHistory {
   description: "Get an asset's location history"
   statement: 
       SELECT org.acme.biznet.Trade
           WHERE (property == _$propId)
+	      ORDER BY [timestamp ASC]
+}
+
+query OrderedTransactions {
+  description: "Get all transactions in order by timestamp"
+  statement: 
+      SELECT org.acme.biznet.Trade
+	  ORDER BY [timestamp ASC]
 }
