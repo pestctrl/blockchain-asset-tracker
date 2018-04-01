@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { TransactionService } from '../transaction/transaction.service';
 import { google, GoogleMap } from '@agm/core/services/google-maps-types';
 import { LatLngBounds } from '@agm/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'maps',
@@ -11,30 +12,22 @@ import { LatLngBounds } from '@agm/core';
 	providers: [TransactionService]
 })
 export class MapsComponent implements OnInit {
-	zoom: number = 5;
+	zoom: number = 15;
 	lat: number = 51.678418;
-	lng: number = 9.809007;
-	markers: marker[];
-	map: any;
+    lng: number = 9.809007;
+    markers: marker[];
 
-	ngOnInit() {
-		this.mapsService.getTransaction()
-			.subscribe(result => {
-				console.log("Transactions received!");
-				this.markers = result;
-				this.lat = this.markers[0].latitude;
-				this.lng = this.markers[0].longitude;
-			});
-		console.log("ngOnInit finish");
-	}
+    async ngOnInit() {
+        this.markers = await this.mapsService.getTransaction();
+        let lastElement = this.markers.length - 1;
+        this.lat = this.markers[lastElement].latitude;
+        this.lng = this.markers[lastElement].longitude;
+    }
 
-	protected mapReady(map: any) {
-		console.log("Map is ready!");
-		this.map = map;
-	}
+    
 
-	constructor(private mapsService : TransactionService) {
-	}
+    constructor(private mapsService: TransactionService) {
+    }
 }
 
 interface marker {

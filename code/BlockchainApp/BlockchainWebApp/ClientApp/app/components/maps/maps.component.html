@@ -1,15 +1,20 @@
 <div class="map-wrapper">
-	<!--<agm-map [latitude]="lat" [longitude]="lng">-->
-	<agm-map (mapReady)="mapReady($event)">
-		<agm-marker *ngFor="let marker of markers"
-					[latitude]="marker.latitude"
-					[longitude]="marker.longitude"></agm-marker>
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+        <agm-marker *ngFor="let marker of markers"
+                    [latitude]="marker.latitude"
+                    [longitude]="marker.longitude"></agm-marker>
 
-		<agm-polyline [strokeColor]="'red'">
-			<agm-polyline-point *ngFor="let data of markers"
-								[latitude]="data.latitude"
-								[longitude]="data.longitude">
-			</agm-polyline-point>
-		</agm-polyline>
-	</agm-map>
+        <agm-circle [latitude]="lat" 
+                    [longitude]="lng" 
+                    [radius]="50"
+                    [fillOpacity]=".7" 
+                    [fillColor]="'CornflowerBlue'"></agm-circle>
+
+        <agm-polyline [strokeColor]="'red'">
+            <agm-polyline-point *ngFor="let data of markers"
+                                [latitude]="data.latitude"
+                                [longitude]="data.longitude">
+            </agm-polyline-point>
+        </agm-polyline>
+    </agm-map>
 </div>

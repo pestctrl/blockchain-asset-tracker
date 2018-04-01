@@ -17,9 +17,8 @@ export class TransactionComponent implements OnInit {
     constructor(private transactionService: TransactionService) {
     }
 
-    ngOnInit() {
-        this.transactionService.getTransaction()
-            .subscribe((transactionData) => this.transactions = transactionData);
+    async ngOnInit() {
+        this.transactions = await this.transactionService.getTransaction();
     }
     
     searchResult: ITransaction;
