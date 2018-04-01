@@ -28,9 +28,8 @@ export class MapsComponent implements OnInit {
 
     updateMap(transactions: ITransaction[]) {
         this.markers = transactions;
-        let lastElement = this.markers.length - 1;
-        this.lat = this.markers[lastElement].latitude;
-        this.lng = this.markers[lastElement].longitude;
+        this.lat = this.markers[0].latitude;
+        this.lng = this.markers[0].longitude;
         this.zoom = 15;
     }
 
