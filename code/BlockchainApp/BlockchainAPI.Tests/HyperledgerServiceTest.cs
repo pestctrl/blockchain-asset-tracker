@@ -24,6 +24,7 @@ namespace BlockchainAPI.Tests
         public void canaryTest()
         {
             Assert.IsTrue(true);
+            string s = "/api/org.acme.biznet.Trader/TRADER1";
         }
 
         [TestMethod]

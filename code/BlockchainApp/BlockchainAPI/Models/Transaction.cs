@@ -12,8 +12,8 @@ namespace BlockchainAPI.Models
         public string property { get; set; }
         public string origOwner { get; set; }
         public string newOwner { get; set; }
-        public string latitude { get; set; }
-        public string longitude { get; set; }
+        public Double latitude { get; set; }
+        public Double longitude { get; set; }
         public string transactionId { get; set; }
         public DateTime timestamp { get; set; }
     }

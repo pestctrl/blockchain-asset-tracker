@@ -269,11 +269,11 @@ namespace BlockchainAPI.Tests
         {
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync("[]");
-            string property = Uri.EscapeDataString("Property A");
+            string property = "Property A";
 
-            await clientWithMock.GetPropertyHistory("Property A");
+            await clientWithMock.GetPropertyHistory(property);
 
-            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PropertyHistoryUrl(property)));
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PropertyHistoryUrl(Uri.EscapeDataString(property))));
         }
 
         [TestMethod]

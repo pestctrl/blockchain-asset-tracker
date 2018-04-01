@@ -25,7 +25,7 @@ namespace BlockchainAPI
 
         public async Task<string> InvokePost(string request, String jsonObject)
         {
-            var url = Url.Combine(HyperledgerConsts.ipAddress, request);
+            var url = Url.Combine(HyperledgerConsts.ipAddress, Uri.EscapeUriString(request));
             var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));
             return await results.Content.ReadAsStringAsync();
         }
