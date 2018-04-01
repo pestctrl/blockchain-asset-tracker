@@ -17,6 +17,7 @@ obj
 *.csproj.user
 *.csproj.bak
 
+composer-logs
 *.log
 
 coverage*
