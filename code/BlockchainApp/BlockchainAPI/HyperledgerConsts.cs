@@ -11,7 +11,7 @@ namespace BlockchainAPI
         public const String TraderUrl = "/api/org.acme.biznet.Trader";
         public const String TransactionUrl = "/api/org.acme.biznet.Trade";
         public const String PropertyUrl = "/api/org.acme.biznet.Property";
-        public const String MyAssetsFormatString = "/api/queries/MyAssets?ownerParam=resource%3Aorg.acme.biznet.Trader%23{0}";
+        public const String MyAssetsFormatString = "/api/queries/MyProperties?ownerParam=resource%3Aorg.acme.biznet.Trader%23{0}";
 
         public static String TraderQueryURL(string username)
         {
