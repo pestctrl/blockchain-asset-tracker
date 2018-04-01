@@ -17,13 +17,15 @@ export class MapsComponent implements OnInit {
     lng: number = 9.809007;
     markers: marker[];
 
-    searchLocations(PropertyID: string) { }
-
-    async ngOnInit() {
-        this.markers = await this.mapsService.getTransaction();
+    async searchLocations(PropertyID: string) {
+        this.markers = await this.mapsService.getLocations(PropertyID);
         let lastElement = this.markers.length - 1;
         this.lat = this.markers[lastElement].latitude;
         this.lng = this.markers[lastElement].longitude;
+    }
+
+    async ngOnInit() {
+
     }
 
     

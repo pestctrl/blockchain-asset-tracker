@@ -13,4 +13,9 @@ export class TransactionService {
         const response = await this.http.get("http://129.213.108.205:3000/api/org.acme.biznet.Trade").toPromise()
         return response.json();
     }
+
+    async getLocations(locationID: string): Promise<ITransaction[]> {
+        const response = await this.http.get("http://129.213.108.205:3000/api/queries/AssetHistory?propId=resource%3Aorg.acme.biznet.Property%23"+locationID).toPromise()
+        return response.json();
+    }
 }
