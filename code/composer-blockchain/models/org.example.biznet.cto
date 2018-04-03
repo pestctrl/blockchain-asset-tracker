@@ -25,7 +25,7 @@ transaction Trade {
     o Double longitude
     o Double latitude
 }
-transcation Transfer {
+transaction Transfer {
     --> Package package
     --> Trader origHandler
     --> Trader newHandler
