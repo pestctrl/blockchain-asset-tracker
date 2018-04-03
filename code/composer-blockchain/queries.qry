@@ -19,3 +19,10 @@ query OrderedTransactions {
       SELECT org.acme.biznet.Trade
 	  ORDER BY [timestamp ASC]
 }
+
+query GetPackagesOfProperty {
+  description: "Get all Packages that a property has been in"
+  statement:
+      SELECT org.acme.biznet.Package
+	  WHERE ((SELECT ) CONTAINS _$propId)
+}
