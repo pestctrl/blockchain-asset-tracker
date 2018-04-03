@@ -4,6 +4,7 @@
 namespace org.acme.biznet
 asset Package identified by PackageId {
     o String PackageId
+    --> Trader handler
     --> Trader sender
     --> Trader recipient
     --> Property[] contents
