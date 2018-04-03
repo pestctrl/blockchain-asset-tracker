@@ -2,6 +2,12 @@
  * My commodity trading network
  */
 namespace org.acme.biznet
+asset Package identified by PackageId {
+    o String PackageId
+    --> Trader sender
+    --> Trader recipient
+    --> Property[] contents
+}
 asset Property identified by PropertyId {
     o String PropertyId
     o String description
@@ -18,4 +24,9 @@ transaction Trade {
     --> Trader newOwner
     o Double longitude
     o Double latitude
+}
+transcation Transfer {
+    --> Package package
+    --> Trader origHandler
+    --> Trader newHandler
 }
