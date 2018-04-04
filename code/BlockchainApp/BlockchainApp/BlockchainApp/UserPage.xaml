@@ -13,6 +13,11 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnMore" CommandParameter="{Binding Source={x:Reference titlename},
+                                            Path=Text}" Text="More" />
+                                    <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
                                 <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="5, 1, 5, 2" >
                                     <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename},
                                             Path=Text}" VerticalOptions="Center" />

@@ -26,6 +26,11 @@ namespace BlockchainApp
             public string subtitle { get; set; }
         }
 
+        public UserPage()
+        {
+            InitializeComponent();
+        }
+
         public UserPage(BlockchainClient client)
         {
             this.client = client;
@@ -77,5 +82,23 @@ namespace BlockchainApp
         {
             await Navigation.PushAsync(new RegisterPropertyPage(this.client));
         }
+
+        async void OnMore(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+            DisplayAlert("More Context Action", mi.CommandParameter + " more context action", "OK");
+
+            string PropertyId = ((MenuItem)sender).CommandParameter.ToString();
+
+            
+            await Navigation.PushAsync(new TransferPage(client, PropertyId));
+        }
+
+        public void OnDelete(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+            DisplayAlert("Delete Context Action", mi.CommandParameter + " delete context action", "OK");
+        }
+        
     }
 }

@@ -19,17 +19,18 @@
                 <Entry x:Name="RecipientID" Placeholder="Enter Recipient ID"/>
                 </Frame>
             <Frame>
-                <Button Text="Send" Clicked="sendAsset"/>
-                </Frame>
-            <Frame>
                 <StackLayout>
-                    <Button Text="Click"  
-                    x:Name="btnScan"  
-                    Clicked="ScanCode"/>
                     <Entry x:Name="txtBarcode"  
                    Placeholder="Barcode"/>
+                    <Button Text="Scan Code"  
+                    x:Name="btnScan"  
+                    Clicked="ScanCode"/>
                 </StackLayout>
             </Frame>
+            <Frame>
+                <Button Text="Send" Clicked="sendAsset"/>
+                </Frame>
+        
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
