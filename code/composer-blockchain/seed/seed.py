@@ -5,6 +5,7 @@ url = 'http://129.213.108.205:3000/api/org.acme.biznet.Trader'
 url2 = 'http://129.213.108.205:3000/api/org.acme.biznet.Property'
 url3 = 'http://129.213.108.205:3000/api/org.acme.biznet.Trade'
 url4 = 'http://129.213.108.205:3000/api/org.acme.biznet.Package'
+url5 = 'http://129.213.108.205:3000/api/org.acme.biznet.Transfer'
 
 def makeTrader(i, fname, lname):
     print("Making %s %s" % (fname, lname))
@@ -67,11 +68,11 @@ def makePackage(packId, handler, sender, recipient, contents):
 def makeTransfer(packId, origOwner, newOwner): 
     print("Sending %s to %s" % (packId, newOwner))
     data = {
-        "property" : packId,
-        "origOwner" : origOwner,
-        "newOwner" : newOwner,
+        "package" : packId,
+        "origHandler" : origOwner,
+        "newHandler" : newOwner,
     }
-    result = requests.post(url3, data=data)
+    result = requests.post(url5, data=data)
 
 def makeTransactions():
     makeTransaction("Property A", "TRADER1", "TRADER2", 29.721115, -95.342308)
