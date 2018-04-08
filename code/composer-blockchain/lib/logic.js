@@ -16,15 +16,16 @@ function tradeAsset(trade) {
  * @transaction
  */
 function transferPackage(transfer) {
-    transfer.package.handler = transfer.newHandler;
-    transfer.package.contents[0].owner = transfer.newHandler;
-    getAssetRegistry('org.acme.biznet.Property')
-	.then(function (assetRegistry) {
-	    return assetRegistry.update(transfer.package.contents[0]);
-	});
-    return getAssetRegistry('org.acme.biznet.Package')
-	.then(function (assetRegistry) {
-	    return assetRegistry.update(transfer.package);
-	});
+	// Update handler in package
+	let pack = transfer.package;
+	pack.handler = transfer.newHandler;
+	let packRegistry = await getAssetRegistry('org.acme.biznet.Package');
+	await packRegistry.update(pack);
+	
+	// Update all properties to new owner
+	let fprop = pack.contents[0];
+	fprop.owner = transfer.newHandler;
+	let propRegistry = await getAssetRegistry('org.acme.biznet.Property');
+	propRegistry.update(fprop);
 }
 
