@@ -16,8 +16,12 @@ function tradeAsset(trade) {
  * @transaction
  */
 function transferPackage(transfer) {
-    console.log("Hello world!");
     transfer.package.handler = transfer.newHandler;
+    transfer.package.contents[0].owner = transfer.newHandler;
+    getAssetRegistry('org.acme.biznet.Property')
+	.then(function (assetRegistry) {
+	    return assetRegistry.update(transfer.package.contents[0]);
+	});
     return getAssetRegistry('org.acme.biznet.Package')
 	.then(function (assetRegistry) {
 	    return assetRegistry.update(transfer.package);

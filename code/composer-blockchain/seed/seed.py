@@ -33,10 +33,15 @@ def makeProperty(i, description, ownerId):
     result = requests.post(url2,data=data)
 
 def makeProperties():
-    for i in ascii_uppercase:
-        makeProperty(i,
-                     "Test description",
-                     ord(i)%5+1)
+ #   for i in ascii_uppercase:
+  #      makeProperty(i,
+   #                  "Test description",
+    #                 ord(i)%5+1)
+    makeProperty("A","Test description", 1)
+    makeProperty("B","Test description", 1)
+    makeProperty("C","Test description", 1)
+    makeProperty("D","Test description", 1)
+    makeProperty("E","Test description", 1)
 
 def makeTransaction(propId, t1id, t2id, latitude, longitude): 
     print("Sending %s to %s" % (propId, t2id))
@@ -59,6 +64,15 @@ def makePackage(packId, handler, sender, recipient, contents):
     }
     result = requests.post(url4, data=data)
 
+def makeTransfer(packId, origOwner, newOwner): 
+    print("Sending %s to %s" % (packId, newOwner))
+    data = {
+        "property" : packId,
+        "origOwner" : origOwner,
+        "newOwner" : newOwner,
+    }
+    result = requests.post(url3, data=data)
+
 def makeTransactions():
     makeTransaction("Property A", "TRADER1", "TRADER2", 29.721115, -95.342308)
     makeTransaction("Property A", "TRADER2", "TRADER1", 29.722037, -95.349048)
@@ -68,7 +82,10 @@ def main():
     makeTraders()
     makeProperties()
     makeTransactions()
-    makePackage("PackageA", "TRADER1", "TRADER1", "TRADER2", ["Property A", "Property B"]);
+    makePackage("PackageA", "TRADER1", "TRADER1", "TRADER2", ["Property B", "Property C"])
+    makePackage("PackageB", "TRADER1", "TRADER1", "TRADER2", ["Property D", "Property E"])
+    makeTransfer("PackageA", "TRADER1", "TRADER3")
+    makeTransfer("PackageB", "TRADER1", "TRADER4")
 
 if __name__ == "__main__":
     main()
