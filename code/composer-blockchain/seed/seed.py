@@ -43,6 +43,7 @@ def makeProperties():
     makeProperty("C","Test description", 1)
     makeProperty("D","Test description", 1)
     makeProperty("E","Test description", 1)
+    makeProperty("F","Test description", 1)
 
 def makeTransaction(propId, t1id, t2id, latitude, longitude): 
     print("Sending %s to %s" % (propId, t2id))
@@ -84,7 +85,7 @@ def main():
     makeProperties()
     makeTransactions()
     makePackage("PackageA", "TRADER1", "TRADER1", "TRADER2", ["Property B", "Property C"])
-    makePackage("PackageB", "TRADER1", "TRADER1", "TRADER2", ["Property D", "Property E"])
+    makePackage("PackageB", "TRADER1", "TRADER1", "TRADER2", ["Property D", "Property E", "Property F"])
     makeTransfer("PackageA", "TRADER1", "TRADER3")
     makeTransfer("PackageB", "TRADER1", "TRADER4")
 
