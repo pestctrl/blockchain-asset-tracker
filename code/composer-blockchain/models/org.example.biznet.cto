@@ -2,7 +2,7 @@
  * Write your model definitions here
  */
 
-namespace org.acme.biznet
+namespace org.example.biznet
 
 asset Package identified by PackageId {
     o String PackageId
