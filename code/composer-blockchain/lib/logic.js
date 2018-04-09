@@ -31,18 +31,18 @@ function tradeAsset(trade) {
  * @transaction
  */
 async function transferPackage(transfer) {
-	// Update handler in package
-	let packRegistry = await getAssetRegistry('org.example.biznet.Package');
-	let pack = transfer.package;
+    // Update handler in package
+    let packRegistry = await getAssetRegistry('org.example.biznet.Package');
+    let pack = transfer.package;
 	pack.handler = transfer.newHandler;
-	await packRegistry.update(pack);
+    await packRegistry.update(pack);
 	
 	// Update all properties to new owner
-	let propRegistry = await getAssetRegistry('org.example.biznet.Property');
+    let propRegistry = await getAssetRegistry('org.example.biznet.Property');
     var i;
     for(let i = 0; i < pack.contents.length; i++) {
 	    let prop = pack.contents[i];
 	    prop.owner = transfer.newHandler;
-	    propRegistry.update(prop);
+	    await propRegistry.update(prop);
     }
 }
