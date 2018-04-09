@@ -1,3 +1,3 @@
 #!/bin/bash
 
-composer-rest-server -c admin@tutorial-network -n always -w true
+composer-rest-server -c admin@oracle-asset-track -n always -w true

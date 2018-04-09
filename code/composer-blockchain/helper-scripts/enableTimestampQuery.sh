@@ -7,4 +7,4 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     ]
   },
   "type": "json"
-}' 'http://localhost:5984/composerchannel/_index'
+}' 'http://localhost:5984/composerchannel_/_index'
