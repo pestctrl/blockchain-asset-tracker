@@ -13,7 +13,7 @@ namespace BlockchainApp
 	{
 		public App ()
 		{
-            //InitializeComponent();
+            InitializeComponent();
             MainPage = new NavigationPage(new BlockchainApp.MainPage(new HyperledgerService())) {
                 BarBackgroundColor = Color.FromRgb(5, 5, 5)
             };
