@@ -1,7 +1,9 @@
 /**
- * My commodity trading network
+ * Write your model definitions here
  */
-namespace org.acme.biznet
+
+namespace org.example.biznet
+
 asset Package identified by PackageId {
     o String PackageId
     --> Trader handler
@@ -9,16 +11,19 @@ asset Package identified by PackageId {
     --> Trader recipient
     --> Property[] contents
 }
+
 asset Property identified by PropertyId {
     o String PropertyId
     o String description
     --> Trader owner
 }
+
 participant Trader identified by traderId {
     o String traderId
     o String firstName
     o String lastName
 }
+
 transaction Trade {
     --> Property property
     --> Trader origOwner
@@ -26,6 +31,7 @@ transaction Trade {
     o Double longitude
     o Double latitude
 }
+
 transaction Transfer {
     --> Package package
     --> Trader origHandler
