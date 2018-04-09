@@ -15,7 +15,7 @@ function tradeAsset(trade) {
  * @param {org.acme.biznet.Transfer} transfer - the trade to be processed
  * @transaction
  */
-function transferPackage(transfer) {
+async function transferPackage(transfer) {
 	// Update handler in package
 	let pack = transfer.package;
 	pack.handler = transfer.newHandler;
