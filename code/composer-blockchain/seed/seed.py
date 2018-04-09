@@ -1,16 +1,16 @@
 import requests
 from string import ascii_uppercase
 
-url = 'http://129.213.108.205:3000/api/org.acme.biznet.Trader'
-url2 = 'http://129.213.108.205:3000/api/org.acme.biznet.Property'
-url3 = 'http://129.213.108.205:3000/api/org.acme.biznet.Trade'
-url4 = 'http://129.213.108.205:3000/api/org.acme.biznet.Package'
-url5 = 'http://129.213.108.205:3000/api/org.acme.biznet.Transfer'
+url = 'http://129.213.108.205:3000/api/org.example.biznet.Trader'
+url2 = 'http://129.213.108.205:3000/api/org.example.biznet.Property'
+url3 = 'http://129.213.108.205:3000/api/org.example.biznet.Trade'
+url4 = 'http://129.213.108.205:3000/api/org.example.biznet.Package'
+url5 = 'http://129.213.108.205:3000/api/org.example.biznet.Transfer'
 
 def makeTrader(i, fname, lname):
     print("Making %s %s" % (fname, lname))
     data = { 
-        "$class": "org.acme.biznet.Trader", 
+        "$class": "org.example.biznet.Trader", 
         "traderId": "TRADER%s" % i, 
         "firstName": fname, 
         "lastName": lname 
@@ -26,7 +26,7 @@ def makeTraders():
 def makeProperty(i, description, ownerId):
     print("Making property %s" % i)
     data = {
-        "$class": "org.acme.biznet.Property", 
+        "$class": "org.example.biznet.Property", 
         "PropertyId": "Property %s" % i, 
         "description": description, 
         "owner": "TRADER%d" % ownerId
