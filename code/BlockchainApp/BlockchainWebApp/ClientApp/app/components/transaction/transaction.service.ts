@@ -14,7 +14,7 @@ export class TransactionService {
     }
 
     async getTransaction(): Promise<ITransaction[]> {
-        //const response = await this.http.get("http://129.213.108.205:3000/api/org.acme.biznet.Trade").toPromise();
+        //const response = await this.http.get("http://129.213.108.205:3000/api/org.example.biznet.Trade").toPromise();
         const response = await this.http.get(this.baseUrl + "api/Transaction").toPromise();
 
         return response.json();
@@ -22,7 +22,7 @@ export class TransactionService {
 
 
     async getPropertyHistory(propId : string): Promise<ITransaction[]> {
-        //const response = await this.http.get("http://129.213.108.205:3000/api/queries/PropertyHistory?propId=resource%3Aorg.acme.biznet.Property%23" + encodeURI(propId)).toPromise();
+        //const response = await this.http.get("http://129.213.108.205:3000/api/queries/PropertyHistory?propId=resource%3Aorg.example.biznet.Property%23" + encodeURI(propId)).toPromise();
         const response = await this.http.get(this.baseUrl + "api/Transaction/History/" + encodeURI(propId)).toPromise();
         return response.json();
     }

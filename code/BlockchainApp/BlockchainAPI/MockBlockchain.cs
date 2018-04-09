@@ -39,11 +39,11 @@ namespace BlockchainAPI
 
         List<Transaction> transactions = new List<Transaction>
         {
-            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER1", origOwner="TRADER2", property = "Asset A", timestamp = new DateTime(2018, 2, 5), transactionId="1", objectType="org.acme.biznet.Trade"},
-            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER1", origOwner="TRADER2", property = "Asset B", timestamp = new DateTime(2018, 2, 6), transactionId="2", objectType="org.acme.biznet.Trade"},
-            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER2", origOwner="TRADER1", property = "Asset C", timestamp = new DateTime(2018, 2, 8), transactionId="3", objectType="org.acme.biznet.Trade"},
-            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER2", origOwner="TRADER1", property = "Asset D", timestamp = new DateTime(2018, 2, 11), transactionId="4", objectType="org.acme.biznet.Trade"},
-            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER1", origOwner="TRADER2", property = "Asset E", timestamp = new DateTime(2018, 2, 12), transactionId="5", objectType="org.acme.biznet.Trade"},
+            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER1", origOwner="TRADER2", property = "Asset A", timestamp = new DateTime(2018, 2, 5), transactionId="1", objectType="org.example.biznet.Trade"},
+            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER1", origOwner="TRADER2", property = "Asset B", timestamp = new DateTime(2018, 2, 6), transactionId="2", objectType="org.example.biznet.Trade"},
+            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER2", origOwner="TRADER1", property = "Asset C", timestamp = new DateTime(2018, 2, 8), transactionId="3", objectType="org.example.biznet.Trade"},
+            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER2", origOwner="TRADER1", property = "Asset D", timestamp = new DateTime(2018, 2, 11), transactionId="4", objectType="org.example.biznet.Trade"},
+            new Transaction(){ latitude= 29.721115, longitude = -95.342308, newOwner="TRADER1", origOwner="TRADER2", property = "Asset E", timestamp = new DateTime(2018, 2, 12), transactionId="5", objectType="org.example.biznet.Trade"},
         };
 
         List<Property> properties = new List<Property>

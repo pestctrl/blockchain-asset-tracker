@@ -286,7 +286,7 @@ namespace BlockchainAPI.Tests
 
             List<Transaction> transactions = await clientWithMock.GetPropertyHistory(propId);
 
-            transactions.ForEach(t => Assert.AreEqual(t.property, String.Format("resource:org.acme.biznet.Property#{0}",escapedPropId)));
+            transactions.ForEach(t => Assert.AreEqual(t.property, String.Format("resource:org.example.biznet.Property#{0}",escapedPropId)));
         }
 
         [TestMethod]
