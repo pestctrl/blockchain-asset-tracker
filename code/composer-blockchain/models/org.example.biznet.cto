@@ -6,6 +6,7 @@ namespace org.example.biznet
 
 asset Package identified by PackageId {
     o String PackageId
+    o Boolean active
     --> Trader handler
     --> Trader sender
     --> Trader recipient
