@@ -91,7 +91,7 @@ namespace BlockchainApp
             string PropertyId = ((MenuItem)sender).CommandParameter.ToString();
 
             
-            await Navigation.PushAsync(new TransferPage(client, PropertyId));
+            //await Navigation.PushAsync(new TransferPage(client, PropertyId));
         }
 
         public void OnDelete(object sender, EventArgs e)
