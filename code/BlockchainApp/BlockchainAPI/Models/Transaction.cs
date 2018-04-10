@@ -15,6 +15,6 @@ namespace BlockchainAPI.Models
         public Double latitude { get; set; }
         public Double longitude { get; set; }
         public string transactionId { get; set; }
-        public DateTime timestamp { get; set; }
+        public DateTime? timestamp { get; set; }
     }
 }
