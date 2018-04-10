@@ -35,8 +35,8 @@ class UserRegistration(Resource):
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
             print (data['username'])
-            url='http://129.213.108.205:3000/api/org.acme.biznet.Trader'
-            payload={"$class": "org.acme.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'] }
+            url='http://129.213.108.205:3000/api/org.example.biznet.Trader'
+            payload={"$class": "org.example.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'] }
             headers={'Content-Type': 'application/json'}
             response = requests.post(url, data=json.dumps(payload), headers=headers)
 
@@ -111,5 +111,5 @@ class SecretResource(Resource):
     @jwt_required
     def get(self):
         traderId=get_jwt_identity()
-        resp =  requests.get('http://129.213.108.205:3000/api/queries/MyAssets?ownerParam=resource%3Aorg.acme.biznet.Trader%23' + traderId)
+        resp =  requests.get('http://129.213.108.205:3000/api/queries/MyAssets?ownerParam=resource%3Aorg.example.biznet.Trader%23' + traderId)
         return (resp.json())
