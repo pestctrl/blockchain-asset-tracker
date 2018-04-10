@@ -14,6 +14,8 @@ namespace BlockchainAPI
         public const String MyAssetsFormatString = "/api/queries/MyProperties?ownerParam=resource%3Aorg.example.biznet.Trader%23{0}";
         public const String OrderedTransactionUrl = "/api/queries/OrderedTransactions";
         public const String PropertyHistoryFormatString = "/api/queries/PropertyHistory?propId=resource%3Aorg.example.biznet.Property%23{0}";
+        public const String PropertyPackageFormatString = "/api/queries/GetPackagesOfProperty?propId=resource%3Aorg.example.biznet.Property%23{0}";
+        public const String PackageHistoryFormatString = "/api/queries/GetTransfersOfPackage?packageId=resource%3Aorg.example.biznet.Package%23{0}";
 
         public static String TraderQueryURL(string username)
         {
