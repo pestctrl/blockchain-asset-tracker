@@ -6,8 +6,13 @@
         <!-- Application resource dictionary -->
 
         <ResourceDictionary>
-            <Color x:Key="BackGroundColor">Blue</Color>
-            <Color x:Key="PageBackGroundColor">Pink</Color>
+            <Color x:Key="DarkBackground">#011627</Color>
+            <Color x:Key="WhiteBackground">#FDFFC</Color>
+            <Color x:Key="ButtonBackground">#E6E8E6</Color>
+
+            <Style x:Key="MainButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#BE182D"/>
+            </Style>
         </ResourceDictionary>
 
 	</Application.Resources>
