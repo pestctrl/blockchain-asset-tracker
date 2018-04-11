@@ -24,7 +24,6 @@ namespace BlockchainAPI.Tests
         public void canaryTest()
         {
             Assert.IsTrue(true);
-            string s = "/api/org.example.biznet.Trader/TRADER1";
         }
 
         [TestMethod]
@@ -36,16 +35,17 @@ namespace BlockchainAPI.Tests
             Assert.AreEqual("TRADER1", trader.traderId);
         }
 
-        /*
+        
         [TestMethod]
         public async Task TestInokePostMethod()
         { 
-            var testTransaction = "{\"$class\":\"org.example.biznet.Trade\",\"property\": \"Asset CC\", \"newOwner\": \"TRADER1\"}";
-            var result = await hyperledgerService.InvokePost("/api/org.example.biznet.Trade", testTransaction);
-            Transaction transaction = JsonConvert.DeserializeObject<Transaction>(result);
+            var traderData = "{\"$class\": \"org.example.biznet.Trader\",\"traderId\": \"testId\",\"firstName\": \"testFirstname\",\"lastName\": \"testLastname\"}";
 
-            Assert.AreEqual("TRADER1", transaction.newOwner);
-        }*/
+            var result = await hyperledgerService.InvokePost("/api/org.example.biznet.Trader", traderData);
+            Trader trader = JsonConvert.DeserializeObject<Trader>(result);
+
+            Assert.AreEqual("testId", trader.traderId);
+        }
         
     }
 }

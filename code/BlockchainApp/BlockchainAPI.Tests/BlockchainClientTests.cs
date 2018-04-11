@@ -240,20 +240,6 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task Get_User_Transaction()
-        {
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl))
-                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
-                            .ReturnsAsync(TestJsonObjectConsts.Trader1);
-
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
-            var results = await clientWithMock.GetUserTransactions();
-
-            Assert.AreEqual(TestJsonObjectConsts.Trader1TransactionId, results[0].transactionId);
-        }
-
-        [TestMethod]
         public async Task GettingAllTransactionsWillNowInvokeTheTransactionsInOrder()
         {
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
