@@ -11,7 +11,7 @@
             <Color x:Key="ButtonBackground">#E6E8E6</Color>
 
             <Style x:Key="MainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#BE182D"/>
+                <Setter Property="BackgroundColor" Value="#7F8C8D"/>
             </Style>
         </ResourceDictionary>
 

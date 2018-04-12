@@ -5,12 +5,17 @@
              xmlns:local="clr-namespace:BlockchainApp"
              Title="Register">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry Placeholder="UserID" Keyboard="Text" x:Name="userId"/>
-            <Entry Placeholder="First Name" Keyboard="Text" x:Name="fName"/>
-            <Entry Placeholder="Last Name" Keyboard="Text" x:Name="lName"/>
-
-            <Button Text="Register"  Clicked="CompletedRegister"/>
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="10">
+            <Entry Placeholder="UserID" Keyboard="Text" x:Name="userId" HorizontalTextAlignment="Center"/>
+            <Entry Placeholder="First Name" Keyboard="Text" x:Name="fName" HorizontalTextAlignment="Center"/>
+            <Entry Placeholder="Last Name" Keyboard="Text" x:Name="lName" HorizontalTextAlignment="Center"/>
+            <Frame Padding = "1" VerticalOptions="End" BackgroundColor="{StaticResource ButtonBackground}">
+                <StackLayout>
+                    <Button Text="Register"  Clicked="CompletedRegister" Style="{StaticResource MainButton}"/>
+                </StackLayout>
+            </Frame>
         </StackLayout>
+
+
     </ContentPage.Content>
 </ContentPage>
