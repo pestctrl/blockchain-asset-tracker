@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from '@angular/Core';
+﻿import { Injectable, Inject } from '@angular/core';
 import { ITransaction } from './transaction'
 import { Http, Response } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
