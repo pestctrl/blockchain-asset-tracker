@@ -59,12 +59,14 @@ def makeTransaction(propId, t1id, t2id, latitude, longitude):
 def makePackage(packId, handler, sender, recipient, contents):
     data ={
 	"PackageId": packId,
+        "active": True,
 	"handler": handler,
 	"sender": sender,
 	"recipient": recipient,
 	"contents": contents
     }
     result = requests.post(url4, data=data)
+    print(result.content)
 
 def makeTransfer(packId, origOwner, newOwner): 
     print("Sending %s to %s" % (packId, newOwner))
