@@ -10,14 +10,12 @@ namespace BlockchainAPI
 {
     public class BlockchainClient
     {
-        HttpClient client;
         public Trader thisTrader;
         IBlockchainService blockchainService;
 
         public BlockchainClient(IBlockchainService blockChain)
         {
             blockchainService = blockChain;
-            client = new HttpClient();
         }
 
         public async Task<bool> userExists(string text)
