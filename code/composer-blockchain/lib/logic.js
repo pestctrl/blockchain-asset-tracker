@@ -45,21 +45,22 @@ async function createPackage(request) {
     let factory = getFactory();
 
     // Create package
-    let package = factory.newResource('org.example.biznet', 'Package', request.packageId);
-    package.active = true;
-    package.created = request.timestamp;
-    package.handler = request.sender;
-    package.sender = request.sender;
-    package.recipient = request.recipient;
-    package.contents = request.contents;
+    let pack = factory.newResource('org.example.biznet', 'Package', request.packageId);
+    pack.active = true;
+    pack.created = request.timestamp;
+    pack.handler = request.sender;
+    pack.sender = request.sender;
+    pack.recipient = request.recipient;
+    pack.contents = request.contents;
     let packRegistry = await getAssetRegistry('org.example.biznet.Package');
-    await packRegistry.add(package);
+    await packRegistry.add(pack);
 
     // Remove ownership from all properties
     let propRegistry = await getAssetRegistry('org.example.biznet.Property');
+    let traderRegistry = await getParticipantRegistry('org.example.biznet.Trader');
     for(let i = 0; i < request.contents.length; i++) {
         let prop = request.contents[i];
-        prop.owner = null;
+        prop.owner = tradrerRegistry.get('TRADERNULL');
         await propRegistry.update(prop);
     }
 }
