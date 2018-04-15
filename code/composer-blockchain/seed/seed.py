@@ -1,11 +1,13 @@
 import requests
 from string import ascii_uppercase
 
-url = 'http://129.213.108.205:3000/api/org.example.biznet.Trader'
-url2 = 'http://129.213.108.205:3000/api/org.example.biznet.Property'
-url3 = 'http://129.213.108.205:3000/api/org.example.biznet.Trade'
-url4 = 'http://129.213.108.205:3000/api/org.example.biznet.Package'
-url5 = 'http://129.213.108.205:3000/api/org.example.biznet.Transfer'
+ipAddress = 'http://129.213.108.205:3000/api/%s'
+url = ipAddress % 'org.example.biznet.Trader'
+url2 = ipAddress % 'org.example.biznet.Property'
+url3 = ipAddress % 'org.example.biznet.Trade'
+url4 = ipAddress % 'org.example.biznet.Package'
+url5 = ipAddress % 'org.example.biznet.Transfer'
+url6 = ipAddress % 'org.example.biznet.CreatePackage'
 
 def makeTrader(i, fname, lname):
     print("Making %s %s" % (fname, lname))
@@ -18,6 +20,7 @@ def makeTrader(i, fname, lname):
     response = requests.post(url,data=data)
 
 def makeTraders():
+    makeTrader("NULL","NULL","NULL")
     with open("traders.txt","r") as file:
         for line in file:
             split = line.split(" ")
@@ -56,16 +59,14 @@ def makeTransaction(propId, t1id, t2id, latitude, longitude):
     }
     result = requests.post(url3, data=data)
 
-def makePackage(packId, handler, sender, recipient, contents):
+def makePackage(packId, sender, recipient, contents):
     data ={
-	"PackageId": packId,
-        "active": True,
-	"handler": handler,
+	"packageId": packId,
 	"sender": sender,
 	"recipient": recipient,
 	"contents": contents
     }
-    result = requests.post(url4, data=data)
+    result = requests.post(url6, data=data)
     print(result.content)
 
 def makeTransfer(packId, origOwner, newOwner): 
@@ -86,8 +87,8 @@ def main():
     makeTraders()
     makeProperties()
     makeTransactions()
-    makePackage("PackageA", "TRADER1", "TRADER1", "TRADER2", ["Property B", "Property C"])
-    makePackage("PackageB", "TRADER1", "TRADER1", "TRADER2", ["Property D", "Property E", "Property F"])
+    makePackage("PackageA", "TRADER1", "TRADER2", ["Property B", "Property C"])
+    makePackage("PackageB", "TRADER1", "TRADER2", ["Property D", "Property E", "Property F"])
     makeTransfer("PackageA", "TRADER1", "TRADER3")
     makeTransfer("PackageB", "TRADER1", "TRADER4")
 
