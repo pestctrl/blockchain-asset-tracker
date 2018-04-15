@@ -1,36 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BlockchainApp;assembly=BlockchainApp"
              x:Class="BlockchainApp.TransferPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Frame>
-                <Label x:Name="propertyId"/>
-                </Frame>
-            <Frame>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label Text="Latitude: "/>
-                    <Label x:Name="latitude" Text="Unknown" />
-                    <Label Text=" Longitude: "/>
-                    <Label x:Name="longitude" Text="Unknown"/>
-                </StackLayout>
-            </Frame>
-            <Frame>
-                <Entry x:Name="RecipientID" Placeholder="Enter Recipient ID"/>
-                </Frame>
-            <Frame>
-                <StackLayout>
-                    <Entry x:Name="txtBarcode"  
+    <StackLayout>
+        <Frame>
+            <Label x:Name="propertyId"/>
+        </Frame>
+        <Frame>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="Latitude: "/>
+                <Label x:Name="latitude" Text="Unknown" />
+                <Label Text=" Longitude: "/>
+                <Label x:Name="longitude" Text="Unknown"/>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <Entry x:Name="RecipientID" Placeholder="Enter Recipient ID"/>
+        </Frame>
+        <Frame>
+            <StackLayout>
+                <Entry x:Name="txtBarcode"  
                    Placeholder="Barcode"/>
-                    <Button Text="Scan Code"  
+                <Button Text="Scan Code"  
                     x:Name="btnScan"  
                     Clicked="ScanCode"/>
-                </StackLayout>
-            </Frame>
-            <Frame>
-                <Button Text="Send" Clicked="sendAsset"/>
-                </Frame>
-        
-        </StackLayout>
-    </ContentPage.Content>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <Image x:Name="qrImage"/>
+        </Frame>
+        <Frame>
+            <Button Text="Send" Clicked="sendAsset"/>
+        </Frame>
+
+    </StackLayout>
 </ContentPage>
