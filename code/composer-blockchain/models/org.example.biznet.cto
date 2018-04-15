@@ -51,5 +51,5 @@ transaction CreatePackage {
 
 transaction UnboxPackage {
     --> Package package
-    --> Recipient recipient
+    --> Trader recipient
 }
