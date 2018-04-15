@@ -7,6 +7,7 @@ namespace org.example.biznet
 asset Package identified by PackageId {
     o String PackageId
     o Boolean active
+    o DateTime created
     --> Trader handler
     --> Trader sender
     --> Trader recipient
@@ -39,4 +40,16 @@ transaction Transfer {
     --> Trader newHandler
     o Double longitude
     o Double latitude
+}
+
+transaction CreatePackage {
+    --> Trader sender
+    --> Trader recipient
+    --> Property[] contents
+    o String packageId
+}
+
+transaction UnboxPackage {
+    --> Package package
+    --> Recipient recipient
 }

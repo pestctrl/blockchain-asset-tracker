@@ -18,12 +18,10 @@
  * @param {org.example.biznet.Trade} trade - the trade to be processed
  * @transaction
  */
-function tradeAsset(trade) {
+async function tradeAsset(trade) {
     trade.property.owner = trade.newOwner;
-    return getAssetRegistry('org.example.biznet.Property')
-        .then(function (assetRegistry) {
-            return assetRegistry.update(trade.property);
-        });
+    let assetRegistry = await getAssetRegistry('org.example.biznet.Property');
+    await assetRegistry.update(trade.property);
 }
 /**
  * Track the trade of a commodity from one trader to another
@@ -34,15 +32,54 @@ async function transferPackage(transfer) {
     // Update handler in package
     let packRegistry = await getAssetRegistry('org.example.biznet.Package');
     let pack = transfer.package;
-	pack.handler = transfer.newHandler;
+    pack.handler = transfer.newHandler;
     await packRegistry.update(pack);
-	
-	// Update all properties to new owner
+}
+
+/**
+ * Track the trade of a commodity from one trader to another
+ * @param {org.example.biznet.CreatePackage} request - the trade to be processed
+ * @transaction
+ */
+async function createPackage(request) {
+    let factory = getFactory();
+
+    // Create package
+    let package = factory.newResource('org.example.biznet', 'Package', request.packageId);
+    package.active = true;
+    package.created = request.timestamp;
+    package.handler = request.sender;
+    package.sender = request.sender;
+    package.recipient = request.recipient;
+    package.contents = request.contents;
+    let packRegistry = await getAssetRegistry('org.example.biznet.Package');
+    await packRegistry.add(package);
+
+    // Remove ownership from all properties
     let propRegistry = await getAssetRegistry('org.example.biznet.Property');
-    var i;
+    for(let i = 0; i < request.contents.length; i++) {
+        let prop = request.contents[i];
+        prop.owner = null;
+        await propRegistry.update(prop);
+    }
+}
+/**
+ * Track the trade of a commodity from one trader to another
+ * @param {org.example.biznet.UnboxPackage} request - the trade to be processed
+ * @transaction
+ */
+async function unboxPackage(request) {
+    // Deactivate package
+    let packRegistry = await getAssetRegistry('org.example.biznet.Package');
+    let pack = request.package;
+    pack.active = false;
+    await packRegistry.update(pack);
+    
+    // Update all properties to new owner
+    let propRegistry = await getAssetRegistry('org.example.biznet.Property');
     for(let i = 0; i < pack.contents.length; i++) {
-	    let prop = pack.contents[i];
-	    prop.owner = transfer.newHandler;
-	    await propRegistry.update(prop);
+        let prop = pack.contents[i];
+        prop.owner = transfer.newHandler;
+        await propRegistry.update(prop);
     }
 }
