@@ -7,6 +7,9 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True, nullable = False)
     password = db.Column(db.String(120), nullable = False)
+    firstname = db.Column(db.String(120), nullable = False)
+    lastname = db.Column(db.String(120), nullable = False)
+
 
     def save_to_db(self):
         db.session.add(self)
@@ -16,12 +19,20 @@ class UserModel(db.Model):
     def find_by_username(cls, username):
         return cls.query.filter_by(username = username).first()
 
+    def get_firstname(cls, username):
+        return cls.query.filter_by(username = 'John').first()
+
+    def get_lastname(cls):
+        return cls.get_by_id('lastname').first()
+
     @classmethod
     def return_all(cls):
         def to_json(x):
             return {
                 'username': x.username,
-                'password': x.password
+                'password': x.password,
+                'firstname': x.firstname,
+                'lastname': x.lastname
             }
         return {'users': list(map(lambda x: to_json(x), UserModel.query.all()))}
 

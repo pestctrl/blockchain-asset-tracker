@@ -26,7 +26,9 @@ class UserRegistration(Resource):
 
         new_user = UserModel(
             username = data['username'],
-            password = UserModel.generate_hash(data['password'])
+            password = UserModel.generate_hash(data['password']),
+            firstname = data['firstName'],
+            lastname = data['lastName']
         )
 
 
@@ -34,12 +36,10 @@ class UserRegistration(Resource):
             new_user.save_to_db()
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
-            print (data['username'])
             url='http://129.213.108.205:3000/api/org.example.biznet.Trader'
             payload={"$class": "org.example.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'] }
             headers={'Content-Type': 'application/json'}
             response = requests.post(url, data=json.dumps(payload), headers=headers)
-
 
             return {
                 'message': 'User {} was created'.format( data['username'])
@@ -61,7 +61,7 @@ class UserLogin(Resource):
             return {
             'message': 'Logged in as {}'.format(current_user.username),
             'access_token': access_token,
-            'refresh_token': refresh_token
+            'refresh_token': refresh_token,
             }
         else:
             return {'message': 'Wrong credentials'}
