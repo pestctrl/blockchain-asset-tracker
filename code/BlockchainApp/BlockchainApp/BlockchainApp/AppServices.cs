@@ -5,8 +5,9 @@ using System.IO;
 
 namespace BlockchainApp
 {
-    public interface BarcodeGenerator
+    public interface QRServices
     {
         Stream GenerateQRImage(string codeText);
+        void SaveQRImage(Stream imageStream, string fileName);
     }
 }
