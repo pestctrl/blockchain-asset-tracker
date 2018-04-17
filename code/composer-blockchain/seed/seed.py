@@ -2,6 +2,7 @@ import requests
 from string import ascii_uppercase
 
 ipAddress = 'http://129.213.108.205:3000/api/%s'
+ipAddress = 'http://localhost:3000/api/%s'
 url = ipAddress % 'org.example.biznet.Trader'
 url2 = ipAddress % 'org.example.biznet.Property'
 url3 = ipAddress % 'org.example.biznet.Trade'
@@ -69,14 +70,17 @@ def makePackage(packId, sender, recipient, contents):
     result = requests.post(url6, data=data)
     print(result.content)
 
-def makeTransfer(packId, origOwner, newOwner): 
+def makeTransfer(packId, origOwner, newOwner, latitude, longitude): 
     print("Sending %s to %s" % (packId, newOwner))
     data = {
         "package" : packId,
         "origHandler" : origOwner,
         "newHandler" : newOwner,
+        "latitude": latitude,
+        "longitude": longitude
     }
     result = requests.post(url5, data=data)
+    print(result.content)
 
 def makeTransactions():
     makeTransaction("Property A", "TRADER1", "TRADER2", 29.721115, -95.342308)
@@ -86,11 +90,12 @@ def makeTransactions():
 def main():
     makeTraders()
     makeProperties()
-    makeTransactions()
+    #makeTransactions()
     makePackage("PackageA", "TRADER1", "TRADER2", ["Property B", "Property C"])
     makePackage("PackageB", "TRADER1", "TRADER2", ["Property D", "Property E", "Property F"])
-    makeTransfer("PackageA", "TRADER1", "TRADER3")
-    makeTransfer("PackageB", "TRADER1", "TRADER4")
+    makeTransfer("PackageA", "TRADER1", "TRADER3", 29.721115, -95.342308)
+    makeTransfer("PackageB", "TRADER1", "TRADER4", 29.721115, -95.342308)
+
 
 if __name__ == "__main__":
     main()
