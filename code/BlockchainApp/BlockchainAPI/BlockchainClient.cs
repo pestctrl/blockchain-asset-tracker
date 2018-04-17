@@ -1,5 +1,4 @@
 ﻿using BlockchainAPI.Models;
-using BlockchainAPI.Transactions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace BlockchainAPI
     public class BlockchainClient
     {
         public Trader thisTrader;
-        public IBlockchainService blockchainService;
+        IBlockchainService blockchainService;
 
         public BlockchainClient(IBlockchainService blockChain)
         {
@@ -65,8 +64,13 @@ namespace BlockchainAPI
         {
             try
             {
-                await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
-                return true;
+                bool flag = await userExists(t.newOwner);
+                if (flag)
+                {
+                    await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
+                    return true;
+                }
+                else { return false; }
             }
             catch (HttpRequestException e)
             {
