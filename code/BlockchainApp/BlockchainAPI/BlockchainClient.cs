@@ -1,4 +1,5 @@
 ﻿using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
