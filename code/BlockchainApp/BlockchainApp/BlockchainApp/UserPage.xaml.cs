@@ -19,6 +19,7 @@ namespace BlockchainApp
     {
         
         private BlockchainClient client;
+        ObservableCollection<Property> properties; 
 
         public class AssetView
         {
@@ -34,23 +35,23 @@ namespace BlockchainApp
         public UserPage(BlockchainClient client)
         {
             this.client = client;
+            properties = new ObservableCollection<Property>();
 
             InitializeComponent();
             welcomeMessage.Text = String.Format("Hello, {0}!", client.thisTrader.fullName);
             NavigationPage.SetHasNavigationBar(this, false);
             updateAssetList(client);
+            current_asset_list.ItemsSource = properties;
         }
         
         void updateAssetList(BlockchainClient localClient)
         {
-            ObservableCollection<AssetView> obc = new ObservableCollection<AssetView>();
-            var assets = Task.Run(() => localClient.getMyProperties()).Result;
-            foreach (Property obj in assets)
+            properties = new ObservableCollection<Property>();
+            var props = Task.Run(() => localClient.getMyProperties()).Result;
+            foreach (Property obj in props)
             {
-                obc.Add(new AssetView() { title = obj.PropertyId, subtitle = obj.description });
+                properties.Add(obj);
             }
-
-            current_asset_list.ItemsSource = obc;
         }
 
         void Handle_Refreshing(object sender, EventArgs e)
@@ -69,7 +70,10 @@ namespace BlockchainApp
 
         void logout(object Sender, EventArgs e)
         {
-            Navigation.PopAsync();
+            App.Current.MainPage = new NavigationPage(new MainPage(client.blockchainService))
+            {
+                BarBackgroundColor = Color.FromRgb(5, 5, 5)
+            };
         }
 
         async void TransactionButton(object sender, EventArgs args)
@@ -90,7 +94,8 @@ namespace BlockchainApp
 
             string PropertyId = ((MenuItem)sender).CommandParameter.ToString();
 
-            
+            Package p = new Package();
+            //client.createPackage(p);
             //await Navigation.PushAsync(new TransferPage(client, PropertyId));
         }
 

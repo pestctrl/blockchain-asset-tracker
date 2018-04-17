@@ -22,8 +22,8 @@
                                 <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="5, 1, 5, 2" >
                                     <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename},
                                             Path=Text}" VerticalOptions="Center" />
-                                    <Label x:Name="titlename" Text="{Binding title}" TextColor="#611" VerticalOptions="Center"/>
-                                    <Label Text="{Binding subtitle}" HorizontalOptions="EndAndExpand" TextColor="#811" VerticalOptions="Center"/>
+                                    <Label x:Name="titlename" Text="{Binding PropertyId}" TextColor="#611" VerticalOptions="Center"/>
+                                    <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" TextColor="#811" VerticalOptions="Center"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
