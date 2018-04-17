@@ -11,7 +11,7 @@ namespace BlockchainAPI
     public class BlockchainClient
     {
         public Trader thisTrader;
-        IBlockchainService blockchainService;
+        public IBlockchainService blockchainService;
 
         public BlockchainClient(IBlockchainService blockChain)
         {
