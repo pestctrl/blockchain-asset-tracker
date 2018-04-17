@@ -60,7 +60,7 @@ async function createPackage(request) {
     let traderRegistry = await getParticipantRegistry('org.example.biznet.Trader');
     for(let i = 0; i < request.contents.length; i++) {
         let prop = request.contents[i];
-        prop.owner = tradrerRegistry.get('TRADERNULL');
+        prop.owner = await traderRegistry.get('TRADERNULL');
         await propRegistry.update(prop);
     }
 }
