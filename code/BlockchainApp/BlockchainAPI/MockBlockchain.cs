@@ -1,4 +1,5 @@
 ﻿using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

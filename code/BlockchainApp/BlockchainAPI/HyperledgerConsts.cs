@@ -31,5 +31,15 @@ namespace BlockchainAPI
         {
             return String.Format(PropertyHistoryFormatString, Uri.EscapeDataString(property));
         }
+
+        public static String PropertyPackageUrl(string property)
+        {
+            return String.Format(PropertyPackageFormatString, property);
+        }
+
+        public static String PackageHistoryUrl(string package)
+        {
+            return String.Format(PackageHistoryFormatString, package);
+        }
     }
 }

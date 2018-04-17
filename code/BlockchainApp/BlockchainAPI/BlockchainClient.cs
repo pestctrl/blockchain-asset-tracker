@@ -127,7 +127,12 @@ namespace BlockchainAPI
 
         public async Task<List<Transaction>> GetPropertyHistory(string property)
         {
-            var results = await blockchainService.InvokeGet(HyperledgerConsts.PropertyHistoryUrl(Uri.EscapeDataString(property)));
+            var results = await blockchainService.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property)));
+            var list = JsonConvert.DeserializeObject<List<Package>>(results);
+            foreach(Package p in list)
+            {
+                var packageHistory = await blockchainService.InvokeGet(HyperledgerConsts.PackageHistoryUrl(p.PackageId));
+            }
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
 
