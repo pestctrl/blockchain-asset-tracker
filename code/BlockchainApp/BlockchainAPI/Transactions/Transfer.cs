@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlockchainAPI.Models
+namespace BlockchainAPI.Transactions
 {
     public class Transfer
     {
