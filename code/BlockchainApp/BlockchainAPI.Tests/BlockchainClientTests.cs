@@ -6,6 +6,7 @@ using Moq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+using BlockchainAPI.Transactions;
 
 namespace BlockchainAPI.Tests
 {
@@ -284,6 +285,33 @@ namespace BlockchainAPI.Tests
             await clientWithMock.GetAllTransactions();
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl));
+        }
+
+        [TestMethod]
+        public async Task PropertyHistoryWillInvokeANewURL()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync("[]");
+
+            await clientWithMock.GetPropertyHistory("Property A");
+
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl("Property%20A")));
+        }
+
+        [TestMethod]
+        public async Task PropertyHistoryWillCallPackageHistoryOnEveryReturnedPackage()
+        {
+            var packageList = "[{\"PackageId\": \"PackageA\"}, {\"PackageId\": \"PackageB\"}]";
+            List<Package> actualList = JsonConvert.DeserializeObject<List<Package>>(packageList);
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync(packageList);
+
+            await clientWithMock.GetPropertyHistory("Property A");
+
+            foreach(Package p in actualList)
+            {
+                mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(p.PackageId)));
+            }
         }
     }
 }
