@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -26,6 +27,24 @@ namespace BlockchainApp
         {
             public string title { get; set; }
             public string subtitle { get; set; }
+            //bool isSelected = false;
+            //public bool IsSelected
+            //{
+            //    get
+            //    {
+            //        return isSelected;
+            //    }
+            //    set
+            //    {
+            //        if (isSelected != value)
+            //        {
+            //            isSelected = value;
+            //            PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsSelected)));
+            //        }
+            //    }
+            //}
+            //public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
         }
 
         public UserPage()
@@ -39,7 +58,6 @@ namespace BlockchainApp
             properties = new ObservableCollection<Property>();
 
             InitializeComponent();
-            welcomeMessage.Text = String.Format("Hello, {0}!", client.thisTrader.fullName);
             NavigationPage.SetHasNavigationBar(this, false);
             updateAssetList(client);
             current_asset_list.ItemsSource = properties;
@@ -51,6 +69,7 @@ namespace BlockchainApp
             var props = Task.Run(() => localClient.getMyProperties()).Result;
             foreach (Property obj in props)
             {
+
                 properties.Add(obj);
             }
         }
@@ -62,12 +81,12 @@ namespace BlockchainApp
             current_asset_list.EndRefresh();
         }
 
-        async void Submit_Send_Clicked(object Sender, EventArgs e)
-        {
-            string PropertyId = ((Button)Sender).CommandParameter.ToString();
+        //async void Submit_Send_Clicked(object Sender, EventArgs e)
+        //{
+        //    string PropertyId = ((Button)Sender).CommandParameter.ToString();
 
-            await Navigation.PushAsync(new TransferPage(client,PropertyId));
-        }
+        //    await Navigation.PushAsync(new TransferPage(client,PropertyId));
+        //}
 
         void logout(object Sender, EventArgs e)
         {
@@ -88,23 +107,23 @@ namespace BlockchainApp
             await Navigation.PushAsync(new RegisterPropertyPage(this.client));
         }
 
-        async void OnMore(object sender, EventArgs e)
-        {
-            var mi = ((MenuItem)sender);
-            DisplayAlert("More Context Action", mi.CommandParameter + " more context action", "OK");
+        //async void OnMore(object sender, EventArgs e)
+        //{
+        //    var mi = ((MenuItem)sender);
+        //    DisplayAlert("More Context Action", mi.CommandParameter + " more context action", "OK");
 
-            string PropertyId = ((MenuItem)sender).CommandParameter.ToString();
+        //    string PropertyId = ((MenuItem)sender).CommandParameter.ToString();
 
-            Package p = new Package();
-            //client.createPackage(p);
-            //await Navigation.PushAsync(new TransferPage(client, PropertyId));
-        }
+        //    Package p = new Package();
+        //    //client.createPackage(p);
+        //    //await Navigation.PushAsync(new TransferPage(client, PropertyId));
+        //}
 
-        public void OnDelete(object sender, EventArgs e)
-        {
-            var mi = ((MenuItem)sender);
-            DisplayAlert("Delete Context Action", mi.CommandParameter + " delete context action", "OK");
-        }
+        //public void OnDelete(object sender, EventArgs e)
+        //{
+        //    var mi = ((MenuItem)sender);
+        //    DisplayAlert("Delete Context Action", mi.CommandParameter + " delete context action", "OK");
+        //}
         
     }
 }

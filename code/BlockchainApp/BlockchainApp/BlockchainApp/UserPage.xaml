@@ -5,27 +5,26 @@
              x:Class="BlockchainApp.UserPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Frame Padding = "0" VerticalOptions="Start" BackgroundColor="#555">
-                <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name" AutomationId="welcome"/>
-            </Frame>
-            <Frame Padding="0" VerticalOptions="CenterAndExpand" BackgroundColor="#bfb">
+            <Frame Padding="0" VerticalOptions="FillAndExpand" BackgroundColor="#bfb">
                 <ListView x:Name="current_asset_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <ViewCell.ContextActions>
+                                <!--<ViewCell.ContextActions>
                                     
                                     <MenuItem Clicked="OnMore" CommandParameter="{Binding Source={x:Reference titlename},
                                             Path=Text}" Text="More" />
                                     <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                                </ViewCell.ContextActions>
+                                </ViewCell.ContextActions>-->
                                 <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="5, 1, 5, 2" >
-                                    <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename},
-                                            Path=Text}" VerticalOptions="Center" />
+                                    <!--<Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename},
+                                            Path=Text}" VerticalOptions="Center" />-->
+                                    <Switch IsToggled="False"></Switch>
                                     <Label x:Name="titlename" Text="{Binding PropertyId}" TextColor="#611" VerticalOptions="Center"/>
                                     <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" TextColor="#811" VerticalOptions="Center"/>
                                 </StackLayout>
                             </ViewCell>
+                     
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

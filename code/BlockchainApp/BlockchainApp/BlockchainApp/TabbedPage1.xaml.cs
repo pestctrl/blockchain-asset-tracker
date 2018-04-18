@@ -23,10 +23,15 @@ namespace BlockchainApp
 
         public TabbedPage1(BlockchainClient client)
         {
-            NavigationPage.SetHasNavigationBar(this, false);
+            InitializeComponent();
+            this.Title = String.Format("Hello, {0}!", client.thisTrader.fullName);
+            //NavigationPage.SetHasNavigationBar(this, false);
 
             var userPage = new NavigationPage(new UserPage(client));
             var packagesPage = new NavigationPage(new PackagesPage(client));
+
+            userPage.Title = "My Properties";
+            packagesPage.Title = "My Packages";
 
             InitializeComponent();
             Children.Add(userPage);

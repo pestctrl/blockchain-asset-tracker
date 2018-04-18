@@ -33,7 +33,6 @@ namespace BlockchainApp
             this.client = client;
 
             InitializeComponent();
-            welcomeMessage.Text = String.Format("Hello, {0}!", client.thisTrader.fullName);
             NavigationPage.SetHasNavigationBar(this, false);
             
         }

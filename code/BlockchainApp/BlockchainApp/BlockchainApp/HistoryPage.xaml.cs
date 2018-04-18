@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using BlockchainAPI.Transactions;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 
 namespace BlockchainApp
 {
