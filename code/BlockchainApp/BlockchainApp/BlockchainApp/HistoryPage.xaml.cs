@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using BlockchainAPI.Transactions;
 using BlockchainAPI.Models;
 
 namespace BlockchainApp

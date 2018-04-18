@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using BlockchainAPI;
+using BlockchainAPI.Transactions;
 using BlockchainAPI.Models;
 using Plugin.Geolocator;
 using Xamarin.Forms;
@@ -25,7 +26,7 @@ namespace BlockchainApp
             getLocation();
 			InitializeComponent ();
             propertyId.Text = pid;
-            SetPageQRImage();
+            //SetPageQRImage();
         }
 
         public async void getLocation()
@@ -74,9 +75,9 @@ namespace BlockchainApp
             await Navigation.PushAsync(scanPage);
         }
         
-        void SetPageQRImage()
-        {
-            qrImage.Source = ImageSource.FromStream( () => { return DependencyService.Get<BarcodeGenerator>().GenerateQRImage(propertyId.Text); });
-        }
+        //void SetPageQRImage()
+        //{
+        //    qrImage.Source = ImageSource.FromStream( () => { return DependencyService.Get<BarcodeGenerator>().GenerateQRImage(propertyId.Text); });
+        //}
     }
 }

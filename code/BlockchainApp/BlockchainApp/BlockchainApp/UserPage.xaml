@@ -32,7 +32,7 @@
             </Frame>
             <Frame Padding = "0" VerticalOptions="End" BackgroundColor="Gray">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button x:Name="button_createAsset" BackgroundColor="#eee" TextColor="#333" Text="Create Asset" FontSize="9" WidthRequest="80" Clicked="CreateAsset"/>
+                    <Button x:Name="button_createAsset" BackgroundColor="#eee" TextColor="#333" Text="Create Asset" FontSize="9" WidthRequest="80" Clicked="CreateAsset" AutomationId="asset"/>
                     <Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton" FontSize="9" WidthRequest="80"/>
                     <Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout" FontSize="9" WidthRequest="80"/>
                 </StackLayout>

@@ -1,5 +1,6 @@
 ﻿using BlockchainAPI;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,7 @@ namespace BlockchainApp
 
         void logout(object Sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new MainPage(client.blockchainService))
+            App.Current.MainPage = new NavigationPage(new MainPage(client.GetBlockChainService()))
             {
                 BarBackgroundColor = Color.FromRgb(5, 5, 5)
             };
