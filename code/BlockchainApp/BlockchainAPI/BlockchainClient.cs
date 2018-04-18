@@ -19,6 +19,11 @@ namespace BlockchainAPI
             blockchainService = blockChain;
         }
 
+        public IBlockchainService GetBlockChainService()
+        {
+            return blockchainService;
+        }
+
         public async Task<bool> userExists(string text)
         {
             try
