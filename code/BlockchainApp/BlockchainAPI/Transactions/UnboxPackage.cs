@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlockchainAPI.Transactions
 {
-    class UnboxPackage
+    public class UnboxPackage
     {
         [JsonProperty("$class")]
         public string objectType { get; set; }

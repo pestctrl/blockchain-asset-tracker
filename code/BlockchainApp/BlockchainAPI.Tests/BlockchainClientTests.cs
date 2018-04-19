@@ -303,8 +303,10 @@ namespace BlockchainAPI.Tests
         {
             var packageList = "[{\"PackageId\": \"PackageA\"}, {\"PackageId\": \"PackageB\"}]";
             List<Package> actualList = JsonConvert.DeserializeObject<List<Package>>(packageList);
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(It.IsAny<String>())))
                             .ReturnsAsync(packageList);
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(It.IsAny<String>())))
+                            .ReturnsAsync("[]");
 
             await clientWithMock.GetPropertyHistory("Property A");
 
@@ -312,6 +314,26 @@ namespace BlockchainAPI.Tests
             {
                 mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(p.PackageId)));
             }
+        }
+
+        [TestMethod]
+        public async Task CreatePackageShouldInvokeTheRightURL()
+        {
+            CreatePackage p = new CreatePackage();
+
+            await clientWithMock.CreatePackage(p);
+
+            mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p)));
+        }
+
+        [TestMethod]
+        public async Task UnboxPackageShouldInvokeTheRightURL()
+        {
+            UnboxPackage p = new UnboxPackage();
+
+            await clientWithMock.UnboxPackage(p);
+
+            mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.UnboxPackageUrl, JsonConvert.SerializeObject(p)));
         }
     }
 }

@@ -147,6 +147,16 @@ namespace BlockchainAPI
             var results = await blockchainService.InvokeGet(HyperledgerConsts.OrderedTransactionUrl);
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
+
+        public async Task CreatePackage(CreatePackage p)
+        {
+            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
+        }
+
+        public async Task UnboxPackage(UnboxPackage p)
+        {
+            await blockchainService.InvokePost(HyperledgerConsts.UnboxPackageUrl, JsonConvert.SerializeObject(p));
+        }
     }
 
 }

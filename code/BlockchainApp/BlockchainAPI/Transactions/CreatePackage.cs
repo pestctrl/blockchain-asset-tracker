@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlockchainAPI.Transactions
 {
-    class CreatePackage
+    public class CreatePackage
     {
         [JsonProperty("$class")]
         public string objectType { get; set; }
@@ -14,6 +14,6 @@ namespace BlockchainAPI.Transactions
         public List<string> contents { get; set; }
         public string packageId { get; set; }
         public string transactionId { get; set; }
-        public DateTime timestamp { get; set; }
+        public DateTime? timestamp { get; set; }
     }
 }
