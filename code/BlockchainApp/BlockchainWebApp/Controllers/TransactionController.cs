@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlockchainAPI;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

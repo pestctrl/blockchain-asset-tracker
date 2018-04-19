@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlockchainAPI
 {
-    class MockBlockchain : BlockchainClient
+    public class MockBlockchain : BlockchainClient
     {
         IBlockchainService blockchainService;
         HttpClient client;

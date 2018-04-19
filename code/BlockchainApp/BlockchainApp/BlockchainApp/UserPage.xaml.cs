@@ -21,31 +21,7 @@ namespace BlockchainApp
     {
         
         private BlockchainClient client;
-        ObservableCollection<Property> properties; 
-
-        public class AssetView
-        {
-            public string title { get; set; }
-            public string subtitle { get; set; }
-            //bool isSelected = false;
-            //public bool IsSelected
-            //{
-            //    get
-            //    {
-            //        return isSelected;
-            //    }
-            //    set
-            //    {
-            //        if (isSelected != value)
-            //        {
-            //            isSelected = value;
-            //            PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsSelected)));
-            //        }
-            //    }
-            //}
-            //public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        }
+        ObservableCollection<Property> properties;
 
         public UserPage()
         {
@@ -65,7 +41,7 @@ namespace BlockchainApp
         
         void updateAssetList(BlockchainClient localClient)
         {
-            properties = new ObservableCollection<Property>();
+            properties.Clear();
             var props = Task.Run(() => localClient.getMyProperties()).Result;
             foreach (Property obj in props)
             {
@@ -80,13 +56,6 @@ namespace BlockchainApp
 
             current_asset_list.EndRefresh();
         }
-
-        //async void Submit_Send_Clicked(object Sender, EventArgs e)
-        //{
-        //    string PropertyId = ((Button)Sender).CommandParameter.ToString();
-
-        //    await Navigation.PushAsync(new TransferPage(client,PropertyId));
-        //}
 
         void logout(object Sender, EventArgs e)
         {
@@ -105,6 +74,11 @@ namespace BlockchainApp
         async void CreateAsset(object sender, EventArgs args)
         {
             await Navigation.PushAsync(new RegisterPropertyPage(this.client));
+        }
+
+        void GetAllToggled()
+        {
+          
         }
 
         //async void OnMore(object sender, EventArgs e)

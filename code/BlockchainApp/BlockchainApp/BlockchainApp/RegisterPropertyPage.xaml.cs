@@ -28,8 +28,20 @@ namespace BlockchainApp
             p.PropertyId = property_id.Text;
             p.description = description.Text;
             p.owner = client.thisTrader.traderId;
-	        await client.RegisterNewProperty(p);
-	        await DisplayAlert("Alert", "Sucessful create Asset", "Ok");
+            BlockchainClient.Error error;
+            error = await client.RegisterNewProperty(p);
+            switch (error)
+            {
+                case BlockchainClient.Error.SUCCESS:
+                    await DisplayAlert("Alert", "Sucessful create Asset", "Ok");
+                    break;
+                case BlockchainClient.Error.EXISTS:
+                    await DisplayAlert("Alert", "Unsucessful create Asset: Asset id already exists", "Ok");
+                    break;
+                case BlockchainClient.Error.NETWORK:
+                    await DisplayAlert("Alert", "Error: Network down. Please try again.", "Ok");
+                    break;
+            }
         }
 	}
 }
