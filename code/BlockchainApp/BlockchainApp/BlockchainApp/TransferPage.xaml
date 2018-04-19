@@ -27,6 +27,12 @@
                     Clicked="ScanCode"/>
                 </StackLayout>
             </Frame>
+            
+            <!--
+            <Frame>
+                <Image x:Name="qrImage"/>
+            </Frame>-->
+            
             <Frame>
                 <Button Text="Send" Clicked="sendAsset"/>
             </Frame>

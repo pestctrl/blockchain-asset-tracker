@@ -77,7 +77,8 @@ namespace BlockchainApp
 
         void SetPageQRImage()
         {
-            qrImage.Source = ImageSource.FromStream(() => { return DependencyService.Get<BarcodeGenerator>().GenerateQRImage(propertyId.Text); });
+          //  qrImage.Source = ImageSource.FromStream(() => { return DependencyService.Get<BarcodeGenerator>().GenerateQRImage(propertyId.Text); });
         }
+        
     }
 }
