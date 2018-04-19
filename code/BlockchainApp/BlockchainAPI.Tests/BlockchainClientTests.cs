@@ -199,9 +199,9 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.sendProperty(new Transaction());
+            BlockchainClient.Error error = await clientWithMock.sendProperty(new Transaction());
 
-            Assert.IsFalse(results);
+            Assert.Equals(error, BlockchainClient.Error.NETWORK);
         }
 
         [TestMethod]
@@ -210,9 +210,9 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.RegisterNewProperty(new Property());
+            BlockchainClient.Error error = await clientWithMock.RegisterNewProperty(new Property());
 
-            Assert.IsFalse(results);
+            Assert.Equals(error, BlockchainClient.Error.NETWORK);
         }
 
         [TestMethod]
@@ -221,9 +221,9 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.RegisterNewTrader(new Trader());
+            BlockchainClient.Error error = await clientWithMock.RegisterNewTrader(new Trader());
 
-            Assert.IsFalse(results);
+            Assert.Equals(error, BlockchainClient.Error.NETWORK);
         }
 
         [TestMethod]
