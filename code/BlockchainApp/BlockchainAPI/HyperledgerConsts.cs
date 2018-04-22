@@ -7,7 +7,7 @@ namespace BlockchainAPI
 {
     public class HyperledgerConsts
     {
-        public const String ipAddress = "http://129.213.108.205:3000";
+        public const String ipAddress = "http://129.213.87.202:3000";
         public const String TraderUrl = "/api/org.example.biznet.Trader";
         public const String TransactionUrl = "/api/org.example.biznet.Trade";
         public const String PropertyUrl = "/api/org.example.biznet.Property";
