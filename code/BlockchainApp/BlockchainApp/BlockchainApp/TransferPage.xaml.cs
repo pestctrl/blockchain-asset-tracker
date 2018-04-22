@@ -26,7 +26,7 @@ namespace BlockchainApp
             getLocation();
 			InitializeComponent ();
             propertyId.Text = pid;
-            SetPageQRImage();
+            //SetPageQRImage();
         }
 
         public async void getLocation()
@@ -77,7 +77,8 @@ namespace BlockchainApp
 
         void SetPageQRImage()
         {
-          //  qrImage.Source = ImageSource.FromStream(() => { return DependencyService.Get<BarcodeGenerator>().GenerateQRImage(propertyId.Text); });
+            //qrImage.Source = ImageSource.FromStream(() => { return DependencyService.Get<QRServices>().GenerateQRImage(propertyId.Text); });
+            //DependencyService.Get<QRServices>().SaveQRImage(DependencyService.Get<QRServices>().GenerateQRImage(propertyId.Text), propertyId.Text);
         }
         
     }
