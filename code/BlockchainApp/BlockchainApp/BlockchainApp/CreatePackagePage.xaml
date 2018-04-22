@@ -4,13 +4,13 @@
              x:Class="BlockchainApp.CreatePackagePage">
     <ContentPage.Content>
         <StackLayout>
-            <Frame Padding="0" VerticalOptions="CenterAndExpand" BackgroundColor="#bfb">
+            <Frame Padding="0" VerticalOptions="FillAndExpand" BackgroundColor="#bfb">
                 <!--<ListView x:Name="property_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">-->
                 <ListView x:Name="property_list">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="5, 1, 5, 2" >
+                                <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="0, 1, 5, 2" >
                                     <Label x:Name="titlename" Text="{Binding PropertyId}" TextColor="#611" VerticalOptions="Center"/>
                                 </StackLayout>
                             </ViewCell>

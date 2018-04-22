@@ -39,7 +39,7 @@ namespace BlockchainApp
 
         async Task sendAsset()
         {
-            bool result;
+            BlockchainClient.Error result;
             using (UserDialogs.Instance.Loading("Sending"))
             {
                 Transaction tr = new Transaction();
@@ -50,7 +50,7 @@ namespace BlockchainApp
                 tr.longitude = Double.Parse(longitude.Text);
                 result = await client.sendProperty(tr);
             }
-            if (result)
+            if (result == BlockchainClient.Error.SUCCESS)
             {
                 await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
                 await Navigation.PopAsync();

@@ -19,11 +19,12 @@ namespace BlockchainApp
 		{
             this.client = client;
 			InitializeComponent ();
-		}
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
 
         async void CompletedRegister(object sender, EventArgs  e)
         {
-            if (await client.userExists(userId.Text))
+            if (await client.UserExists(userId.Text))
             {
                 await DisplayAlert("Alert", "The user Id have been taken", "Ok");
             }

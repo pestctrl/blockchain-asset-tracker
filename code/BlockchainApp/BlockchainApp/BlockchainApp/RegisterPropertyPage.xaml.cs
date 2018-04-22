@@ -19,6 +19,7 @@ namespace BlockchainApp
         public RegisterPropertyPage(BlockchainClient blockchainclient)
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
             client = blockchainclient;
         }
 

@@ -20,6 +20,7 @@ namespace BlockchainApp
             properties = new ObservableCollection<Property>();
             props.ForEach(prop => properties.Add(prop));
 			InitializeComponent ();
+            NavigationPage.SetHasNavigationBar(this, false);
             property_list.ItemsSource = properties;
 		}
 	}
