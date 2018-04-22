@@ -17,12 +17,13 @@ using Xamarin.Forms.Xaml;
 
 namespace BlockchainApp
 {
-	public partial class UserPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class UserPage : ContentPage
     {
         
         private BlockchainClient client;
         ObservableCollection<Property> properties;
-
+        
         public UserPage()
         {
             InitializeComponent();

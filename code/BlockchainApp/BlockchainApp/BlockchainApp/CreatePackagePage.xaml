@@ -6,18 +6,20 @@
         <StackLayout>
             <Frame Padding="0" VerticalOptions="FillAndExpand" BackgroundColor="#bfb">
                 <!--<ListView x:Name="property_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">-->
-                <ListView x:Name="property_list">
+                <ListView x:Name="property_list" ItemSelected="OnSelection">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="0, 1, 5, 2" >
-                                    <Label x:Name="titlename" Text="{Binding PropertyId}" TextColor="#611" VerticalOptions="Center"/>
+                                    <Label x:Name="titlename" Text="{Binding data.PropertyId}" TextColor="#611" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                    <Switch HorizontalOptions="End" IsToggled="{Binding selected}" x:Name="isToggled" />
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Frame>
+            <Button Clicked="CreatePackage" Text="Create Package"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

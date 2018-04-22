@@ -10,11 +10,17 @@ using System.Threading.Tasks;
 
 namespace BlockchainAPI
 {
+    public class SelectedData<T>
+    {
+        public T data { get; set; }
+        public bool selected { get; set; }
+    }
+
     public class BlockchainClient
     {
         public Trader thisTrader;
         public IBlockchainService blockchainService;
-        public enum Error {YES, NO, NETWORK, EXISTS}
+        public enum Error {SUCCESS, FAILED, NETWORK, EXISTS}
         public BlockchainClient(IBlockchainService blockChain)
         {
             blockchainService = blockChain;
@@ -78,7 +84,7 @@ namespace BlockchainAPI
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, JsonConvert.SerializeObject(t));
-                    return Error.YES;
+                    return Error.SUCCESS;
                 }
                 else { return Error.EXISTS; }
             }
@@ -96,7 +102,7 @@ namespace BlockchainAPI
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
-                    return Error.YES;
+                    return Error.SUCCESS;
                 }
                 else { return Error.EXISTS; }
             }
@@ -114,7 +120,7 @@ namespace BlockchainAPI
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(p));
-                     return Error.YES;
+                     return Error.SUCCESS;
                 }
                 else { return Error.EXISTS; }
             }

@@ -23,7 +23,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-            <Button Clicked="Back_User_page" BackgroundColor="#555" TextColor="White" Text="Back" />
+            <!--<Button Clicked="Back_User_page" BackgroundColor="#555" TextColor="White" Text="Back" />-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
