@@ -11,21 +11,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlockchainWebApp.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Transaction")]
-    public class TransactionController : Controller
+    [Route("api/Transfer")]
+    public class TransferController : Controller
     {
         BlockchainClient client;
 
-        public TransactionController(IBlockchainService service)
+        public TransferController(IBlockchainService service)
         {
             client = new BlockchainClient(service);
         }
 
         // GET: api/Transaction
         [HttpGet]
-        public async Task<IEnumerable<Transaction>> Get()
+        public async Task<IEnumerable<Transfer>> Get()
         {
-            return await client.GetAllTransactions();
+            return await client.GetAllTransfers();
         }
 
         // GET: api/Transaction/5
@@ -36,7 +36,7 @@ namespace BlockchainWebApp.Controllers
         }
 
         [HttpGet("History/{id}")]
-        public async Task<IEnumerable<Transaction>> GetPropertyHistory(string id)
+        public async Task<IEnumerable<Transfer>> GetPropertyHistory(string id)
         {
             return await client.GetPropertyHistory(id);
         }
