@@ -56,7 +56,7 @@ namespace BlockchainApp
             }
             switch (error)
             {
-                case BlockchainClient.Error.SUCCESS:
+                case BlockchainClient.Error.YES:
                     await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
                     await Navigation.PopAsync();
                     break;

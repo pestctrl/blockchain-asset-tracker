@@ -33,7 +33,7 @@ namespace BlockchainApp
             error = await client.RegisterNewProperty(p);
             switch (error)
             {
-                case BlockchainClient.Error.SUCCESS:
+                case BlockchainClient.Error.YES:
                     await DisplayAlert("Alert", "Sucessful create Asset", "Ok");
                     break;
                 case BlockchainClient.Error.EXISTS:
