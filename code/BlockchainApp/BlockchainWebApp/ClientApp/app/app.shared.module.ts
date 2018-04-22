@@ -9,7 +9,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { TransactionComponent } from './components/transaction/transaction.component';
+import { TransferComponent } from './components/transfer/transfer.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { AgmCoreModule } from '@agm/core';
 
@@ -20,7 +20,7 @@ import { AgmCoreModule } from '@agm/core';
         CounterComponent,
         FetchDataComponent,
 		HomeComponent, 
-		TransactionComponent, 
+		TransferComponent, 
 		MapsComponent
     ],
     imports: [
@@ -32,7 +32,7 @@ import { AgmCoreModule } from '@agm/core';
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
 			{ path: 'fetch-data', component: FetchDataComponent },
-			{ path: 'transaction', component: TransactionComponent },
+			{ path: 'transfer', component: TransferComponent },
 			{ path: 'maps', component: MapsComponent },
             { path: '**', redirectTo: 'home' }
 		]),

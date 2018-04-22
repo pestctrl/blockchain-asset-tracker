@@ -1,16 +1,16 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { TransactionService } from '../transaction/transaction.service';
+import { TransferService } from '../transfer/transfer.service';
 import { google, GoogleMap } from '@agm/core/services/google-maps-types';
 import { LatLngBounds } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
-import { ITransaction } from '../transaction/transaction';
+import { Transfer } from '../transfer/transfer';
 
 @Component({
 	selector: 'maps',
 	templateUrl: './maps.component.html',
 	styleUrls: ['./maps.component.css'], 
-	providers: [TransactionService]
+	providers: [TransferService]
 })
 export class MapsComponent implements OnInit {
 	zoom: number = 2;
@@ -28,14 +28,14 @@ export class MapsComponent implements OnInit {
         this.updateMap(await this.mapsService.getPropertyHistory(propId));
     }
 
-    updateMap(transactions: ITransaction[]) {
+    updateMap(transactions: Transfer[]) {
         this.markers = transactions;
         this.lat = this.markers[0].latitude;
         this.lng = this.markers[0].longitude;
         this.zoom = 15;
     }
 
-    constructor(private mapsService: TransactionService) {
+    constructor(private mapsService: TransferService) {
     }
 }
 

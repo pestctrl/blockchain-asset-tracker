@@ -1,25 +1,25 @@
 ﻿﻿/// <reference path="../../../../node_modules/@types/jasmine/index.d.ts" />
 
-import { TransactionComponent } from './transaction.component';
+import { TransferComponent } from './transfer.component';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 ﻿import { HttpModule } from '@angular/http';
 
 
-describe('Transactioncomponent tests',
+describe('Transfercomponent tests',
     () => {
-        let fixture: ComponentFixture<TransactionComponent>;
-        let component: TransactionComponent;
+        let fixture: ComponentFixture<TransferComponent>;
+        let component: TransferComponent;
 
         beforeEach(async () => {
             TestBed.configureTestingModule({
                 imports: [ HttpModule ],
-                declarations: [TransactionComponent]
+                declarations: [TransferComponent]
             });
 
         });
         
         beforeEach(() => {
-            fixture = TestBed.createComponent(TransactionComponent);
+            fixture = TestBed.createComponent(TransferComponent);
             component = fixture.componentInstance;
         });
 
@@ -29,13 +29,13 @@ describe('Transactioncomponent tests',
 
         it('should have selector set',
             function () {
-                const annotations = Reflect.getMetadata('annotations', TransactionComponent)[0];
+                const annotations = Reflect.getMetadata('annotations', TransferComponent)[0];
 
-                expect(annotations.selector).toEqual('transaction');
+                expect(annotations.selector).toEqual('transfer');
             });
 
         it('should have an empty transition list on create', function () {
-            expect(component.transactions).toEqual([]);
+            expect(component.transfers).toEqual([]);
         });
 
         it('Displays the title', async(() => {

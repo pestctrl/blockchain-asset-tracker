@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using BlockchainAPI.Transactions;
+using System.Linq;
 
 namespace BlockchainAPI.Tests
 {
@@ -123,24 +124,12 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task Existance_of_user_will_InvokeGet_on_TraderQueryURL()
-        {
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
-                            .ReturnsAsync(JsonConvert.SerializeObject(new Trader()));
-
-            var expectedUrl = HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID);
-            await clientWithMock.userExists(TestJsonObjectConsts.Trader1ID);
-
-            mockBlockService.Verify(m => m.InvokeGet(expectedUrl));
-        }
-
-        [TestMethod]
         public async Task If_trader_was_not_found_return_false()
         {
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.userExists("");
+            var results = await clientWithMock.UserExists("");
 
             Assert.IsFalse(results);
         }
@@ -201,7 +190,7 @@ namespace BlockchainAPI.Tests
 
             BlockchainClient.Error error = await clientWithMock.sendProperty(new Transaction());
 
-            Assert.Equals(error, BlockchainClient.Error.NETWORK);
+            Assert.AreEqual(error, BlockchainClient.Error.NETWORK);
         }
 
         [TestMethod]
@@ -212,7 +201,7 @@ namespace BlockchainAPI.Tests
 
             BlockchainClient.Error error = await clientWithMock.RegisterNewProperty(new Property());
 
-            Assert.Equals(error, BlockchainClient.Error.NETWORK);
+            Assert.AreEqual(error, BlockchainClient.Error.NETWORK);
         }
 
         [TestMethod]
@@ -223,7 +212,7 @@ namespace BlockchainAPI.Tests
 
             BlockchainClient.Error error = await clientWithMock.RegisterNewTrader(new Trader());
 
-            Assert.Equals(error, BlockchainClient.Error.NETWORK);
+            Assert.AreEqual(error, BlockchainClient.Error.NETWORK);
         }
 
         [TestMethod]
@@ -252,31 +241,6 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task GetPropertyTransactionsWillInvokeGetWithPropertyHistoryURL()
-        {
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
-                            .ReturnsAsync("[]");
-            string property = "Property A";
-
-            await clientWithMock.GetPropertyHistory(property);
-
-            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PropertyHistoryUrl(Uri.EscapeDataString(property))));
-        }
-
-        [TestMethod]
-        public async Task GetPropertyHistoryWillOnlyReturnTransactionsInvolvingASingleProperty()
-        { 
-            string propId = "Property A";
-            string escapedPropId = Uri.EscapeDataString(propId);
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
-                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
-
-            List<Transaction> transactions = await clientWithMock.GetPropertyHistory(propId);
-
-            transactions.ForEach(t => Assert.AreEqual(t.property, String.Format("resource:org.example.biznet.Property#{0}",escapedPropId)));
-        }
-
-        [TestMethod]
         public async Task GetAllTransactionsWillInvokeGet()
         {
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
@@ -301,14 +265,15 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task PropertyHistoryWillCallPackageHistoryOnEveryReturnedPackage()
         {
+            string property = "Property A";
             var packageList = "[{\"PackageId\": \"PackageA\"}, {\"PackageId\": \"PackageB\"}]";
             List<Package> actualList = JsonConvert.DeserializeObject<List<Package>>(packageList);
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(It.IsAny<String>())))
-                            .ReturnsAsync(packageList);
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(It.IsAny<String>())))
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync("[]");
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property))))
+                            .ReturnsAsync(packageList);
 
-            await clientWithMock.GetPropertyHistory("Property A");
+            await clientWithMock.GetPropertyHistory(property);
 
             foreach(Package p in actualList)
             {
@@ -334,6 +299,101 @@ namespace BlockchainAPI.Tests
             await clientWithMock.UnboxPackage(p);
 
             mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.UnboxPackageUrl, JsonConvert.SerializeObject(p)));
+        }
+
+        [TestMethod]
+        public async Task UserExistsShouldInsteadUseHead()
+        {
+            var username = It.IsAny<String>();
+            mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(), It.IsAny<String>()))
+                            .ReturnsAsync(true);
+
+            await clientWithMock.UserExists(username);
+
+            mockBlockService.Verify(m => m.InvokeHead(HyperledgerConsts.TraderUrl, username));
+        }
+
+        [TestMethod]
+        public async Task PropertyExistsShouldInsteadUseHead()
+        {
+            var propertyId = It.IsAny<String>();
+            mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(), It.IsAny<String>()))
+                            .ReturnsAsync(true);
+
+            await clientWithMock.PropertyExists(propertyId);
+
+            mockBlockService.Verify(m => m.InvokeHead(HyperledgerConsts.PropertyUrl, propertyId));
+        }
+
+        [TestMethod]
+        public async Task TestSortByDate()
+        {
+            List<Transfer> list = new List<Transfer>
+            {
+                new Transfer {timestamp = DateTime.Today},
+                new Transfer {timestamp = DateTime.Today.AddDays(-1)},
+                new Transfer {timestamp = DateTime.Today.AddDays(1)}
+            };
+
+            list = list.OrderBy(x => x.timestamp).ToList();
+
+            for(int i = 0; i < list.Count()-1; i++)
+            {
+                Assert.IsTrue(list[i].timestamp < list[i+1].timestamp);
+            }
+        }
+
+        [TestMethod]
+        public async Task PropertyHistoryWillReturnListOfTransfersInOrderWithMostRecentFirst()
+        {
+            string property = "Property A";
+            string package = "PackageA";
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(package))))
+                            .ReturnsAsync("[{\"timestamp\":\"2018-04-21T19:47:54.368Z\"},{\"timestamp\":\"2018-04-21T19:48:54.368Z\"}]");
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property))))
+                            .ReturnsAsync("[{\"PackageId\": \"PackageA\"}]");
+
+            List<Transfer> results = await clientWithMock.GetPropertyHistory(property);
+
+            for (int i = 0; i < results.Count() - 1; i++)
+            {
+                Assert.IsTrue(results[i].timestamp > results[i + 1].timestamp);
+            }
+        }
+
+        [TestMethod]
+        public async Task TestPropertyHistoryOnMultiplePackages()
+        {
+            string property = "Property A";
+            string package1 = "PackageA";
+            string package2 = "PackageB";
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(package1))))
+                            .ReturnsAsync("[{\"timestamp\":\"2018-04-21T19:47:54.368Z\"},{\"timestamp\":\"2018-04-21T19:48:54.368Z\"}]");
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(package2))))
+                            .ReturnsAsync("[{\"timestamp\":\"2018-04-21T19:46:54.368Z\"},{\"timestamp\":\"2018-04-21T19:48:58.368Z\"}]");
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property))))
+                            .ReturnsAsync("[{\"PackageId\": \"PackageA\"},{\"PackageId\": \"PackageB\"}]");
+
+            List<Transfer> results = await clientWithMock.GetPropertyHistory(property);
+
+            for (int i = 0; i < results.Count() - 1; i++)
+            {
+                Assert.IsTrue(results[i].timestamp > results[i + 1].timestamp);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetAllTransfersWillBeInReverseOrder()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync("[{\"timestamp\":\"2018-04-21T19:47:54.368Z\"},{\"timestamp\":\"2018-04-21T19:46:54.368Z\"}]");
+
+            var results = await clientWithMock.GetAllTransfers();
+
+            for (int i = 0; i < results.Count() - 1; i++)
+            {
+                Assert.IsTrue(results[i].timestamp > results[i + 1].timestamp);
+            }
         }
     }
 }

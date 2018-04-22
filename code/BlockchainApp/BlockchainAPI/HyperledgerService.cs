@@ -29,5 +29,13 @@ namespace BlockchainAPI
             var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));
             return await results.Content.ReadAsStringAsync();
         }
+
+        public async Task<bool> InvokeHead(string url, string data)
+        {
+            var URL = Flurl.Url.Combine(HyperledgerConsts.ipAddress, url, Uri.EscapeDataString(data));
+            var results = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(URL)));
+
+            return results.IsSuccessStatusCode;
+        }
     }
 }

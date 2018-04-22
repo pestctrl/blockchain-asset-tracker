@@ -7,9 +7,9 @@
     <thead>
         <tr>
             <th>Class</th>
-            <th>Property</th>
-            <th>Original Owner </th>
-            <th>New Owner</th>
+            <th>Package</th>
+            <th>Original Handler </th>
+            <th>New Handler</th>
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Transaction ID</th>
@@ -17,11 +17,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let transaction of transactions">
+        <tr *ngFor="let transaction of transfers">
             <td>{{ transaction.$class }}</td>
-            <td>{{ transaction.property.substr(34) }}</td>
-            <td>{{ transaction.origOwner.substr(32) }}</td>
-            <td>{{ transaction.newOwner.substr(32) }}</td>
+            <td>{{ transaction.package.substr(36) }}</td>
+            <td>{{ transaction.origHandler.substr(35) }}</td>
+            <td>{{ transaction.newHandler.substr(35) }}</td>
             <td>{{ transaction.latitude }}</td>
             <td>{{ transaction.longitude }}</td>
             <td>{{ transaction.transactionId }}</td>

@@ -12,8 +12,8 @@ namespace BlockchainAPI.Transactions
         public string package { get; set; }
         public string origHandler { get; set; }
         public string newHandler { get; set; }
-        public int longitude { get; set; }
-        public int latitude { get; set; }
+        public Double longitude { get; set; }
+        public Double latitude { get; set; }
         public string transactionId { get; set; }
         public DateTime? timestamp { get; set; }
     }
