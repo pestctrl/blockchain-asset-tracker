@@ -75,6 +75,7 @@ namespace BlockchainApp
         async void CreateAsset(object sender, EventArgs args)
         {
             await Navigation.PushAsync(new RegisterPropertyPage(this.client));
+            updateAssetList(client);
         }
 
         void GetAllToggled()
