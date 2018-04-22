@@ -8,6 +8,7 @@ using Acr.UserDialogs;
 using BlockchainAPI;
 using BlockchainAPI.Transactions;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -23,10 +24,12 @@ namespace BlockchainApp
         public TransferPage (BlockchainClient client, String pid)
 		{
             this.client = client;
+            
             getLocation();
 			InitializeComponent ();
             propertyId.Text = pid;
             //SetPageQRImage();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         public async void getLocation()
@@ -39,7 +42,7 @@ namespace BlockchainApp
 
         async Task sendAsset()
         {
-            BlockchainClient.Error result;
+            BlockchainClient.Error error;
             using (UserDialogs.Instance.Loading("Sending"))
             {
                 Transaction tr = new Transaction();
@@ -48,12 +51,23 @@ namespace BlockchainApp
                 tr.newOwner = RecipientID.Text;
                 tr.latitude = Double.Parse(latitude.Text);
                 tr.longitude = Double.Parse(longitude.Text);
-                result = await client.sendProperty(tr);
+                
+                error = await client.sendProperty(tr);
             }
-            if (result == BlockchainClient.Error.SUCCESS)
+            switch (error)
             {
-                await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
-                await Navigation.PopAsync();
+                case BlockchainClient.Error.SUCCESS:
+                    await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
+                    await Navigation.PopAsync();
+                    break;
+                case BlockchainClient.Error.EXISTS:
+                    await DisplayAlert("Alert", String.Format("Error: User doesn't exist"), "Confirm");
+                    await Navigation.PopAsync();
+                    break;
+                case BlockchainClient.Error.NETWORK:
+                    await DisplayAlert("Alert", String.Format("Netowrk error: Please try again."), "Confirm");
+                    await Navigation.PopAsync();
+                    break;
             }
         }
 
@@ -80,6 +94,5 @@ namespace BlockchainApp
             //qrImage.Source = ImageSource.FromStream(() => { return DependencyService.Get<QRServices>().GenerateQRImage(propertyId.Text); });
             //DependencyService.Get<QRServices>().SaveQRImage(DependencyService.Get<QRServices>().GenerateQRImage(propertyId.Text), propertyId.Text);
         }
-        
     }
 }
