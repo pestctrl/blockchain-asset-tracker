@@ -33,9 +33,9 @@
 
 <div class="container-fluid">
     <input #transactionId
-           (keyup.enter)="searchTransaction(transactionId.value)">
+           (keyup.enter)="searchTransfers(transactionId.value)">
 
-    <button type="button" class="btn btn-primary" (click)="searchTransaction(transactionId.value)">Search Transaction ID</button>
+    <button type="button" class="btn btn-primary" (click)="searchTransfers(transactionId.value)">Search Transaction ID</button>
 </div>
 
 <h2>Search Result</h2>
