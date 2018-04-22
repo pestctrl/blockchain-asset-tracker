@@ -23,18 +23,18 @@ namespace BlockchainApp
             public string subtitle { get; set; }
         }
 
-        public PackagesPage ()
-		{
-			InitializeComponent ();
-		}
-
         public PackagesPage(BlockchainClient client)
         {
             this.client = client;
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            
+        }
+
+        public async Task CreatePackage()
+        {
+            var results = await client.getMyProperties();
+            Navigation.PushAsync(new CreatePackagePage(results));
         }
     }
 }

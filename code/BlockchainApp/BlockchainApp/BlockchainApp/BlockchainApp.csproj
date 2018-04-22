@@ -31,6 +31,9 @@
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="CreatePackagePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="HistoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
