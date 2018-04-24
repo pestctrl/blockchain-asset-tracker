@@ -115,5 +115,5 @@ class SecretResource(Resource):
     @jwt_required
     def get(self):
         traderId=get_jwt_identity()
-        resp =  requests.get('http://129.213.87.202:3000/api/queries/MyAssets?ownerParam=resource%3Aorg.example.biznet.Trader%23' + traderId)
+        resp =  requests.get('http://129.213.87.202:3000/api/org.example.biznet.Trader/' + traderId)
         return (resp.json())
