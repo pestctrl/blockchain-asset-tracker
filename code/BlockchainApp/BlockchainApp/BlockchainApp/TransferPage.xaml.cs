@@ -25,14 +25,20 @@ namespace BlockchainApp
 		{
             this.client = client;
             
-            getLocation();
-			InitializeComponent ();
+			InitializeComponent();
             propertyId.Text = pid;
             //SetPageQRImage();
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        public async void getLocation()
+        public async Task<TransferPage> CreateTransferPage(BlockchainClient client, String pid)
+        {
+            TransferPage p = new TransferPage(client,pid);
+            await p.getLocation();
+            return p;
+        }
+
+        public async Task getLocation()
         {
             var locator = CrossGeolocator.Current;
             var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
