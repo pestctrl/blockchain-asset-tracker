@@ -1,5 +1,7 @@
-﻿using BlockchainAPI;
+﻿using Acr.UserDialogs;
+using BlockchainAPI;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,9 +19,11 @@ namespace BlockchainApp
 	{
         ObservableCollection<Property> properties;
         ObservableCollection<SelectedData<Property>> SelectedDataList { get; set; }
+        BlockchainClient client;
 
-        public CreatePackagePage (List<Property> props)
+        public CreatePackagePage (BlockchainClient client, List<Property> props)
 		{
+            this.client = client;
             SelectedDataList = new ObservableCollection<SelectedData<Property>>();
             props.ForEach(prop => SelectedDataList.Add(new SelectedData<Property>() {data = prop, selected = false }));
 			InitializeComponent ();
@@ -34,8 +38,26 @@ namespace BlockchainApp
             //SelectedDataList[collectionPosition].selected = !SelectedDataList[collectionPosition].selected;
         }
 
-        void CreatePackage()
+        async void CreatePackage()
         {
+            CreatePackage p = new CreatePackage();
+            // May need to change this
+            p.packageId = new Guid().ToString();
+            p.sender = client.thisTrader.traderId;
+            // Add UI element for the below element
+            p.recipient = "TRADER2";
+            p.contents = SelectedDataList.Where(prop => prop.selected)
+                                         .Select(prop => prop.data.PropertyId)
+                                         .ToList();
+            // Error checking needed
+            using (UserDialogs.Instance.Loading("Creating"))
+            {
+                await client.CreatePackage(p);
+            }
+            await DisplayAlert("Success","Package created!","Confirm");
+
+            await Navigation.PopAsync();
+            /*
             List<Property> packagedList = new List<Property>();
             string test = "";
             //SelectedDataList.ToList().ForEach(data => test += data.data.ToString() + " " + data.selected.ToString() + ", ");
@@ -46,7 +68,7 @@ namespace BlockchainApp
                     packagedList.Add(property.data);
             });
             packagedList.ForEach(listItem => test += listItem.PropertyId.ToString() + ", ");
-            DisplayActionSheet("Package Test", "Cancel", null, test);
+            DisplayActionSheet("Package Test", "Cancel", null, test);*/
         }
 	}
 }

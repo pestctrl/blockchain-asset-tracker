@@ -34,7 +34,7 @@ namespace BlockchainApp
         public async Task CreatePackage()
         {
             var results = await client.getMyProperties();
-            Navigation.PushAsync(new CreatePackagePage(results));
+            await Navigation.PushAsync(new CreatePackagePage(client, results));
         }
     }
 }
