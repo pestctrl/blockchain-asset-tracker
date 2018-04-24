@@ -36,7 +36,7 @@ class UserRegistration(Resource):
             new_user.save_to_db()
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
-            url='http://129.213.108.205:3000/api/org.example.biznet.Trader'
+            url='http://129.213.87.202:3000/api/org.example.biznet.Trader'
             payload={"$class": "org.example.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'] }
             headers={'Content-Type': 'application/json'}
             response = requests.post(url, data=json.dumps(payload), headers=headers)
@@ -98,6 +98,10 @@ class TokenRefresh(Resource):
         access_token = create_access_token(identity = current_user)
         return {'access_token': access_token}
 
+class getUser(Resource):
+    def get(self):
+        data = loginParser.parse_args()
+        return UserModel.get_user(data['username'])
 
 class AllUsers(Resource):
     def get(self):
@@ -111,5 +115,5 @@ class SecretResource(Resource):
     @jwt_required
     def get(self):
         traderId=get_jwt_identity()
-        resp =  requests.get('http://129.213.108.205:3000/api/queries/MyAssets?ownerParam=resource%3Aorg.example.biznet.Trader%23' + traderId)
+        resp =  requests.get('http://129.213.87.202:3000/api/queries/MyAssets?ownerParam=resource%3Aorg.example.biznet.Trader%23' + traderId)
         return (resp.json())
