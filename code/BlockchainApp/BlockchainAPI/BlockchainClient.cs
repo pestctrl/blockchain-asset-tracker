@@ -20,7 +20,7 @@ namespace BlockchainAPI
     {
         public Trader thisTrader;
         public IBlockchainService blockchainService;
-        public enum Error {SUCCESS, FAILED, NETWORK, EXISTS}
+        public enum Result {SUCCESS, FAILED, NETWORK, EXISTS}
         public BlockchainClient(IBlockchainService blockChain)
         {
             blockchainService = blockChain;
@@ -76,7 +76,7 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<Error> RegisterNewTrader(Trader t)
+        public async Task<Result> RegisterNewTrader(Trader t)
         {
             try
             {
@@ -84,17 +84,17 @@ namespace BlockchainAPI
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, JsonConvert.SerializeObject(t));
-                    return Error.SUCCESS;
+                    return Result.SUCCESS;
                 }
-                else { return Error.EXISTS; }
+                else { return Result.EXISTS; }
             }
             catch (HttpRequestException e)
             {
-                return Error.NETWORK;
+                return Result.NETWORK;
             }
         }
 
-        public async Task<Error> sendProperty(Transaction t)
+        public async Task<Result> sendProperty(Transaction t)
         {
             try
             {
@@ -102,17 +102,17 @@ namespace BlockchainAPI
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
-                    return Error.SUCCESS;
+                    return Result.SUCCESS;
                 }
-                else { return Error.EXISTS; }
+                else { return Result.EXISTS; }
             }
             catch (HttpRequestException e)
             {
-                return Error.NETWORK;
+                return Result.NETWORK;
             }
         }
 
-        public async Task<Error> RegisterNewProperty(Property p)
+        public async Task<Result> RegisterNewProperty(Property p)
         {
             try
             {
@@ -120,13 +120,13 @@ namespace BlockchainAPI
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(p));
-                     return Error.SUCCESS;
+                     return Result.SUCCESS;
                 }
-                else { return Error.EXISTS; }
+                else { return Result.EXISTS; }
             }
             catch (HttpRequestException e)
             {
-                return Error.NETWORK;
+                return Result.NETWORK;
             }
         }
 

@@ -48,7 +48,7 @@ namespace BlockchainApp
 
         async Task sendAsset()
         {
-            BlockchainClient.Error error;
+            BlockchainClient.Result error;
             using (UserDialogs.Instance.Loading("Sending"))
             {
                 Transaction tr = new Transaction();
@@ -62,15 +62,15 @@ namespace BlockchainApp
             }
             switch (error)
             {
-                case BlockchainClient.Error.SUCCESS:
+                case BlockchainClient.Result.SUCCESS:
                     await DisplayAlert("Alert", String.Format("Property Sent to {0}", RecipientID.Text), "Confirm");
                     await Navigation.PopAsync();
                     break;
-                case BlockchainClient.Error.EXISTS:
+                case BlockchainClient.Result.EXISTS:
                     await DisplayAlert("Alert", String.Format("Error: User doesn't exist"), "Confirm");
                     await Navigation.PopAsync();
                     break;
-                case BlockchainClient.Error.NETWORK:
+                case BlockchainClient.Result.NETWORK:
                     await DisplayAlert("Alert", String.Format("Netowrk error: Please try again."), "Confirm");
                     await Navigation.PopAsync();
                     break;

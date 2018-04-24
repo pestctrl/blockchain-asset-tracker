@@ -53,6 +53,12 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
+        public Task Registering_a_user_that_already_exists_returns_error()
+        {
+            
+        }
+
+        [TestMethod]
         public async Task If_username_does_not_exist_then_login_return_false()
         {
             mockBlockService.Setup(m =>
@@ -188,9 +194,9 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            BlockchainClient.Error error = await clientWithMock.sendProperty(new Transaction());
+            BlockchainClient.Result error = await clientWithMock.sendProperty(new Transaction());
 
-            Assert.AreEqual(error, BlockchainClient.Error.NETWORK);
+            Assert.AreEqual(error, BlockchainClient.Result.NETWORK);
         }
 
         [TestMethod]
@@ -199,9 +205,9 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            BlockchainClient.Error error = await clientWithMock.RegisterNewProperty(new Property());
+            BlockchainClient.Result error = await clientWithMock.RegisterNewProperty(new Property());
 
-            Assert.AreEqual(error, BlockchainClient.Error.NETWORK);
+            Assert.AreEqual(error, BlockchainClient.Result.NETWORK);
         }
 
         [TestMethod]
@@ -210,9 +216,9 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
-            BlockchainClient.Error error = await clientWithMock.RegisterNewTrader(new Trader());
+            BlockchainClient.Result error = await clientWithMock.RegisterNewTrader(new Trader());
 
-            Assert.AreEqual(error, BlockchainClient.Error.NETWORK);
+            Assert.AreEqual(error, BlockchainClient.Result.NETWORK);
         }
 
         [TestMethod]
