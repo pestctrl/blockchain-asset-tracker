@@ -19,6 +19,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Frame>
+            <Entry Placeholder="Recipient ID" Keyboard="Text" x:Name="recipient"/>
             <Button Clicked="CreatePackage" Text="Create Package"></Button>
         </StackLayout>
     </ContentPage.Content>

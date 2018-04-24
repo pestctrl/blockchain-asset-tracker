@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -40,12 +42,15 @@ namespace BlockchainApp
 
         async void CreatePackage()
         {
+
+            
+
             CreatePackage p = new CreatePackage();
             // May need to change this
-            p.packageId = new Guid().ToString();
+            p.packageId = Guid.NewGuid().ToString();
             p.sender = client.thisTrader.traderId;
             // Add UI element for the below element
-            p.recipient = "TRADER2";
+            p.recipient = recipient.Text;
             p.contents = SelectedDataList.Where(prop => prop.selected)
                                          .Select(prop => prop.data.PropertyId)
                                          .ToList();
