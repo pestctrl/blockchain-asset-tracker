@@ -28,10 +28,17 @@ namespace BlockchainApp
 
         async void LoginButton(object sender, EventArgs args)
         {
+            FlaskUser user = new FlaskUser();
+
+            user.username = login_id.Text;
+            user.password = login_password.Text;
+
+
+
             bool loginSuccess = true;
             using (UserDialogs.Instance.Loading("Loading"))
             {
-                loginSuccess = await client.login(login_id.Text, login_password.Text);
+                loginSuccess = await client.login(user);
             }
 
   

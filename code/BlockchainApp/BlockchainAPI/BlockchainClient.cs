@@ -12,6 +12,7 @@ using System.Net;
 using System.IO;
 using QRCoder;
 using System.Net.Mime;
+using System.Diagnostics;
 
 namespace BlockchainAPI
 {
@@ -66,14 +67,24 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> login(string text, string password)
+        public async Task<bool> login(FlaskUser t)
         {
             try
             {
-                var request = HyperledgerConsts.TraderQueryURL(text);
-                var results = await blockchainService.InvokeGet(request);
-                thisTrader = JsonConvert.DeserializeObject<Trader>(results);
-                return true;
+                var results = await blockchainService.InvokePostFlask(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(t));
+                var checkUser = JsonConvert.DeserializeObject<messageCredential>(results);
+
+                if (!string.IsNullOrEmpty(checkUser.access_token))
+                {
+                    var request = HyperledgerConsts.TraderQueryURL(t.username);
+                    results = await blockchainService.InvokeGet(request);
+                    thisTrader = JsonConvert.DeserializeObject<Trader>(results);
+                    return true;
+                }
+                else
+                    return false;
+                   
+                
             }
             catch (System.Net.Http.HttpRequestException e)
             {
