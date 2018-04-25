@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using System.IO;
+using QRCoder;
 
 namespace BlockchainAPI
 {
@@ -237,6 +239,16 @@ namespace BlockchainAPI
         public async Task UnboxPackage(UnboxPackage p)
         {
             await blockchainService.InvokePost(HyperledgerConsts.UnboxPackageUrl, JsonConvert.SerializeObject(p));
+        }
+
+        public MemoryStream GenerateQRCode(string code)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(code, QRCodeGenerator.ECCLevel.Q);
+            
+            BitmapByteQRCode bitmapByte = new BitmapByteQRCode(qrCodeData);
+            
+            return new MemoryStream(bitmapByte.GetGraphic(20));
         }
     }
 
