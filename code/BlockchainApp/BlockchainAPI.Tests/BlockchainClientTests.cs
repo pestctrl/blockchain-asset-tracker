@@ -292,7 +292,7 @@ namespace BlockchainAPI.Tests
         {
             CreatePackage p = new CreatePackage();
 
-            await clientWithMock.CreatePackage(p);
+            await clientWithMock.CreatePackage(p,"testID");
 
             mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p)));
         }

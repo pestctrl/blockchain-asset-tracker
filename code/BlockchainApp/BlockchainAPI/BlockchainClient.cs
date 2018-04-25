@@ -223,7 +223,7 @@ namespace BlockchainAPI
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
 
-        public async Task CreatePackage(CreatePackage p)
+        public async Task CreatePackage(CreatePackage p, string propertyID)
         {
             
                 var client = new SmtpClient("smtp.gmail.com", 587)
@@ -231,7 +231,7 @@ namespace BlockchainAPI
                     Credentials = new NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1"),
                     EnableSsl = true
                 };
-                client.Send("BlockChainMessenger@gmail.com", "bensonchu457@gmail.com", "Hello chu", "from security messenger");
+                client.Send("BlockChainMessenger@gmail.com", "gi4ngh495@gmail.com", "Hello chu", propertyID);
                 // Send guid to bensonchu457@gmail.com
                 await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
         }

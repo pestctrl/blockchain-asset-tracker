@@ -56,7 +56,7 @@ namespace BlockchainApp
             // Error checking needed
             using (UserDialogs.Instance.Loading("Creating"))
             {
-                await client.CreatePackage(p);
+                await client.CreatePackage(p, p.packageId);
             }
             await DisplayAlert("Success","Package created!","Confirm");
 
