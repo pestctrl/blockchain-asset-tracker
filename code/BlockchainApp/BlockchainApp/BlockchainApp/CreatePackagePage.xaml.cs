@@ -49,7 +49,6 @@ namespace BlockchainApp
             // May need to change this
             p.packageId = Guid.NewGuid().ToString();
             p.sender = client.thisTrader.traderId;
-            // Add UI element for the below element
             p.recipient = recipient.Text;
             p.contents = SelectedDataList.Where(prop => prop.selected)
                                          .Select(prop => prop.data.PropertyId)

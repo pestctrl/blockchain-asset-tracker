@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 
 namespace BlockchainAPI
 {
@@ -188,7 +190,15 @@ namespace BlockchainAPI
 
         public async Task CreatePackage(CreatePackage p)
         {
-            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
+            
+                var client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1"),
+                    EnableSsl = true
+                };
+                client.Send("BlockChainMessenger@gmail.com", "bensonchu457@gmail.com", "Hello chu", "from security messenger");
+                // Send guid to bensonchu457@gmail.com
+                await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
         }
 
         public async Task UnboxPackage(UnboxPackage p)
