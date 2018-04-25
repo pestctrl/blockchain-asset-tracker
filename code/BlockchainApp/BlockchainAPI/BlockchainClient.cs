@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Net;
 using System.IO;
 using QRCoder;
+using System.Net.Mime;
 
 namespace BlockchainAPI
 {
@@ -225,15 +226,36 @@ namespace BlockchainAPI
 
         public async Task CreatePackage(CreatePackage p, string propertyID)
         {
-            
-                var client = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    Credentials = new NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1"),
-                    EnableSsl = true
-                };
-                client.Send("BlockChainMessenger@gmail.com", "gi4ngh495@gmail.com", "Hello chu", propertyID);
-                // Send guid to bensonchu457@gmail.com
-                await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
+
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = new MailAddress("BlockChainMessenger@gmail.com");
+            mail.To.Add("bensonchu457@gmail.com");
+            mail.Subject = "Test Mail - 1";
+            mail.Body = "mail with attachment";
+
+
+            AlternateView av = AlternateView.CreateAlternateViewFromString(mail.Body, null, MediaTypeNames.Text.Html);
+            LinkedResource headerImage = new LinkedResource(GenerateQRCode(propertyID), MediaTypeNames.Image.Jpeg);
+            headerImage.ContentId = "QRCode";
+            headerImage.ContentType = new ContentType("image/jpg");
+            av.LinkedResources.Add(headerImage);
+            mail.AlternateViews.Add(av);
+
+
+
+            //ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+            //AlternateView alternate = AlternateView.CreateAlternateViewFromString(mail.Body, mimeType);
+            //mail.AlternateViews.Add(alternate);
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1");
+            SmtpServer.EnableSsl = true;
+            SmtpServer.Send(mail);
+
+            // Send guid to bensonchu457@gmail.com
+            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
         }
 
         public async Task UnboxPackage(UnboxPackage p)
