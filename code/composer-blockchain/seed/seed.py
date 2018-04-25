@@ -86,16 +86,4 @@ def makeTransactions():
     makeTransaction("Property A", "TRADER1", "TRADER2", 29.721115, -95.342308)
     makeTransaction("Property A", "TRADER2", "TRADER1", 29.722037, -95.349048)
     makeTransaction("Property A", "TRADER1", "TRADER3", 29.725520, -95.348388)
-
-def main():
-    makeTraders()
-    makeProperties()
-    #makeTransactions()
-    makePackage("PackageA", "TRADER1", "TRADER2", ["Property B", "Property C"])
-    makePackage("PackageB", "TRADER1", "TRADER2", ["Property D", "Property E", "Property F"])
-    makeTransfer("PackageA", "TRADER1", "TRADER3", 29.721115, -95.342308)
-    makeTransfer("PackageB", "TRADER1", "TRADER4", 29.721115, -95.342308)
-
-
-if __name__ == "__main__":
-    main()
+	
