@@ -9,6 +9,8 @@
             <Entry Placeholder="UserID" Keyboard="Text" x:Name="userId" HorizontalTextAlignment="Center"/>
             <Entry Placeholder="First Name" Keyboard="Text" x:Name="fName" HorizontalTextAlignment="Center"/>
             <Entry Placeholder="Last Name" Keyboard="Text" x:Name="lName" HorizontalTextAlignment="Center"/>
+            <Entry Placeholder="Password" Keyboard="Text" x:Name="password" HorizontalTextAlignment="Center"/>
+
             <Frame Padding = "1" VerticalOptions="End" BackgroundColor="{StaticResource ButtonBackground}">
                 <StackLayout>
                     <Button Text="Register"  Clicked="CompletedRegister" Style="{StaticResource MainButton}"/>

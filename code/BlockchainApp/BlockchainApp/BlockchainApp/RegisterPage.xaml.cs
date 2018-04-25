@@ -1,5 +1,6 @@
 ﻿using BlockchainAPI;
 using BlockchainAPI.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,11 +34,19 @@ namespace BlockchainApp
                 if (userId.Text != "" && fName.Text != "" && lName.Text != "" 
                     && userId.Text != null && fName.Text != null && lName.Text != null)
                 {
-                    Trader t = new Trader();
-                    t.traderId = userId.Text;
-                    t.firstName = fName.Text;
-                    t.lastName = lName.Text;
-                    await client.RegisterNewTrader(t);
+                    FlaskAuthentication flask;
+                    //Trader t = new Trader();
+                    FlaskUser user = new FlaskUser();
+                    //t.traderId = userId.Text;
+                    //t.firstName = fName.Text;
+                    //t.lastName = lName.Text;
+                    user.username = userId.Text;
+                    user.firstName = fName.Text;
+                    user.lastName = lName.Text;
+                    user.password = password.Text;
+                    //await .InvokePost(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(t));
+
+                    await client.FlaskRegister(user);
                     await DisplayAlert("Alert", "Sucessful register with user ID" + userId.Text, "Ok");
                     await Navigation.PopAsync();
                 }

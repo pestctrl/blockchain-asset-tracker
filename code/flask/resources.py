@@ -110,6 +110,11 @@ class AllUsers(Resource):
     def delete(self):
         return UserModel.delete_all()
 
+class SessionID(Resource):
+    @jwt_required
+    def get(self):
+        traderId=get_jwt_identity
+        return{'message': 'Session Active'}
 
 class SecretResource(Resource):
     @jwt_required

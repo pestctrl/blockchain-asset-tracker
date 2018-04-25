@@ -6,9 +6,10 @@ namespace BlockchainAPI
 {
     class FlaskConsts
     {
-        public const String LoginUrl = "129.213.108.205:5000/login";
-        public const String RegistrationUrl = "129.213.108.205:5000/registration";
-        public const String LogoutAccessTokenUrl = "129.213.108.205:5000/logout/access";
-        public const String LogoutRefreshTokenUrl = "129.213.108.205:5000/logout/refresh";
+        public const String IPAddress = "http://129.213.87.202:5000";
+        public const String LoginUrl = "/login";
+        public const String RegistrationUrl = "/registration";
+        public const String LogoutAccessTokenUrl = "/logout/access";
+        public const String LogoutRefreshTokenUrl = "/logout/refresh";
     }
 }

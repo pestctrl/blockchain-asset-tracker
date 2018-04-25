@@ -78,7 +78,26 @@ namespace BlockchainAPI
             }
         }
 
+
+        public async Task<bool> FlaskLogin(string text, string password)
+        {
+            try
+            {
+                var request = FlaskConsts.LoginUrl;
+                var results = await blockchainService.InvokeGetFlask(request);
+                thisTrader = JsonConvert.DeserializeObject<Trader>(results);
+                return true;
+            }
+            catch (System.Net.Http.HttpRequestException e)
+            {
+                return false;
+            }
+        }
+
+
+
         public async Task<Result> RegisterNewTrader(Trader t)
+
         {
             try
             {
@@ -95,6 +114,20 @@ namespace BlockchainAPI
                 return Result.NETWORK;
             }
         }
+
+        public async Task<Result> FlaskRegister(FlaskUser t)
+        {
+            try
+            {
+                await blockchainService.InvokePostFlask(FlaskConsts.RegistrationUrl, JsonConvert.SerializeObject(t));
+                return Result.SUCCESS;
+            }
+            catch (HttpRequestException e)
+            {
+                return Result.NETWORK;
+            }
+        }
+
 
         public async Task<Result> sendProperty(Transaction t)
         {
