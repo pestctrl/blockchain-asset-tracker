@@ -19,11 +19,18 @@ class UserModel(db.Model):
     def find_by_username(cls, username):
         return cls.query.filter_by(username = username).first()
 
-    def get_firstname(cls, username):
-        return cls.query.filter_by(username = 'John').first()
+    @classmethod
+    def get_user(cls, username):
+        def to_json(x):
+            return {
+                'username': x.username,
+                'password': x.password,
+                'firstname': x.firstname,
+                'lastname': x.lastname
+            }
+        return {'user': list(map(lambda x: to_json(x), cls.query.filter_by(username = username)))}
 
-    def get_lastname(cls):
-        return cls.get_by_id('lastname').first()
+
 
     @classmethod
     def return_all(cls):
@@ -66,3 +73,4 @@ class RevokedTokenModel(db.Model):
     @classmethod
     def is_jti_blacklisted(cls, jti):
         query = cls.query.filter_by(jti = jti).first()
+        return bool(query)
