@@ -51,7 +51,7 @@ namespace BlockchainApp
             {
                 case 0:
                     await DisplayAlert("Alert", "Login Successful\n" + login_id.Text + "\n" + login_password.Text, "OK");
-                    await Navigation.PushAsync(new WelcomePage(client));
+                    await Navigation.PushAsync(new TabbedPage1(client));
                     break;
                 case 1:
                     await DisplayAlert("Alert", "Login Failed", "OK");
