@@ -39,7 +39,7 @@ namespace BlockchainAPI
             return results.IsSuccessStatusCode;
         }
 
-        public async Task<string> InvokePostFlask(string request, String jsonObject)
+        public async Task<string> InvokePostAuthentication(string request, String jsonObject)
         {
             var url = Url.Combine(FlaskConsts.IPAddress, Uri.EscapeUriString(request));
             var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));

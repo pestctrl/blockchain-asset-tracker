@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BlockchainAPI
 {
-    class FlaskConsts
+    public class FlaskConsts
     {
         public const String IPAddress = "http://129.213.87.202:5000";
         public const String LoginUrl = "/login";

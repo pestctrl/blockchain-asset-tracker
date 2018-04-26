@@ -67,11 +67,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> login(FlaskUser t)
+        public async Task<bool> login(User t)
         {
             try
             {
-                var results = await blockchainService.InvokePostFlask(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(t));
+                var results = await blockchainService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(t));
                 var checkUser = JsonConvert.DeserializeObject<messageCredential>(results);
 
                 if (!string.IsNullOrEmpty(checkUser.access_token))
@@ -92,24 +92,6 @@ namespace BlockchainAPI
             }
         }
 
-
-        public async Task<bool> FlaskLogin(string text, string password)
-        {
-            try
-            {
-                var request = FlaskConsts.LoginUrl;
-                var results = await blockchainService.InvokeGetFlask(request);
-                thisTrader = JsonConvert.DeserializeObject<Trader>(results);
-                return true;
-            }
-            catch (System.Net.Http.HttpRequestException e)
-            {
-                return false;
-            }
-        }
-
-
-
         public async Task<Result> RegisterNewTrader(Trader t)
 
         {
@@ -129,11 +111,11 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<Result> FlaskRegister(FlaskUser t)
+        public async Task<Result> FlaskRegister(User t)
         {
             try
             {
-                await blockchainService.InvokePostFlask(FlaskConsts.RegistrationUrl, JsonConvert.SerializeObject(t));
+                await blockchainService.InvokePostAuthentication(FlaskConsts.RegistrationUrl, JsonConvert.SerializeObject(t));
                 return Result.SUCCESS;
             }
             catch (HttpRequestException e)
@@ -237,15 +219,19 @@ namespace BlockchainAPI
 
         public async Task CreatePackage(CreatePackage p, string propertyID)
         {
+            //mailtQrCodeToSender(propertyID);
+            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
+        }
 
+        private void mailtQrCodeToSender(string propertyID)
+        {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
             mail.From = new MailAddress("BlockChainMessenger@gmail.com");
-            mail.To.Add("bensonchu457@gmail.com");
+            mail.To.Add("BlockChainMessenger@gmail.com");
             mail.Subject = "Test Mail - 1";
             mail.Body = "mail with attachment";
-
 
             AlternateView av = AlternateView.CreateAlternateViewFromString(mail.Body, null, MediaTypeNames.Text.Html);
             LinkedResource headerImage = new LinkedResource(GenerateQRCode(propertyID), MediaTypeNames.Image.Jpeg);
@@ -254,19 +240,10 @@ namespace BlockchainAPI
             av.LinkedResources.Add(headerImage);
             mail.AlternateViews.Add(av);
 
-
-
-            //ContentType mimeType = new System.Net.Mime.ContentType("text/html");
-            //AlternateView alternate = AlternateView.CreateAlternateViewFromString(mail.Body, mimeType);
-            //mail.AlternateViews.Add(alternate);
-
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1");
             SmtpServer.EnableSsl = true;
             SmtpServer.Send(mail);
-
-            // Send guid to bensonchu457@gmail.com
-            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
         }
 
         public async Task UnboxPackage(UnboxPackage p)

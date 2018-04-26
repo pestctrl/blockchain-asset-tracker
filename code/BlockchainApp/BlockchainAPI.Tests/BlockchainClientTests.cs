@@ -8,6 +8,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using BlockchainAPI.Transactions;
 using System.Linq;
+using System.Diagnostics;
 
 namespace BlockchainAPI.Tests
 {
@@ -16,12 +17,17 @@ namespace BlockchainAPI.Tests
     {
         private BlockchainClient clientWithMock;
         Mock<IBlockchainService> mockBlockService;
+        Mock<FlaskAuthentication> mockAuthentication;
+        User user;
 
         [TestInitialize()]
-        public void MockSetup()
-        {
+        public void init()
+        {   
             mockBlockService = new Mock<IBlockchainService>();
+            mockAuthentication = new Mock<FlaskAuthentication>();
             clientWithMock = new BlockchainClient(mockBlockService.Object);
+            user = new User();
+            
         }
 
         [TestMethod]
@@ -33,10 +39,13 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task Login_Method_for_client_should_set_username()
         {
+
+            mockBlockService.Setup(m => m.InvokePostAuthentication(It.IsAny<String>(), It.IsAny<String>()))
+                            .ReturnsAsync(TestJsonObjectConsts.traderAuthentication);
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            await clientWithMock.login(user);
 
             Assert.AreEqual(clientWithMock.thisTrader.traderId, TestJsonObjectConsts.Trader1ID);
         }
@@ -44,28 +53,30 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task Login_Method_will_call_invokeget_to_check_for_users_existance()
         {
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
-                            .ReturnsAsync("{}");
+            user.username = "TRADER1";
+            mockBlockService.Setup(m =>
+                        m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
+                .ReturnsAsync("{}");
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            await clientWithMock.login(user);
 
-            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)));
+            mockBlockService.Verify(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)));
         }
-
+        /*
         [TestMethod]
         public Task Registering_a_user_that_already_exists_returns_error()
         {
             
         }
-
+        */
         [TestMethod]
         public async Task If_username_does_not_exist_then_login_return_false()
         {
             mockBlockService.Setup(m =>
-                                    m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
-                            .ThrowsAsync(new System.Net.Http.HttpRequestException());
+                                    m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
+                            .ThrowsAsync(new HttpRequestException());
 
-            var loginSuccess = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            var loginSuccess = await clientWithMock.login(user);
 
             Assert.IsFalse(loginSuccess);
         }
@@ -74,10 +85,10 @@ namespace BlockchainAPI.Tests
         public async Task Failed_logins_will_also_not_set_trader_object()
         {
             mockBlockService.Setup(m =>
-                                    m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
+                                    m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            var loginSuccess = await clientWithMock.login(user);
 
             Assert.IsNull(clientWithMock.thisTrader);
         }
@@ -93,12 +104,16 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task Successful_login_will_set_trader_object_to_serialized_json()
         {
+            user.username = "TRADER1";
             var expectedTrader = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.Trader1);
+            mockBlockService.Setup(m =>
+                                    m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
+                            .ReturnsAsync(TestJsonObjectConsts.traderAuthentication);
             mockBlockService.Setup(m =>
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
 
-            var results = await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            var results = await clientWithMock.login(user);
 
             AssertTradersEqual(expectedTrader, clientWithMock.thisTrader);
         }
@@ -106,14 +121,18 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task Get_My_Assets_Will_InvokeGet_From_BlockchainService()
         {
+            user.username = "TRADER1";
             mockBlockService.Setup(m =>
                                     m.InvokeGet(HyperledgerConsts.MyAssetsUrl(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync("[]");
             mockBlockService.Setup(m =>
                                     m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
+            mockBlockService.Setup(m =>
+                        m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
+                .ReturnsAsync(TestJsonObjectConsts.traderAuthentication);
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            await clientWithMock.login(user);
             var results = await clientWithMock.getMyProperties();
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)));
@@ -224,12 +243,16 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task If_network_is_down_cant_get_property()
         {
+            user.username = "TRADER1";
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
             mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.Trader1ID)))
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
+            mockBlockService.Setup(m =>
+                             m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
+                             .ReturnsAsync(TestJsonObjectConsts.traderAuthentication);
 
-            await clientWithMock.login(TestJsonObjectConsts.Trader1ID, "");
+            await clientWithMock.login(user);
             var results = await clientWithMock.getMyProperties();
 
             Assert.IsNull(results);

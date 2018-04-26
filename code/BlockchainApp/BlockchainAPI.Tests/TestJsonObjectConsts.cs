@@ -7,6 +7,7 @@ namespace BlockchainAPI.Tests
     class TestJsonObjectConsts
     {
         public const String Trader1ID = "TRADER1";
+        public const String traderAuthentication = "{\"message\": \"Logged in as TRADER1\",\"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjQ2OTMzMzQsIm5iZiI6MTUyNDY5MzMzNCwianRpIjoiYTkzYjZlYzEtNWM0Ny00YTVkLTlmMDQtYTUzMDcwYTRkNGQ3IiwiZXhwIjoxNTI0Njk0MjM0LCJpZGVudGl0eSI6IkdpYW5naCIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.Xjtv0lO0sX_Hv1AH3xw6DWxlQFHSvOTbDqbqDT8CWko\",\"refresh_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjQ2OTMzMzQsIm5iZiI6MTUyNDY5MzMzNCwianRpIjoiMjMwNjgwNzctMzZlNC00OWU5LWI5MjEtODFmMTJjYzM4OWEyIiwiZXhwIjoxNTI3Mjg1MzM0LCJpZGVudGl0eSI6IkdpYW5naCIsInR5cGUiOiJyZWZyZXNoIn0.6ddEx0tMZ3uyA4C-rM_J69teyri8I3cNLGAeneelBmI\"}";
         public const String Trader1 = "{\"$class\": \"org.example.biznet.Trader\",\"traderId\": \"TRADER1\",\"firstName\": \"Alice\",\"lastName\": \"Margatroid\"}";
         public const String Trader2ID = "TRADER2";
         public const String Trader2 = "{\"$class\": \"org.example.biznet.Trader\",\"traderId\": \"TRADER2\",\"firstName\": \"Patchouli\",\"lastName\": \"Knowledge\"}";

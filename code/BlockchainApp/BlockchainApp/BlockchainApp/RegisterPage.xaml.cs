@@ -36,7 +36,7 @@ namespace BlockchainApp
                 {
                     FlaskAuthentication flask;
                     //Trader t = new Trader();
-                    FlaskUser user = new FlaskUser();
+                    User user = new User();
                     //t.traderId = userId.Text;
                     //t.firstName = fName.Text;
                     //t.lastName = lName.Text;
