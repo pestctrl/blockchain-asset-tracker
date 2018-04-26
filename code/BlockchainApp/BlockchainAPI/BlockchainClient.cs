@@ -154,6 +154,29 @@ namespace BlockchainAPI
             }
         }
 
+        public async Task<List<CreatePackage>> GetPackage()
+        {
+            try
+            {
+                var results = await blockchainService.InvokeGet(HyperledgerConsts.CreatePackageUrl);
+                List<CreatePackage> packages = JsonConvert.DeserializeObject<List<CreatePackage>>(results);
+                List<CreatePackage> packagesOwn = new List<CreatePackage>();
+                for (int i = 0; i < packages.Count; i++ )
+                {
+                    if(packages[i].sender.Substring(35) == thisTrader.traderId)
+                    {
+                        packagesOwn.Add(packages[i]);
+                    }
+                }
+
+                return packagesOwn;
+            }
+            catch (HttpRequestException e)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<Transaction>> GetUserTransactions()
         {
             var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.OrderedTransactionUrl);
