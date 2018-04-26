@@ -43,7 +43,7 @@ namespace BlockchainAPI
             {
                 return await blockchainService.InvokeHead(HyperledgerConsts.TraderUrl, username);
             }
-            catch (System.Net.Http.HttpRequestException e)
+            catch (System.Net.Http.HttpRequestException)
             {
                 return false;
             }
@@ -61,22 +61,22 @@ namespace BlockchainAPI
             {
                 return await blockchainService.InvokeHead(HyperledgerConsts.PropertyUrl, propertyId);
             }
-            catch (System.Net.Http.HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return false;
             }
         }
 
-        public async Task<bool> login(User t)
+        public async Task<bool> login(User user)
         {
             try
             {
-                var results = await blockchainService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(t));
+                var results = await blockchainService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
                 var checkUser = JsonConvert.DeserializeObject<messageCredential>(results);
 
                 if (!string.IsNullOrEmpty(checkUser.access_token))
                 {
-                    var request = HyperledgerConsts.TraderQueryURL(t.username);
+                    var request = HyperledgerConsts.TraderQueryURL(user.username);
                     results = await blockchainService.InvokeGet(request);
                     thisTrader = JsonConvert.DeserializeObject<Trader>(results);
                     return true;
@@ -86,76 +86,56 @@ namespace BlockchainAPI
                    
                 
             }
-            catch (System.Net.Http.HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return false;
             }
         }
-
-        public async Task<Result> RegisterNewTrader(Trader t)
-
+        public async Task<Result> RegisterNewTrader(User user)
         {
             try
             {
-                bool flag = await UserExists(t.traderId);
-                if (!flag)
-                {
-                    await blockchainService.InvokePost(HyperledgerConsts.TraderUrl, JsonConvert.SerializeObject(t));
-                    return Result.SUCCESS;
-                }
-                else { return Result.EXISTS; }
-            }
-            catch (HttpRequestException e)
-            {
-                return Result.NETWORK;
-            }
-        }
-
-        public async Task<Result> FlaskRegister(User t)
-        {
-            try
-            {
-                await blockchainService.InvokePostAuthentication(FlaskConsts.RegistrationUrl, JsonConvert.SerializeObject(t));
+                await blockchainService.InvokePostAuthentication(FlaskConsts.RegistrationUrl, JsonConvert.SerializeObject(user));
                 return Result.SUCCESS;
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return Result.NETWORK;
             }
         }
 
 
-        public async Task<Result> sendProperty(Transaction t)
+        public async Task<Result> sendProperty(Transaction transaction)
         {
             try
             {
-                bool flag = await UserExists(t.newOwner);
+                bool flag = await UserExists(transaction.newOwner);
                 if (!flag)
                 {
-                    await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(t));
+                    await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(transaction));
                     return Result.SUCCESS;
                 }
                 else { return Result.EXISTS; }
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return Result.NETWORK;
             }
         }
 
-        public async Task<Result> RegisterNewProperty(Property p)
+        public async Task<Result> RegisterNewProperty(Property property)
         {
             try
             {
-                bool flag = await PropertyExists(p.PropertyId);
+                bool flag = await PropertyExists(property.PropertyId);
                 if (!flag)
                 {
-                    await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(p));
+                    await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(property));
                      return Result.SUCCESS;
                 }
                 else { return Result.EXISTS; }
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return Result.NETWORK;
             }
@@ -168,7 +148,7 @@ namespace BlockchainAPI
                 var results = await blockchainService.InvokeGet(HyperledgerConsts.MyAssetsUrl(thisTrader.traderId));
                 return JsonConvert.DeserializeObject<List<Property>>(results);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return null;
             }
@@ -201,9 +181,9 @@ namespace BlockchainAPI
             var results = await blockchainService.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property)));
             var list = JsonConvert.DeserializeObject<List<Package>>(results);
 
-            foreach(Package p in list)
+            foreach(Package package in list)
             {
-                var res2 = await blockchainService.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(p.PackageId)));
+                var res2 = await blockchainService.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(package.PackageId)));
                 var packageHistory = JsonConvert.DeserializeObject<List<Transfer>>(res2);
                 finalList.AddRange(packageHistory);
             }
@@ -217,10 +197,10 @@ namespace BlockchainAPI
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
 
-        public async Task CreatePackage(CreatePackage p, string propertyID)
+        public async Task CreatePackage(CreatePackage package, string propertyID)
         {
             //mailtQrCodeToSender(propertyID);
-            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(p));
+            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
         }
 
         private void mailtQrCodeToSender(string propertyID)
@@ -246,9 +226,9 @@ namespace BlockchainAPI
             SmtpServer.Send(mail);
         }
 
-        public async Task UnboxPackage(UnboxPackage p)
+        public async Task UnboxPackage(UnboxPackage package)
         {
-            await blockchainService.InvokePost(HyperledgerConsts.UnboxPackageUrl, JsonConvert.SerializeObject(p));
+            await blockchainService.InvokePost(HyperledgerConsts.UnboxPackageUrl, JsonConvert.SerializeObject(package));
         }
 
         public MemoryStream GenerateQRCode(string code)

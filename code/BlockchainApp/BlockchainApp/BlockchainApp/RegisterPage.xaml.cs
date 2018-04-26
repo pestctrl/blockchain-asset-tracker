@@ -34,19 +34,14 @@ namespace BlockchainApp
                 if (userId.Text != "" && fName.Text != "" && lName.Text != "" 
                     && userId.Text != null && fName.Text != null && lName.Text != null)
                 {
-                    FlaskAuthentication flask;
-                    //Trader t = new Trader();
+
                     User user = new User();
-                    //t.traderId = userId.Text;
-                    //t.firstName = fName.Text;
-                    //t.lastName = lName.Text;
                     user.username = userId.Text;
                     user.firstName = fName.Text;
                     user.lastName = lName.Text;
                     user.password = password.Text;
-                    //await .InvokePost(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(t));
 
-                    await client.FlaskRegister(user);
+                    await client.RegisterNewTrader(user);
                     await DisplayAlert("Alert", "Sucessful register with user ID" + userId.Text, "Ok");
                     await Navigation.PopAsync();
                 }
