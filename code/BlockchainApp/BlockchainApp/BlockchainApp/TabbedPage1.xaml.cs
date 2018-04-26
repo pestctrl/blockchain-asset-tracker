@@ -25,7 +25,7 @@ namespace BlockchainApp
         {
             InitializeComponent();
             this.Title = String.Format("Hello, {0}!", client.thisTrader.fullName);
-            //NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, false);
 
             var userPage = new NavigationPage(new UserPage(client));
             var packagesPage = new NavigationPage(new PackagesPage(client));

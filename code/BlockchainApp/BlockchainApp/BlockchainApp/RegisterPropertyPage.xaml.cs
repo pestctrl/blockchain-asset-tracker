@@ -43,6 +43,8 @@ namespace BlockchainApp
                     await DisplayAlert("Alert", "Error: Network down. Please try again.", "Ok");
                     break;
             }
+
+            await Navigation.PopAsync();
         }
 	}
 }

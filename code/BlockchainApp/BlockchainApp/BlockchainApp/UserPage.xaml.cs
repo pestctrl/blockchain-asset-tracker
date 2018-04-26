@@ -46,7 +46,6 @@ namespace BlockchainApp
             var props = Task.Run(() => localClient.getMyProperties()).Result;
             foreach (Property obj in props)
             {
-
                 properties.Add(obj);
             }
         }
