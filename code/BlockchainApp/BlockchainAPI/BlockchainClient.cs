@@ -83,8 +83,6 @@ namespace BlockchainAPI
                 }
                 else
                     return false;
-                   
-                
             }
             catch (HttpRequestException)
             {
@@ -110,7 +108,7 @@ namespace BlockchainAPI
             try
             {
                 bool flag = await UserExists(transaction.newOwner);
-                if (!flag)
+                if (flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(transaction));
                     return Result.SUCCESS;

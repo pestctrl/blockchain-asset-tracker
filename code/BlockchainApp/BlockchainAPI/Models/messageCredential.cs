@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BlockchainAPI.Models
 {
-    class messageCredential
+    public class messageCredential
     {
         public string message { get; set; }
         public string access_token { get; set; }

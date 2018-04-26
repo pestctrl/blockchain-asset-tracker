@@ -35,8 +35,8 @@ namespace BlockchainAPI.Tests
                             .ReturnsAsync(TestJsonObjectConsts.Trader1);
             mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
                             .ReturnsAsync(TestJsonObjectConsts.traderAuthentication);
-            mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(new User() { username = "HttpRequestionException" })))
-                            .ThrowsAsync(new HttpRequestException());
+            mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(new User() { username = "notExist" })))
+                            .ReturnsAsync(TestJsonObjectConsts.messageFromFailLogin);
         }
 
         [TestMethod]
@@ -60,25 +60,20 @@ namespace BlockchainAPI.Tests
 
             mockBlockService.Verify(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)));
         }
-        /*
-        [TestMethod]
-        public Task Registering_a_user_that_already_exists_returns_error()
-        {
-            
-        }
-        */
+
+
         [TestMethod]
         public async Task If_username_does_not_exist_then_login_return_false()
         {
-            var loginSuccess = await clientWithMock.login(new User() { username = "HttpRequestionException" });
+            var loginSucess = await clientWithMock.login(new User() { username = "notExist" });
 
-            Assert.IsFalse(loginSuccess);
+            Assert.IsFalse(loginSucess);
         }
 
         [TestMethod]
         public async Task Failed_logins_will_also_not_set_trader_object()
         {
-            var loginSuccess = await clientWithMock.login(new User() { username = "HttpRequestionException" });
+            var loginSuccess = await clientWithMock.login(new User() { username = "notExist" });
 
             Assert.IsNull(clientWithMock.thisTrader);
         }
@@ -129,6 +124,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
 
+            await clientWithMock.login(user);
             var results = await clientWithMock.UserExists("");
 
             Assert.IsFalse(results);
@@ -160,6 +156,8 @@ namespace BlockchainAPI.Tests
         {
             var expectedUrl = HyperledgerConsts.TransactionUrl;
             Transaction transaction = new Transaction();
+            mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(), It.IsAny<String>()))
+                            .ReturnsAsync(true);
 
             await clientWithMock.sendProperty(transaction);
 
@@ -167,22 +165,35 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
+        public async Task If_network_is_down_sendProperty_return_false()
+        {
+            mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+            mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(), It.IsAny<String>()))
+                .ReturnsAsync(true);
+
+            BlockchainClient.Result error = await clientWithMock.sendProperty(new Transaction());
+
+            Assert.AreEqual(BlockchainClient.Result.NETWORK, error);
+        }
+        
+        [TestMethod]
+        public async Task send_property_return_false_when_user_already_exist()
+        {
+            mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(),It.IsAny<String>()))
+                            .ReturnsAsync(false);
+
+            BlockchainClient.Result error = await clientWithMock.sendProperty(new Transaction());
+
+            Assert.AreEqual(BlockchainClient.Result.EXISTS, error);
+        }
+        
+        [TestMethod]
         public void JsonConvertCanDeserializeEvenWhenThereAreExtraFields()
         {
             var results = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.Trader1);
 
             Assert.AreEqual(results.fullName, String.Format("{0} {1}", results.firstName, results.lastName));
-        }
-
-        [TestMethod]
-        public async Task If_network_is_down_sendProperty_return_false()
-        {
-            mockBlockService.Setup(m => m.InvokePost(It.IsAny<String>(), It.IsAny<String>()))
-                            .ThrowsAsync(new HttpRequestException());
-
-            BlockchainClient.Result error = await clientWithMock.sendProperty(new Transaction());
-
-            Assert.AreEqual(error, BlockchainClient.Result.NETWORK);
         }
 
         [TestMethod]
@@ -193,8 +204,21 @@ namespace BlockchainAPI.Tests
 
             BlockchainClient.Result error = await clientWithMock.RegisterNewProperty(new Property());
 
-            Assert.AreEqual(error, BlockchainClient.Result.NETWORK);
+            Assert.AreEqual(BlockchainClient.Result.NETWORK, error);
         }
+
+        [TestMethod]
+        public async Task cant_register_new_property_if_it_exist()
+        {
+            mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(), It.IsAny<String>()))
+                            .ReturnsAsync(true);
+
+            BlockchainClient.Result error = await clientWithMock.RegisterNewProperty(new Property());
+
+            Assert.AreEqual(BlockchainClient.Result.EXISTS, error);
+        }
+
+
 
         [TestMethod]
         public async Task If_network_is_down_cant_register_trader()
@@ -277,6 +301,8 @@ namespace BlockchainAPI.Tests
         public async Task CreatePackageShouldInvokeTheRightURL()
         {
             CreatePackage package = new CreatePackage();
+            package.sender = "sender";
+            package.recipient = "recipient";
 
             await clientWithMock.CreatePackage(package,"testID");
 
@@ -386,6 +412,15 @@ namespace BlockchainAPI.Tests
             {
                 Assert.IsTrue(results[i].timestamp > results[i + 1].timestamp);
             }
+        }
+
+        [TestMethod]
+        public void GetBlockchainService()
+        {
+            IBlockchainService service = clientWithMock.GetBlockChainService();
+
+            Assert.IsNotNull(service);
+
         }
     }
 }
