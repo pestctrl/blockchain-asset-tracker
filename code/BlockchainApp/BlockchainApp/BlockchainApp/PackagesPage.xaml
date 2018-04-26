@@ -5,13 +5,27 @@
              x:Class="BlockchainApp.PackagesPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
+            <!--<Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
                 <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name" AutomationId="welcome"/>
-            </Frame>
+            </Frame>-->
 
+            <ListView x:Name="listView" ItemSelected="Selected_Handler">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Switch IsToggled="False" x:Name="isToggled"></Switch>
+                                <Label Text="{Binding packageId}" TextColor="#611" VerticalOptions="Center"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
             <Frame Padding = "0" VerticalOptions="End" BackgroundColor="Gray">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button x:Name="create_package" BackgroundColor="#eee" TextColor="#333" Text="Create Package" FontSize="9" WidthRequest="80" Clicked="CreatePackage"/>
+                    <Button x:Name="create_package" BackgroundColor="#eee" TextColor="#333" Text="Create Package" FontSize="10" WidthRequest="80" Clicked="CreatePackage"/>
+                    <Button Text="Send Package" BackgroundColor="#eee" TextColor="#333" FontSize="10" WidthRequest="80"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

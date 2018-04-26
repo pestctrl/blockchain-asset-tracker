@@ -1,7 +1,9 @@
 ﻿using BlockchainAPI;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace BlockchainApp
 	{
 
         private BlockchainClient client;
+        ObservableCollection<CreatePackage> packagesOwn;
 
         public class PackageView
         {
@@ -23,12 +26,28 @@ namespace BlockchainApp
             public string subtitle { get; set; }
         }
 
+
+
         public PackagesPage(BlockchainClient client)
         {
             this.client = client;
+            packagesOwn = new ObservableCollection<CreatePackage>();
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            UpdatePackageList(client);
+            listView.ItemsSource = packagesOwn;
+
+        }
+
+        void UpdatePackageList(BlockchainClient localClient)
+        {
+            packagesOwn.Clear();
+            var packages = Task.Run(() => localClient.GetPackage()).Result;
+            foreach (var package in packages)
+            {
+                packagesOwn.Add(package);
+            }
         }
 
         public async Task CreatePackage()
@@ -36,5 +55,16 @@ namespace BlockchainApp
             var results = await client.getMyProperties();
             await Navigation.PushAsync(new CreatePackagePage(client, results));
         }
+
+        async void Selected_Handler(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+
+            var packages = e.SelectedItem as CreatePackage;
+            await Navigation.PushAsync(new PackageDetailPage(packages, client));
+            listView.SelectedItem = null;
+        }
+
     }
 }
