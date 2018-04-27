@@ -186,8 +186,11 @@ namespace BlockchainAPI
                 
                 if (transactions[i].recipient.Substring(35) == thisTrader.traderId || transactions[i].sender.Substring(35) == thisTrader.traderId)
                 {
-                    transactions[i].recipient = transactions[i].sender.Substring(37);
-                    transactions[i].recipient = transactions[i].sender.Replace("%20", " ");
+                    for(int j = 0; j < transactions[i].contents.Count; j++)
+                    {
+                        transactions[i].contents[j] = transactions[i].contents[j].Substring(37);
+                        transactions[i].contents[j] = transactions[i].contents[j].Replace("%20", " ");
+                    }
                 }
                 else
                 {

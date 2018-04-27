@@ -7,8 +7,8 @@
             <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
                 <Label TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Transaction History"/>
             </Frame>
-          
-                <ListView x:Name="listView">
+
+            <ListView x:Name="listView" ItemSelected="Selected_Handler">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

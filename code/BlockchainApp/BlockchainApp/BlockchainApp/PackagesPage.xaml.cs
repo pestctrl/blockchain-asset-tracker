@@ -56,7 +56,7 @@ namespace BlockchainApp
             await Navigation.PushAsync(new CreatePackagePage(client, results));
         }
 
-        async void Selected_Handler(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        async void Selected_Handler(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
