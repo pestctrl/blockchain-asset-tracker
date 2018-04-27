@@ -67,7 +67,7 @@ namespace BlockchainApp
 
         async void TransactionButton(object sender, EventArgs args)
         {
-            List<Transaction> transactions = await client.GetUserTransactions();
+            List<CreatePackage> transactions = await client.GetUserTransactions();
             await Navigation.PushAsync(new HistoryPage(transactions));
         }
 

@@ -14,7 +14,7 @@ namespace BlockchainApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HistoryPage : ContentPage
 	{
-		public HistoryPage (List<Transaction> transactions)
+		public HistoryPage (List<CreatePackage> transactions)
 		{
 
             NavigationPage.SetHasNavigationBar(this, false);

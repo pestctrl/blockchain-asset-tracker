@@ -175,19 +175,19 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<List<Transaction>> GetUserTransactions()
+        public async Task<List<CreatePackage>> GetUserTransactions()
         {
-            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.OrderedTransactionUrl);
+            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.CreatePackageUrl);
 
-            var transactions = JsonConvert.DeserializeObject<List<Transaction>>(resultsString);
+            var transactions = JsonConvert.DeserializeObject<List<CreatePackage>>(resultsString);
 
             for (int i = transactions.Count - 1; i >= 0; i--)
             {
                 
-                if (transactions[i].newOwner.Substring(35) == thisTrader.traderId || transactions[i].origOwner.Substring(35) == thisTrader.traderId)
+                if (transactions[i].recipient.Substring(35) == thisTrader.traderId || transactions[i].sender.Substring(35) == thisTrader.traderId)
                 {
-                    transactions[i].property = transactions[i].property.Substring(37);
-                    transactions[i].property = transactions[i].property.Replace("%20", " ");
+                    transactions[i].recipient = transactions[i].sender.Substring(37);
+                    transactions[i].recipient = transactions[i].sender.Replace("%20", " ");
                 }
                 else
                 {

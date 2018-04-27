@@ -14,7 +14,7 @@
                             <ViewCell>
                                 <!--<StackLayout BackgroundColor="#eee" Orientation="Vertical">-->
                                 <StackLayout Orientation="Horizontal" Padding="5, 0, 5, 0">
-                                    <Label Text="{Binding property}" HorizontalOptions="StartAndExpand" TextColor="#111" VerticalOptions="Center" />
+                                <Label Text="{Binding packageId}" HorizontalOptions="StartAndExpand" TextColor="#111" VerticalOptions="Center" />
                                     <Label Text="{Binding timestamp}" HorizontalOptions="EndAndExpand" TextColor="#aaa" VerticalOptions="Center"/>
                                 </StackLayout>
                                 <!--</StackLayout>-->
