@@ -4,21 +4,23 @@
              xmlns:local="clr-namespace:BlockchainApp"
              x:Class="BlockchainApp.MainPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#222">
+        <StackLayout Orientation="Vertical" BackgroundColor="White">
+            <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="{StaticResource OracleRed}">
                 <StackLayout>
-                    <Label TextColor="#eee" VerticalOptions="Start" FontSize = "14" HorizontalTextAlignment="Center" Text="Welcome to"/>
-                    <Label TextColor="#eee" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Oracle's Asset Tracker"/>
+                    <Label TextColor="White" VerticalOptions="Start" FontSize="16" HorizontalTextAlignment="Center" Text="Welcome to"/>
+                    <Label TextColor="White" VerticalOptions="Start" FontSize="24" HorizontalTextAlignment="Center" Text="Oracle's Asset Tracker"/>
                 </StackLayout>
             </Frame>
+            
             <Frame VerticalOptions="CenterAndExpand" >
-                <StackLayout Orientation="Vertical" >
-                    <Label TextColor="#444" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Login Information"/>
+                <StackLayout Orientation="Vertical" BackgroundColor="White">
+                    <Label Style="{StaticResource TitleStyle}" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Login Information"/>
                     <Entry x:Name="login_id" Placeholder="Login ID" HorizontalTextAlignment="Center" AutomationId="login"/>
                     <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" HorizontalTextAlignment="Center" AutomationId="password"/>
                 </StackLayout>
             </Frame>
-            <Frame Padding = "1" VerticalOptions="End">
+            
+            <Frame Padding = "0" VerticalOptions="End">
                 <StackLayout>
                     <Button x:Name="submit_login" Text="Login" Clicked="LoginButton" AutomationId="clicky"/>
                     <Button x:Name="register_button" Text="Register" Clicked="RegisterButton"/>

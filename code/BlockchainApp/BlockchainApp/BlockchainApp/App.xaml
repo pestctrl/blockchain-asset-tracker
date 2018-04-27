@@ -6,14 +6,46 @@
         <!-- Application resource dictionary -->
 
         <ResourceDictionary>
-            <Color x:Key="DarkBackground">#011627</Color>
-            <Color x:Key="WhiteBackground">#FDFFC</Color>
-            <Color x:Key="ButtonBackground">#E6E8E6</Color>
+            <Color x:Key ="DarkBackground">#011627</Color>
+            <Color x:Key ="WhiteBackground">#FDFFC</Color>
+            <Color x:Key ="ButtonBackground">#E6E8E6</Color>
 
-            <Style x:Key="MainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#7F8C8D"/>
+            <Color x:Key ="OracleRed">#f80000</Color>
+            <Color x:Key ="OracleBlack">#000000</Color>
+            <Color x:Key ="OracleLightSlate">#cad9de</Color>
+            <Color x:Key ="OracleSlate">#8aadbf</Color>
+            <Color x:Key ="OracleDarkSlate">#324b5c</Color>
+            <Color x:Key ="OracleLightGrey">#dee0e0</Color>
+            <Color x:Key ="OracleGrey">#939699</Color>
+            <Color x:Key ="OracleDarkGrey">#4e5052</Color>
+            
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource OracleDarkSlate}"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource OracleBlack}"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TitleStyle">
+                <Setter Property="TextColor" Value="{StaticResource OracleSlate}"/>
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="BottomMenuFrameStyle">
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource OracleLightSlate}"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="BottomMenuLayoutStyle">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+            <Style TargetType="ListView">
+                <!--<Setter Property="IsPullToRefreshEnabled" Value="True"/>-->
+                <Setter Property="BackgroundColor" Value="White"/>
             </Style>
         </ResourceDictionary>
-
-	</Application.Resources>
+    </Application.Resources>
 </Application>

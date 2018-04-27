@@ -21,11 +21,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-            <Frame Padding = "0" VerticalOptions="End" BackgroundColor="Gray">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button x:Name="create_package" BackgroundColor="#eee" TextColor="#333" Text="Create Package" FontSize="10" WidthRequest="80" Clicked="CreatePackage"/>
-                    <Button Text="Send Package" BackgroundColor="#eee" TextColor="#333" FontSize="10" WidthRequest="80"/>
+
+            <Frame Style="{StaticResource BottomMenuFrameStyle}">
+                <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
+                    <Button x:Name="create_package" Text="Create Package" FontSize="9" WidthRequest="80" Clicked="CreatePackage"/>
+                    <Button Text="Send Package" FontSize="9" WidthRequest="80"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
