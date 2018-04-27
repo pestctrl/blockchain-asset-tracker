@@ -183,9 +183,10 @@ namespace BlockchainAPI
 
             for (int i = transactions.Count - 1; i >= 0; i--)
             {
-                if (transactions[i].newOwner.Substring(32) == thisTrader.traderId || transactions[i].origOwner.Substring(32) == thisTrader.traderId)
+                
+                if (transactions[i].newOwner.Substring(35) == thisTrader.traderId || transactions[i].origOwner.Substring(35) == thisTrader.traderId)
                 {
-                    transactions[i].property = transactions[i].property.Substring(34);
+                    transactions[i].property = transactions[i].property.Substring(37);
                     transactions[i].property = transactions[i].property.Replace("%20", " ");
                 }
                 else
@@ -220,7 +221,7 @@ namespace BlockchainAPI
 
         public async Task CreatePackage(CreatePackage package, string propertyID)
         {
-            //mailtQrCodeToSender(propertyID);
+            mailtQrCodeToSender(propertyID);
             await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
         }
 
