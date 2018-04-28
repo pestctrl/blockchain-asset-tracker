@@ -1,14 +1,19 @@
 import requests
 from string import ascii_uppercase
 
-ipAddress = 'http://129.213.108.205:3000/api/%s'
-ipAddress = 'http://localhost:3000/api/%s'
+ipAddress = 'http://129.213.87.202:3000/api/%s'
+#ipAddress = 'http://localhost:3000/api/%s'
 url = ipAddress % 'org.example.biznet.Trader'
 url2 = ipAddress % 'org.example.biznet.Property'
 url3 = ipAddress % 'org.example.biznet.Trade'
 url4 = ipAddress % 'org.example.biznet.Package'
 url5 = ipAddress % 'org.example.biznet.Transfer'
 url6 = ipAddress % 'org.example.biznet.CreatePackage'
+url7 = ipAddress % 'org.example.biznet.UnboxPackage'
+lib = {'lat': 29.721143, 'long': -95.342147}
+gar = {'lat': 29.725155, 'long': -95.347762}
+cbb = {'lat': 29.721540, 'long': -95.340258}
+pgh = {'lat': 29.721553, 'long': -95.343587}
 
 def makeTrader(i, fname, lname):
     print("Making %s %s" % (fname, lname))
@@ -81,6 +86,18 @@ def makeTransfer(packId, origOwner, newOwner, latitude, longitude):
     }
     result = requests.post(url5, data=data)
     print(result.content)
+
+
+def makeTrans(packId, origOwner, newOwner, place):
+    makeTransfer(packId,origOwner,newOwner,place['lat'],place['long'])
+
+def openPackage(packId, recipient):
+    data = {
+        "package": packId,
+        "recipient": recipient
+    }
+    result = requests.post(url7, data=data)
+    print(result)
 
 def makeTransactions():
     makeTransaction("Property A", "TRADER1", "TRADER2", 29.721115, -95.342308)
