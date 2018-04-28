@@ -84,3 +84,22 @@ async function unboxPackage(request) {
         await propRegistry.update(prop);
     }
 }
+/**
+ * Track the trade of a commodity from one trader to another
+ * @param {org.example.biznet.NewTransfer} request - the trade to be processed
+ * @transaction
+ */
+async function newTransfer(request) {
+    // Update handler in package
+    let packRegistry = await getAssetRegistry('org.example.biznet.Package');
+    let pack = request.package;
+
+    if(request.ingress) {
+        pack.handler = transfer.Handler;
+        await packRegistry.update(pack);
+    }
+    else {
+        let traderRegistry
+        pack.handler = 
+    }
+}
