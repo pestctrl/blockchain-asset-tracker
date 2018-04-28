@@ -42,6 +42,14 @@ transaction Transfer {
     o Double latitude
 }
 
+transaction NewTransfer {
+    --> Package package
+    --> Trader handler
+    o Boolean ingress
+    o Double longitude
+    o Double latitude
+}
+
 transaction CreatePackage {
     --> Trader sender
     --> Trader recipient
