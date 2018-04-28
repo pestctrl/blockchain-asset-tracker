@@ -96,10 +96,10 @@ async function newTransfer(request) {
 
     if(request.ingress) {
         pack.handler = transfer.Handler;
-        await packRegistry.update(pack);
     }
     else {
-        let traderRegistry
-        pack.handler = 
+        let traderRegistry = await getParticipantRegistry('org.example.biznet.Trader');
+        pack.handler = await traderRegistry.get('TRADERNULL');
     }
+    await packRegistry.update(pack);
 }
