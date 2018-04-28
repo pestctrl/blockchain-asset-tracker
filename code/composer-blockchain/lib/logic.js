@@ -80,7 +80,7 @@ async function unboxPackage(request) {
     let propRegistry = await getAssetRegistry('org.example.biznet.Property');
     for(let i = 0; i < pack.contents.length; i++) {
         let prop = pack.contents[i];
-        prop.owner = transfer.newHandler;
+        prop.owner = request.recipient;
         await propRegistry.update(prop);
     }
 }
