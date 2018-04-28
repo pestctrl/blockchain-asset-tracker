@@ -15,7 +15,7 @@
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <Switch IsToggled="False" x:Name="isToggled"></Switch>
-                                <Label Text="{Binding packageId}" TextColor="#611" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding PackageId}" TextColor="#611" VerticalOptions="Center"></Label>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

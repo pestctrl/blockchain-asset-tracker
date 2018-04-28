@@ -18,7 +18,7 @@ namespace BlockchainApp
 	{
 
         private BlockchainClient client;
-        ObservableCollection<CreatePackage> packagesOwn;
+        ObservableCollection<Package> packagesOwn;
 
         public class PackageView
         {
@@ -31,7 +31,7 @@ namespace BlockchainApp
         public PackagesPage(BlockchainClient client)
         {
             this.client = client;
-            packagesOwn = new ObservableCollection<CreatePackage>();
+            packagesOwn = new ObservableCollection<Package>();
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
@@ -61,7 +61,7 @@ namespace BlockchainApp
             if (e.SelectedItem == null)
                 return;
 
-            var packages = e.SelectedItem as CreatePackage;
+            var packages = e.SelectedItem as Package;
             await Navigation.PushAsync(new PackageDetailPage(packages, client));
             listView.SelectedItem = null;
         }

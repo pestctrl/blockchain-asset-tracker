@@ -446,18 +446,18 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task GetPackageReturnAListOfPackage()
         {
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl))
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageUrl))
                             .ReturnsAsync("[]");
 
             var results = await clientWithMock.GetPackage();
 
-            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl));
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PackageUrl));
         }
 
         [TestMethod]
         public async Task CantGetPackageWhenServiceIsDown()
         {
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl))
+            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageUrl))
                             .ThrowsAsync(new HttpRequestException());
 
             var results = await clientWithMock.GetPackage();

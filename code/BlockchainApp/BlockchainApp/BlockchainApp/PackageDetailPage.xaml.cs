@@ -1,5 +1,5 @@
 ﻿using BlockchainAPI;
-using BlockchainAPI.Transactions;
+using BlockchainAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,8 @@ namespace BlockchainApp
 	public partial class PackageDetailPage : ContentPage
 	{
         BlockchainClient client;
-        CreatePackage package;
-		public PackageDetailPage (CreatePackage package, BlockchainClient client)
+        Package package;
+		public PackageDetailPage (Package package, BlockchainClient client)
 		{
             this.client = client;
             this.package = package;
@@ -27,7 +27,7 @@ namespace BlockchainApp
             contents.Text = "Properties: " + GetProperties(package);
 		}
 
-        string GetProperties(CreatePackage package)
+        string GetProperties(Package package)
         {
             string properties = "";
             for (int i = 0; i < package.contents.Count; i++)
