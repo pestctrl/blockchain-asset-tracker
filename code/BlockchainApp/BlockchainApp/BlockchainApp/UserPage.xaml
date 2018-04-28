@@ -2,28 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BlockchainApp"
-             x:Class="BlockchainApp.UserPage">
+             x:Class="BlockchainApp.UserPage"
+             BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Frame Padding="0" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteBackground}">
-                <ListView x:Name="current_asset_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="5, 1, 5, 2" >
-                                    <Switch IsToggled="False" x:Name="isToggled">
+            <ListView x:Name="current_asset_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Style="{StaticResource ListLayoutStyle}">
+                                <Switch IsToggled="False" x:Name="isToggled"/>
+                                <Label x:Name="titlename" Text="{Binding PropertyId}" Style="{StaticResource ListLabelStyle}"/>
+                                <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
+                            </StackLayout>
+                        </ViewCell>
 
-                                    </Switch>
-                                    <Label x:Name="titlename" Text="{Binding PropertyId}" TextColor="#611" VerticalOptions="Center"/>
-                                    <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" TextColor="#811" VerticalOptions="Center"/>
-                                </StackLayout>
-                            </ViewCell>
-                     
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Frame>
-            
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <Frame Style="{StaticResource BottomMenuFrameStyle}">
                 <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
                     <Button x:Name="button_createAsset" Text="Create Asset" FontSize="9" WidthRequest="80" Clicked="CreateAsset" AutomationId="asset"/>

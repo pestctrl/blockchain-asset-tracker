@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BlockchainApp"
-             x:Class="BlockchainApp.PackagesPage">
+             x:Class="BlockchainApp.PackagesPage"
+             BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <!--<Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
@@ -13,9 +14,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Style="{StaticResource ListLayoutStyle}">
                                 <Switch IsToggled="False" x:Name="isToggled"></Switch>
-                                <Label Text="{Binding PackageId}" TextColor="#611" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding packageId}" Style="{StaticResource ListLabelStyle}"></Label>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
