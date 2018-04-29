@@ -49,10 +49,10 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<List<Transfer>> GetAllTransfers()
+        public async Task<List<NewTransfer>> GetAllTransfers()
         {
-            var results = await blockchainService.InvokeGet(HyperledgerConsts.TransferUrl);
-            return JsonConvert.DeserializeObject<List<Transfer>>(results);
+            var results = await blockchainService.InvokeGet(HyperledgerConsts.NewTransferUrl);
+            return JsonConvert.DeserializeObject<List<NewTransfer>>(results);
         }
 
         public async Task<bool> PropertyExists(string propertyId)

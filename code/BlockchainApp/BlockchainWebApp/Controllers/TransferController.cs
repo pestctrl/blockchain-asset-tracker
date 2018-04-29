@@ -23,7 +23,7 @@ namespace BlockchainWebApp.Controllers
 
         // GET: api/Transaction
         [HttpGet]
-        public async Task<IEnumerable<Transfer>> Get()
+        public async Task<IEnumerable<NewTransfer>> Get()
         {
             return await client.GetAllTransfers();
         }
