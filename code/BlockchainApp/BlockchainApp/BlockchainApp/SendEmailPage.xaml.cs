@@ -27,7 +27,7 @@ namespace BlockchainApp
         public async Task SendEmail()
         {
             Regex matcher = new Regex(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b");
-            if (matcher.Match(EmailAddress.Text).Success)
+            if (matcher.Match(EmailAddress.Text.ToUpper()).Success)
             {
                 using (UserDialogs.Instance.Loading("Sending"))
                 {
