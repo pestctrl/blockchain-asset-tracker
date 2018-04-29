@@ -264,7 +264,7 @@ namespace BlockchainAPI
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1");
             SmtpServer.EnableSsl = true;
-            SmtpServer.SendAsync(mail,null);
+            await SmtpServer.SendMailAsync(mail);
         }
 
         public async Task UnboxPackage(UnboxPackage package)
