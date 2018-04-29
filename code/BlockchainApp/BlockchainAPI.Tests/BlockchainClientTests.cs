@@ -392,7 +392,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property))))
                             .ReturnsAsync("[{\"PackageId\": \"PackageA\"}]");
 
-            List<Transfer> results = await clientWithMock.GetPropertyHistory(property);
+            List<NewTransfer> results = await clientWithMock.GetPropertyHistory(property);
 
             for (int i = 0; i < results.Count() - 1; i++)
             {
@@ -413,7 +413,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property))))
                             .ReturnsAsync("[{\"PackageId\": \"PackageA\"},{\"PackageId\": \"PackageB\"}]");
 
-            List<Transfer> results = await clientWithMock.GetPropertyHistory(property);
+            List<NewTransfer> results = await clientWithMock.GetPropertyHistory(property);
 
             for (int i = 0; i < results.Count() - 1; i++)
             {

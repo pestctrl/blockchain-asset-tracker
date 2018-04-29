@@ -36,7 +36,7 @@ namespace BlockchainWebApp.Controllers
         }
 
         [HttpGet("History/{id}")]
-        public async Task<IEnumerable<Transfer>> GetPropertyHistory(string id)
+        public async Task<IEnumerable<NewTransfer>> GetPropertyHistory(string id)
         {
             return await client.GetPropertyHistory(id);
         }

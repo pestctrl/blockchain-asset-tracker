@@ -8,8 +8,8 @@
         <tr>
             <th>Class</th>
             <th>Package</th>
-            <th>Original Handler </th>
-            <th>New Handler</th>
+            <th>Handler Involved</th>
+            <th>Ingress</th>
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Transaction ID</th>
@@ -20,8 +20,8 @@
         <tr *ngFor="let transaction of transfers">
             <td>{{ transaction.$class }}</td>
             <td>{{ transaction.package.substr(36) }}</td>
-            <td>{{ transaction.origHandler.substr(35) }}</td>
-            <td>{{ transaction.newHandler.substr(35) }}</td>
+            <td>{{ transaction.handler.substr(35) }}</td>
+            <td>{{ transaction.ingress }}</td>
             <td>{{ transaction.latitude }}</td>
             <td>{{ transaction.longitude }}</td>
             <td>{{ transaction.transactionId }}</td>

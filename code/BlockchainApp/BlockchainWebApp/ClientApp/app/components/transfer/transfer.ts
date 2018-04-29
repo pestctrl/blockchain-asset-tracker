@@ -1,8 +1,8 @@
 ﻿export interface Transfer {
     $class: string;
     package: string;
-    origHandler: string;
-    newHandler: string;
+    handler: string;
+    ingress: boolean;
     longitude: number;
     latitude: number;
     transactionId: string;
