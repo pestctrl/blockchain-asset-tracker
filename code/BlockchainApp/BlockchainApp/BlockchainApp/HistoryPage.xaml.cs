@@ -37,8 +37,7 @@ namespace BlockchainApp
                 return;
 
             var packages = e.SelectedItem as CreatePackage;
-            //await Navigation.PushAsync(new HistoryDetailPage(packages, client));
-            listView.SelectedItem = null;
+            await Navigation.PushAsync(new HistoryDetailPage(packages, client));
         }
     }
 }
