@@ -165,12 +165,25 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<List<Package>> GetPackage()
+        public async Task<List<Package>> GetMyPackages()
         {
             try
             {
                 var results = await blockchainService.InvokeGet(HyperledgerConsts.MyPackagesUrl(thisTrader.traderId));
                 return JsonConvert.DeserializeObject<List<Package>>(results);
+            }
+            catch (HttpRequestException e)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Package> GetPackageInformation(string packageId)
+        {
+            try
+            {
+                var results = await blockchainService.InvokeGet(Flurl.Url.Combine(HyperledgerConsts.PackageUrl,packageId));
+                return JsonConvert.DeserializeObject<Package>(results);
             }
             catch (HttpRequestException e)
             {

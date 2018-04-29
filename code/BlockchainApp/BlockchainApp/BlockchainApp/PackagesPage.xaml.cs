@@ -45,7 +45,7 @@ namespace BlockchainApp
         void UpdatePackageList(BlockchainClient localClient)
         {
             packagesOwn.Clear();
-            var packages = Task.Run(() => localClient.GetPackage()).Result;
+            var packages = Task.Run(() => localClient.GetMyPackages()).Result;
             foreach (var package in packages)
             {
                 packagesOwn.Add(package);
@@ -87,15 +87,24 @@ namespace BlockchainApp
                     await Navigation.PopAsync();
                     using (UserDialogs.Instance.Loading("Updating"))
                     {
-                        NewTransfer t = new NewTransfer();
-                        t.package = result.Text;
-                        t.handler = client.thisTrader.traderId;
-                        t.ingress = false;
-                        var locator = CrossGeolocator.Current;
-                        var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-                        t.latitude = position.Latitude;
-                        t.longitude = position.Longitude;
-                        await client.AddNewTransfer(t);
+                        Package p = await client.GetPackageInformation(result.Text);
+                        if(p.handler != client.thisTrader.traderId)
+                        {
+                            await DisplayAlert("Not Owner", "You are trying to send a package that does not belong to you", "Ok");
+                        }
+                        else
+                        {
+                            NewTransfer t = new NewTransfer();
+                            t.package = result.Text;
+                            t.handler = client.thisTrader.traderId;
+                            t.ingress = false;
+                            var locator = CrossGeolocator.Current;
+                            var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                            t.latitude = position.Latitude;
+                            t.longitude = position.Longitude;
+                            await client.AddNewTransfer(t);
+                            await DisplayAlert("Success", "The package has been relinquished", "Confirm");
+                        }
                     }
                 });
             };
@@ -115,15 +124,24 @@ namespace BlockchainApp
                     await Navigation.PopAsync();
                     using (UserDialogs.Instance.Loading("Updating"))
                     {
-                        NewTransfer t = new NewTransfer();
-                        t.package = result.Text;
-                        t.handler = client.thisTrader.traderId;
-                        t.ingress = true;
-                        var locator = CrossGeolocator.Current;
-                        var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-                        t.latitude = position.Latitude;
-                        t.longitude = position.Longitude;
-                        await client.AddNewTransfer(t);
+                        Package p = await client.GetPackageInformation(result.Text);
+                        if(p.handler != "TRADERNULL")
+                        {
+                            await DisplayAlert("Error", "You are trying to receive a package that does not belong to you", "Ok");
+                        }
+                        else
+                        {
+                            NewTransfer t = new NewTransfer();
+                            t.package = result.Text;
+                            t.handler = client.thisTrader.traderId;
+                            t.ingress = true;
+                            var locator = CrossGeolocator.Current;
+                            var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                            t.latitude = position.Latitude;
+                            t.longitude = position.Longitude;
+                            await client.AddNewTransfer(t);
+                            await DisplayAlert("Success", "The package has been received", "Confirm");
+                        }
                     }
                 });
             };

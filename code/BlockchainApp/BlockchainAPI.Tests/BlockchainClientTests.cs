@@ -450,7 +450,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageUrl))
                             .ReturnsAsync("[]");
 
-            var results = await clientWithMock.GetPackage();
+            var results = await clientWithMock.GetMyPackages();
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.PackageUrl));
         }
@@ -461,7 +461,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.PackageUrl))
                             .ThrowsAsync(new HttpRequestException());
 
-            var results = await clientWithMock.GetPackage();
+            var results = await clientWithMock.GetMyPackages();
 
             Assert.IsNull(results);
         }
