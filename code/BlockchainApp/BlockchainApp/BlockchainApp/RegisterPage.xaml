@@ -13,7 +13,7 @@
 
             <Frame Padding = "1" VerticalOptions="End" BackgroundColor="{StaticResource ButtonBackground}">
                 <StackLayout>
-                    <Button Text="Register"  Clicked="CompletedRegister" Style="{StaticResource MainButton}"/>
+                    <Button Text="Register"  Clicked="CompletedRegister"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
