@@ -88,7 +88,8 @@ namespace BlockchainApp
                     using (UserDialogs.Instance.Loading("Updating"))
                     {
                         Package p = await client.GetPackageInformation(result.Text);
-                        if(p.handler != client.thisTrader.traderId)
+                        string handler = p.handler.Substring(35);
+                        if(handler != client.thisTrader.traderId)
                         {
                             await DisplayAlert("Not Owner", "You are trying to send a package that does not belong to you", "Ok");
                         }
@@ -125,7 +126,7 @@ namespace BlockchainApp
                     using (UserDialogs.Instance.Loading("Updating"))
                     {
                         Package p = await client.GetPackageInformation(result.Text);
-                        if(p.handler != "TRADERNULL")
+                        if(p.handler.Substring(35) != "TRADERNULL")
                         {
                             await DisplayAlert("Error", "You are trying to receive a package that does not belong to you", "Ok");
                         }
