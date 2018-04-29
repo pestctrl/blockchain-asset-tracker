@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using ZXing.Net.Mobile.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Acr.UserDialogs;
+using Plugin.Geolocator;
 
 namespace BlockchainApp
 {
@@ -73,7 +75,7 @@ namespace BlockchainApp
             listView.SelectedItem = null;
         }
 
-        private async void ScanCode()
+        private async void ScanCode_Send()
         {
             ZXingScannerPage scanPage = new ZXingScannerPage();
             scanPage.OnScanResult += (result) => {
@@ -81,10 +83,48 @@ namespace BlockchainApp
                 scanPage.IsScanning = false;
 
                 // Pops the page, returns to TransferPage, and displays result of the scanned code
-                Device.BeginInvokeOnMainThread(() => {
-                    Navigation.PopAsync();
-                    DisplayAlert("Scanned Code", result.Text, "OK");
-                    //txtBarcode.Text = result.Text;
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Navigation.PopAsync();
+                    using (UserDialogs.Instance.Loading("Updating"))
+                    {
+                        NewTransfer t = new NewTransfer();
+                        t.package = result.Text;
+                        t.handler = client.thisTrader.traderId;
+                        t.ingress = false;
+                        var locator = CrossGeolocator.Current;
+                        var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                        t.latitude = position.Latitude;
+                        t.longitude = position.Longitude;
+                        await client.AddNewTransfer(t);
+                    }
+                });
+            };
+
+            await Navigation.PushAsync(scanPage);
+        }
+
+        private async void ScanCode_Receive()
+        {
+            ZXingScannerPage scanPage = new ZXingScannerPage();
+            scanPage.OnScanResult += (result) => {
+                // Stop scanning
+                scanPage.IsScanning = false;
+
+                // Pops the page, returns to TransferPage, and displays result of the scanned code
+                Device.BeginInvokeOnMainThread(async () => {
+                    await Navigation.PopAsync();
+                    using (UserDialogs.Instance.Loading("Updating"))
+                    {
+                        NewTransfer t = new NewTransfer();
+                        t.package = result.Text;
+                        t.handler = client.thisTrader.traderId;
+                        t.ingress = true;
+                        var locator = CrossGeolocator.Current;
+                        var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                        t.latitude = position.Latitude;
+                        t.longitude = position.Longitude;
+                        await client.AddNewTransfer(t);
+                    }
                 });
             };
 

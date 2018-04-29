@@ -139,6 +139,19 @@ namespace BlockchainAPI
             }
         }
 
+        public async Task<Result> AddNewTransfer(NewTransfer t)
+        {
+            try
+            {
+                var results = await blockchainService.InvokePost(HyperledgerConsts.NewTransferUrl, JsonConvert.SerializeObject(t));
+                return Result.SUCCESS;
+            }
+            catch (HttpRequestException)
+            {
+                return Result.NETWORK;
+            }
+        }
+
         public async Task<List<Property>> getMyProperties()
         {
             try
@@ -212,9 +225,9 @@ namespace BlockchainAPI
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
 
-        public async Task CreatePackage(CreatePackage package, string propertyID)
+        public async Task CreatePackage(CreatePackage package)
         {
-            mailtQrCodeToSender(propertyID);
+            //mailtQrCodeToSender(propertyID);
             await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
         }
 

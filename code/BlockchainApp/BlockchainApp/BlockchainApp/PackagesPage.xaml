@@ -10,7 +10,7 @@
                 <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name" AutomationId="welcome"/>
             </Frame>-->
 
-            <ListView x:Name="listView" ItemSelected="Selected_Handler" Refreshing="Handle_Refreshing">
+            <ListView x:Name="listView" ItemSelected="Selected_Handler" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -24,9 +24,9 @@
 
             <Frame Style="{StaticResource BottomMenuFrameStyle}">
                 <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
-                    <Button Text="Receive Package" FontSize="9" WidthRequest="80" Clicked="ScanCode"/>
+                    <Button Text="Receive Package" FontSize="9" WidthRequest="80" Clicked="ScanCode_Receive"/>
                     <Button x:Name="create_package" Text="Create Package" FontSize="9" WidthRequest="80" Clicked="CreatePackage"/>
-                    <Button Text="Send Package" FontSize="9" WidthRequest="80" Clicked="ScanCode"/>
+                    <Button Text="Send Package" FontSize="9" WidthRequest="80" Clicked="ScanCode_Send"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

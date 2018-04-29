@@ -20,7 +20,8 @@ namespace BlockchainAPI
         public const String UnboxPackageUrl = "/api/org.example.biznet.UnboxPackage";
         public const String TransferUrl = "/api/org.example.biznet.Transfer";
         public const String PackageUrl = "/api/org.example.biznet.Package";
-        public const String MyPackagesFormatString = "/api/queries/MyActivePackages?ownerId=resourcesource%3Aorg.example.biznet.Trader%23";
+        public const String MyPackagesFormatString = "/api/queries/MyActivePackages?ownerId=resource%3Aorg.example.biznet.Trader%23{0}";
+        public const String NewTransferUrl = "/api/org.example.biznet.NewTransfer";
 
         public static String TraderQueryURL(string username)
         {
@@ -49,7 +50,7 @@ namespace BlockchainAPI
 
         public static String MyPackagesUrl(string user)
         {
-            return String.Format(PackageHistoryFormatString, Uri.EscapeDataString(user));
+            return String.Format(MyPackagesFormatString, Uri.EscapeDataString(user));
         }
     }
 }

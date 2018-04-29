@@ -302,10 +302,11 @@ namespace BlockchainAPI.Tests
         public async Task CreatePackageShouldInvokeTheRightURL()
         {
             CreatePackage package = new CreatePackage();
+            package.packageId = "testID";
             package.sender = "sender";
             package.recipient = "recipient";
 
-            await clientWithMock.CreatePackage(package,"testID");
+            await clientWithMock.CreatePackage(package);
 
             mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package)));
         }

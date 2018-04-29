@@ -42,9 +42,6 @@ namespace BlockchainApp
 
         async void CreatePackage()
         {
-
-            
-
             CreatePackage p = new CreatePackage();
             // May need to change this
             p.packageId = Guid.NewGuid().ToString();
@@ -56,7 +53,7 @@ namespace BlockchainApp
             // Error checking needed
             using (UserDialogs.Instance.Loading("Creating"))
             {
-                await client.CreatePackage(p, p.packageId);
+                await client.CreatePackage(p);
             }
             await DisplayAlert("Success","Package created!","Confirm");
 
