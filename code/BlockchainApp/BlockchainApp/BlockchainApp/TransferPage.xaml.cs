@@ -76,29 +76,5 @@ namespace BlockchainApp
                     break;
             }
         }
-
-        private async void ScanCode()
-        {
-            ZXingScannerPage scanPage = new ZXingScannerPage();
-            scanPage.OnScanResult += (result) => {
-                // Stop scanning
-                scanPage.IsScanning = false;
-
-                // Pops the page, returns to TransferPage, and displays result of the scanned code
-                Device.BeginInvokeOnMainThread(() => {
-                    Navigation.PopAsync();
-                    DisplayAlert("Scanned Code", result.Text, "OK");
-                    txtBarcode.Text = result.Text;
-                });
-            };
-
-            await Navigation.PushAsync(scanPage);
-        }
-
-        void SetPageQRImage()
-        {
-            //qrImage.Source = ImageSource.FromStream(() => { return DependencyService.Get<QRServices>().GenerateQRImage(propertyId.Text); });
-            //DependencyService.Get<QRServices>().SaveQRImage(DependencyService.Get<QRServices>().GenerateQRImage(propertyId.Text), propertyId.Text);
-        }
     }
 }

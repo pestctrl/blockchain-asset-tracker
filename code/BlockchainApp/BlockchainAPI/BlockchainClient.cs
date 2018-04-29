@@ -244,13 +244,13 @@ namespace BlockchainAPI
             await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
         }
 
-        private void mailtQrCodeToSender(string propertyID)
+        public async Task SendQRCode(string emailAddress, string propertyID)
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
             mail.From = new MailAddress("BlockChainMessenger@gmail.com");
-            mail.To.Add("BlockChainMessenger@gmail.com");
+            mail.To.Add(emailAddress);
             mail.Subject = "Test Mail - 1";
             mail.Body = "mail with attachment";
 
@@ -264,7 +264,7 @@ namespace BlockchainAPI
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1");
             SmtpServer.EnableSsl = true;
-            SmtpServer.Send(mail);
+            SmtpServer.SendAsync(mail,null);
         }
 
         public async Task UnboxPackage(UnboxPackage package)

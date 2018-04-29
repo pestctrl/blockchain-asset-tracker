@@ -17,22 +17,7 @@
             </Frame>
             <Frame>
                 <Entry x:Name="RecipientID" Placeholder="Enter Recipient ID"/>
-                </Frame>
-            <Frame>
-                <StackLayout>
-                    <Entry x:Name="txtBarcode"  
-                   Placeholder="Barcode"/>
-                    <Button Text="Scan Code"  
-                    x:Name="btnScan"  
-                    Clicked="ScanCode"/>
-                </StackLayout>
             </Frame>
-            
-            <!--
-            <Frame>
-                <Image x:Name="qrImage"/>
-            </Frame>-->
-            
             <Frame>
                 <Button Text="Send" Clicked="sendAsset"/>
             </Frame>

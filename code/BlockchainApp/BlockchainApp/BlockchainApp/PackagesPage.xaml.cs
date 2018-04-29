@@ -128,7 +128,7 @@ namespace BlockchainApp
                         Package p = await client.GetPackageInformation(result.Text);
                         if(p.handler.Substring(35) != "TRADERNULL")
                         {
-                            await DisplayAlert("Error", "You are trying to receive a package that does not belong to you", "Ok");
+                            await DisplayAlert("Error", "You are trying to receive a that has already been received", "Ok");
                         }
                         else
                         {

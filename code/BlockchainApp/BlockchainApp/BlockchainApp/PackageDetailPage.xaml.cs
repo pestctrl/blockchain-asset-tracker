@@ -48,6 +48,11 @@ namespace BlockchainApp
            
         }
 
+        async Task EmailQRCode()
+        {
+            await Navigation.PushAsync(new SendEmailPage(client,package.PackageId));
+        }
+
         async void Back(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
