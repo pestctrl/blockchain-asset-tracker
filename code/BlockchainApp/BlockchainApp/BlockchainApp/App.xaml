@@ -84,6 +84,7 @@
             <Style TargetType="StackLayout" x:Key="ListLayoutStyle">
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="Padding" Value="5"/>
             </Style>
             <Style TargetType="Label" x:Key="ListLabelStyle">
                 <Setter Property="TextColor" Value="{StaticResource OracleGrey}"/>
