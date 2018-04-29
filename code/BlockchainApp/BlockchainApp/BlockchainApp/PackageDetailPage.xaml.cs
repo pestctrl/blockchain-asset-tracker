@@ -1,5 +1,7 @@
-﻿using BlockchainAPI;
+﻿using Acr.UserDialogs;
+using BlockchainAPI;
 using BlockchainAPI.Models;
+using BlockchainAPI.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,9 +45,25 @@ namespace BlockchainApp
             return properties;
         }
 
-        void Unbox(object sender, EventArgs e)
+        async Task Unbox(object sender, EventArgs e)
         {
-           
+            using (UserDialogs.Instance.Loading("Unboxing"))
+            {
+                UnboxPackage p = new UnboxPackage();
+                p.package = this.package.PackageId;
+                p.recipient = client.thisTrader.traderId;
+                string expectedRecipient = package.recipient.Substring(33);
+                if(expectedRecipient != p.recipient)
+                {
+                    await DisplayAlert("Error", "You are not the recipient, and are not allowed to unbox this package", "Ok");
+                }
+                else
+                {
+                    await client.UnboxPackage(p);
+                    await DisplayAlert("Success", "The contents have been added to your package", "Ok");
+                    await Navigation.PopAsync();
+                }
+            }
         }
 
         async Task EmailQRCode()
