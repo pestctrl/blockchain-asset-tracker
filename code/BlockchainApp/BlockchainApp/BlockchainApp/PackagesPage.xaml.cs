@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ZXing.Net.Mobile.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -50,6 +50,13 @@ namespace BlockchainApp
             }
         }
 
+        void Handle_Refreshing(object sender, EventArgs e)
+        {
+            UpdatePackageList(client);
+
+            listView.EndRefresh();
+        }
+
         public async Task CreatePackage()
         {
             var results = await client.getMyProperties();
@@ -66,5 +73,22 @@ namespace BlockchainApp
             listView.SelectedItem = null;
         }
 
+        private async void ScanCode()
+        {
+            ZXingScannerPage scanPage = new ZXingScannerPage();
+            scanPage.OnScanResult += (result) => {
+                // Stop scanning
+                scanPage.IsScanning = false;
+
+                // Pops the page, returns to TransferPage, and displays result of the scanned code
+                Device.BeginInvokeOnMainThread(() => {
+                    Navigation.PopAsync();
+                    DisplayAlert("Scanned Code", result.Text, "OK");
+                    //txtBarcode.Text = result.Text;
+                });
+            };
+
+            await Navigation.PushAsync(scanPage);
+        }
     }
 }
