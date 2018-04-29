@@ -52,7 +52,7 @@ namespace BlockchainApp
                 UnboxPackage p = new UnboxPackage();
                 p.package = this.package.PackageId;
                 p.recipient = client.thisTrader.traderId;
-                string expectedRecipient = package.recipient.Substring(33);
+                string expectedRecipient = package.recipient.Substring(35);
                 if(expectedRecipient != p.recipient)
                 {
                     await DisplayAlert("Error", "You are not the recipient, and are not allowed to unbox this package", "Ok");
