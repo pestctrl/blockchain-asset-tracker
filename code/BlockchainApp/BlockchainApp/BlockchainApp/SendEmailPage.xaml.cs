@@ -27,11 +27,11 @@ namespace BlockchainApp
         public async Task SendEmail()
         {
             Regex matcher = new Regex(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b");
-            if (matcher.Match(EmailAddress.Text.ToUpper()).Success)
+            if (matcher.Match(EmailAddress.Text.Trim().ToUpper()).Success)
             {
                 using (UserDialogs.Instance.Loading("Sending"))
                 {
-                    await client.SendQRCode(EmailAddress.Text, packageId);
+                    await client.SendQRCode(EmailAddress.Text.Trim(), packageId);
                     await DisplayAlert("Success", "Email was sent", "Ok");
                 }
                 await Navigation.PopAsync();
