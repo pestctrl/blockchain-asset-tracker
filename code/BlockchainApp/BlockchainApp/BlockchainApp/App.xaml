@@ -89,7 +89,7 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
             <Style TargetType="Label" x:Key="ListLabelStyle">
-                <Setter Property="TextColor" Value="{StaticResource OracleGrey}"/>
+                <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
         </ResourceDictionary>

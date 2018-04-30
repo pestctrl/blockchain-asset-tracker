@@ -15,15 +15,15 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <ContentView>
+                            <ContentView Padding="0,2,0,2">
                                 <StackLayout Style="{StaticResource ListLayoutStyle}">
                                     <Frame VerticalOptions="Center" HorizontalOptions="Start">
                                         <Image Source="boxImage.png"/>
                                     </Frame>
                                     <Frame VerticalOptions="Center" HorizontalOptions="FillAndExpand">
                                         <StackLayout Orientation="Horizontal">
-                                            <Label x:Name="titlename" Text="{Binding PropertyId}" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
-                                            <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding PropertyId}" HorizontalOptions="Start"/>
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding description}" HorizontalOptions="EndAndExpand"/>
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>

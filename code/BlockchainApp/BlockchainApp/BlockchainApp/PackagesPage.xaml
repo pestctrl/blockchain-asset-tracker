@@ -17,14 +17,14 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <ContentView Padding="3">
+                            <ContentView Padding="0,2,0,2">
                                 <StackLayout Style="{StaticResource ListLayoutStyle}">
                                     <Frame>
                                         <Image Source="boxImage.png"/>
                                     </Frame>
                                     <Frame VerticalOptions="Center">
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding PackageId}" VerticalTextAlignment="Center"/>
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding PackageId}" VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>
