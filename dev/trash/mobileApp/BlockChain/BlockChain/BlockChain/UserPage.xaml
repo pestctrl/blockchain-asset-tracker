@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BlockChain"
+             x:Class="BlockChain.UserPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
+                <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name"/>
+            </Frame>
+            <Frame Padding="1" VerticalOptions="CenterAndExpand" BackgroundColor="#bfb">
+                <ListView x:Name="current_asset_list">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+
+                                <StackLayout BackgroundColor="#eee" Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Button Text="Send" Clicked="Submit_Send_Clicked" CommandParameter="{Binding Source={x:Reference titlename}, Path=Text}"/>
+                                        <Label x:Name="titlename" Text="{Binding title}" TextColor="#611" />
+                                        <Label Text="{Binding subtitle}" HorizontalOptions="EndAndExpand" TextColor="#811"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+            <Frame Padding = "1" VerticalOptions="End" BackgroundColor="Gray">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button x:Name="button_Receive" BackgroundColor="#eee" TextColor="#333" Text="Received" />
+                    <Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton"/>
+                    <Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

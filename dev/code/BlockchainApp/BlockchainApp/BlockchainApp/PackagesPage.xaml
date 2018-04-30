@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BlockchainApp"
+             x:Class="BlockchainApp.PackagesPage"
+             BackgroundImage="background.png">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <!--<Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
+                <Label x:Name="welcomeMessage" TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="User Name" AutomationId="welcome"/>
+            </Frame>-->
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="60,5,5,5">
+                <Label Text="Package ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
+            </StackLayout>
+
+            <ListView x:Name="listView" ItemSelected="Selected_Handler" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView Padding="0,2,0,2">
+                                <StackLayout Style="{StaticResource ListLayoutStyle}">
+                                    <Frame>
+                                        <Image Source="boxImage.png"/>
+                                    </Frame>
+                                    <Frame VerticalOptions="Center">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding PackageId}" VerticalTextAlignment="Center"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Frame Style="{StaticResource BottomMenuFrameStyle}">
+                <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
+                    <Button Text="Receive Package" FontSize="9" WidthRequest="80" Clicked="ScanCode_Receive"/>
+                    <Button x:Name="create_package" Text="Create Package" FontSize="9" WidthRequest="80" Clicked="CreatePackage"/>
+                    <Button Text="Send Package" FontSize="9" WidthRequest="80" Clicked="ScanCode_Send"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

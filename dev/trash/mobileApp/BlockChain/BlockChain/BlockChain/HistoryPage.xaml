@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlockChain.HistoryPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Frame Padding = "10" VerticalOptions="Start" BackgroundColor="#555">
+                <Label TextColor="#ddd" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Transaction History"/>
+            </Frame>
+            <Frame Padding="1" VerticalOptions="CenterAndExpand" BackgroundColor="#eee">
+                <ListView x:Name="transaction_history_list">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout BackgroundColor="#eee" Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding transactionDate}" HorizontalOptions="StartAndExpand" TextColor="#111" />
+                                        <Label Text="{Binding assetID}" HorizontalOptions="EndAndExpand" TextColor="#aaa"/>
+                                        <Label Text="{Binding assetStatus}" HorizontalOptions="StartAndExpand" TextColor="#aaa"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+            <Frame Padding = "1" VerticalOptions="End" BackgroundColor="Gray">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button x:Name="button_Receive" BackgroundColor="#eee" TextColor="#333" Text="Received" />
+                    <!--<Button x:Name="button_completed" BackgroundColor="#eee" TextColor="#333" Text="Completed" Clicked="TransactionButton"/>-->
+                    <!--<Button BackgroundColor="#eee" TextColor="#333" Text="Logout" Clicked="logout"/>-->
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
