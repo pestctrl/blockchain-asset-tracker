@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
             <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="60,5,5,5">
-                <Label x:Name="titlename" Text="Property ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
+                <Label Text="Property ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
                 <Label Text="Description" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
             </StackLayout>
 
