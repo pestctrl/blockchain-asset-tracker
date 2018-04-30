@@ -43,7 +43,7 @@ namespace BlockchainAPI.Tests
 
             await clientWithMock.login(user);
 
-            Assert.AreEqual(clientWithMock.thisTrader.traderId, TestJsonObjectConsts.Trader1ID);
+            Assert.AreEqual(TestJsonObjectConsts.Trader1ID, clientWithMock.thisTrader.traderId);
         }
 
         [TestMethod]
@@ -122,10 +122,12 @@ namespace BlockchainAPI.Tests
         public void Trader_object_has_extra_fullname_field_for_convenience()
         {
             Trader t = new Trader();
+
             t.firstName = "Hello";
             t.lastName = "World";
+            var expectResult = String.Format("{0} {1}", t.firstName, t.lastName);
 
-            Assert.AreEqual(t.fullName, String.Format("{0} {1}", t.firstName, t.lastName));
+            Assert.AreEqual(expectResult, t.fullName);
         }
 
         [TestMethod]
@@ -188,8 +190,9 @@ namespace BlockchainAPI.Tests
         public void JsonConvertCanDeserializeEvenWhenThereAreExtraFields()
         {
             var results = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.Trader1);
+            var expectResult = String.Format("{0} {1}", results.firstName, results.lastName);
 
-            Assert.AreEqual(results.fullName, String.Format("{0} {1}", results.firstName, results.lastName));
+            Assert.AreEqual(expectResult, results.fullName);
         }
 
         [TestMethod]
@@ -419,6 +422,18 @@ namespace BlockchainAPI.Tests
             {
                 Assert.IsTrue(results[i].timestamp > results[i + 1].timestamp);
             }
+        }
+
+        [TestMethod]
+        public async Task AddNewTransferMethodWillInvokePoseNewTransferUrl()
+        {
+            mockBlockService.Setup(m => m.InvokePost(HyperledgerConsts.NewTransferUrl, It.IsAny<String>()))
+                           .ReturnsAsync("[]");
+            NewTransfer transfer = new NewTransfer();
+
+            await clientWithMock.AddNewTransfer(transfer);
+
+            mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.NewTransferUrl, It.IsAny<String>()));
         }
 
         [TestMethod]

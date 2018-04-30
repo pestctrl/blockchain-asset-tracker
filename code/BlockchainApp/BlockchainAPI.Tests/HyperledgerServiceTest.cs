@@ -29,23 +29,38 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task TestInvokeGetMethod()
         {
-            var results = await hyperledgerService.InvokeGet("/api/org.example.biznet.Trader/TRADER1");
+            var results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("TRADER1"));
             Trader trader = JsonConvert.DeserializeObject<Trader>(results);
 
             Assert.AreEqual("TRADER1", trader.traderId);
         }
 
-        /*
+        
         [TestMethod]
         public async Task TestInokePostMethod()
-        { 
-            var traderData = "{\"$class\": \"org.example.biznet.Trader\",\"traderId\": \"testId\",\"firstName\": \"testFirstname\",\"lastName\": \"testLastname\"}";
+        {
+            var expectResult = "error";
 
-            var result = await hyperledgerService.InvokePost("/api/org.example.biznet.Trader", traderData);
-            Trader trader = JsonConvert.DeserializeObject<Trader>(result);
+            var result = await hyperledgerService.InvokePost(HyperledgerConsts.TraderUrl, "Fail");
 
-            Assert.AreEqual("testId", trader.traderId);
-        }*/
-        
+            Assert.AreEqual(expectResult , result.Substring(2,5));
+        }
+
+        [TestMethod]
+        public async Task TestInvokeHeadMethod()
+        {
+            Assert.IsTrue(await hyperledgerService.InvokeHead(HyperledgerConsts.TraderUrl, "TRADER1"));
+        }  
+
+        [TestMethod]
+        public async Task TestInvokeAuthenticationMethod()
+        {
+            var expectResult = "Failed to decode JSON object: Expecting value: line 1 column 1 (char 0)";
+
+            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, "Fail");
+            var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
+
+            Assert.AreEqual(expectResult, checkUser.message);
+        }
     }
 }

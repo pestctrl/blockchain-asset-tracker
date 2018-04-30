@@ -12,6 +12,5 @@ namespace BlockchainAPI
         Task<String> InvokePost(String url, String jsonObject);
         Task<bool> InvokeHead(String url, String request);
         Task<String> InvokePostAuthentication(String url, String jsonObject);
-        Task<String> InvokeGetFlask(String url);
     }
 }

@@ -45,11 +45,5 @@ namespace BlockchainAPI
             var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));
             return await results.Content.ReadAsStringAsync();
         }
-
-        public async Task<String> InvokeGetFlask(String request)
-        {
-            var url = Url.Combine(FlaskConsts.IPAddress, request);
-            return await client.GetStringAsync(url);
-        }
     }
 }
