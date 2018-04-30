@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BlockchainApp.CreatePackagePage">
+             x:Class="BlockchainApp.CreatePackagePage"
+             BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout>
-            <Frame Padding="0" VerticalOptions="FillAndExpand" BackgroundColor="#bfb">
+            <Frame Padding="0" VerticalOptions="FillAndExpand">
                 <!--<ListView x:Name="property_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">-->
                 <ListView x:Name="property_list" ItemSelected="OnSelection">
                     <ListView.ItemTemplate>

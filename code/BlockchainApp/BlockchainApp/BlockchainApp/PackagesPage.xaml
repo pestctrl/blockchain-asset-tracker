@@ -14,7 +14,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Style="{StaticResource ListLayoutStyle}">
+                            <StackLayout Style="{StaticResource ListLayoutStyle}" BackgroundColor="Transparent">
                                 <Label Text="{Binding PackageId}" Style="{StaticResource ListLabelStyle}"/>
                             </StackLayout>
                         </ViewCell>

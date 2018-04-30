@@ -11,5 +11,6 @@ namespace BlockchainAPI
         public const String RegistrationUrl = "/registration";
         public const String LogoutAccessTokenUrl = "/logout/access";
         public const String LogoutRefreshTokenUrl = "/logout/refresh";
+        public const String TokenCheck = "/secret";
     }
 }

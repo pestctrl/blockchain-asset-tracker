@@ -10,7 +10,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Style="{StaticResource ListLayoutStyle}">
+                            <StackLayout Style="{StaticResource ListLayoutStyle}" BackgroundColor="Transparent">
                                 <Switch IsToggled="False" x:Name="isToggled"/>
                                 <Label x:Name="titlename" Text="{Binding PropertyId}" Style="{StaticResource ListLabelStyle}"/>
                                 <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
