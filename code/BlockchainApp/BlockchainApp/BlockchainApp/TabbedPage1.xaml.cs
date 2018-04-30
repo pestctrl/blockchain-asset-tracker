@@ -35,7 +35,7 @@ namespace BlockchainApp
 
             userPage.Title = "My Properties";
             packagesPage.Title = "My Packages";
-            historyPage.Title = "My History";
+           
 
             InitializeComponent();
             Children.Add(userPage);
