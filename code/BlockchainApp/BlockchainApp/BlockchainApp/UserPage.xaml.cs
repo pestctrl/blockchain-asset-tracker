@@ -53,7 +53,6 @@ namespace BlockchainApp
         void Handle_Refreshing(object sender, EventArgs e)
         {
             updateAssetList(client);
-
             current_asset_list.EndRefresh();
         }
 
@@ -68,7 +67,7 @@ namespace BlockchainApp
         async void TransactionButton(object sender, EventArgs args)
         {
             List<CreatePackage> transactions = await client.GetUserTransactions();
-            await Navigation.PushAsync(new HistoryPage(this.client, transactions));
+            await Navigation.PushAsync(new HistoryPage(this.client));
         }
 
         async void CreateAsset(object sender, EventArgs args)

@@ -5,21 +5,14 @@
              BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Frame Style="{StaticResource FrameHeadingStyle}">
-                <StackLayout Orientation="Vertical">
-                    <Label Style="{StaticResource HeadingStyle}" VerticalOptions="Start" FontSize = "20" HorizontalTextAlignment="Center" Text="Transaction History"/>
-                </StackLayout>
-            </Frame>
-            <Frame>
-                <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="5">
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="5">
                     <Label Text="Package ID" HorizontalOptions="StartAndExpand" Style="{StaticResource ListLabelStyle}"/>
                     <Label Text="Date/Time" HorizontalOptions="End" HorizontalTextAlignment="Start" Style="{StaticResource ListLabelStyle}" WidthRequest="70"/>
                 </StackLayout>
-            </Frame>
-            <ListView x:Name="listView" ItemSelected="Selected_Handler">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
+                <ListView x:Name="listView" ItemSelected="Selected_Handler" Refreshing="Handle_Refreshing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
                             <ContentView Padding="0,2,0,2">
                                 <!--<StackLayout BackgroundColor="#eee" Orientation="Vertical">-->
                                 <StackLayout Style="{StaticResource ListLayoutStyle}" VerticalOptions="FillAndExpand">
@@ -29,11 +22,9 @@
                                 <!--</StackLayout>-->
                             </ContentView>
                         </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-            <!--<Button Clicked="Back_User_page" BackgroundColor="#555" TextColor="White" Text="Back" />-->
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

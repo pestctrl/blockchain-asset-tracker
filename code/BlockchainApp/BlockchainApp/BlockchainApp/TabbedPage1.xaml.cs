@@ -15,8 +15,6 @@ namespace BlockchainApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TabbedPage1 : TabbedPage
     {
-        private BlockchainClient client;
-
         public TabbedPage1 ()
         {
             InitializeComponent();
@@ -31,22 +29,16 @@ namespace BlockchainApp
 
             var userPage = new NavigationPage(new UserPage(client));
             var packagesPage = new NavigationPage(new PackagesPage(client));
-   
+            var historyPage = new NavigationPage(new HistoryPage(client));
 
             userPage.Title = "My Properties";
             packagesPage.Title = "My Packages";
-           
+            historyPage.Title = "My History";
+
 
             InitializeComponent();
             Children.Add(userPage);
             Children.Add(packagesPage);
-        }
-
-        async protected override void OnAppearing()
-        {
-            List<CreatePackage> history = new List<CreatePackage>(await client.GetUserTransactions());
-            var historyPage = new NavigationPage(new HistoryPage(client, history));
-            historyPage.Title = "My History";
             Children.Add(historyPage);
         }
     }

@@ -20,7 +20,7 @@
             </Frame>
             <Frame Padding = "0" VerticalOptions="EndAndExpand" BackgroundColor="Gray">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button x:Name="back" BackgroundColor="#eee" TextColor="#333" Text="Back" FontSize="9" WidthRequest="80" Clicked="Back"  AutomationId="asset"/>
+                    <Button Clicked="Back" BackgroundColor="#555" TextColor="White" Text="Back" />
                 </StackLayout>
             </Frame>
         </StackLayout>

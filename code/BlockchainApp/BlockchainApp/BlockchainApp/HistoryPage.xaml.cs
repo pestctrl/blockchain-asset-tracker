@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using BlockchainAPI.Transactions;
 using BlockchainAPI.Models;
 using BlockchainAPI;
+using System.Collections.ObjectModel;
 
 namespace BlockchainApp
 {
@@ -16,19 +17,25 @@ namespace BlockchainApp
 	public partial class HistoryPage : ContentPage
 	{
         private BlockchainClient client;
-        public HistoryPage (BlockchainClient client, List<CreatePackage> transactions)
+        ObservableCollection<CreatePackage> transactions;
+        public HistoryPage (BlockchainClient client)
 		{
             this.client = client;
+            transactions = new ObservableCollection<CreatePackage>();
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent ();
-
+            UpdateTransactionList(client);
             listView.ItemsSource = transactions;
-
 		}
 
-        async void Back_User_page(object sender, EventArgs args)
+        void UpdateTransactionList(BlockchainClient localClient)
         {
-            await Navigation.PopAsync();
+            transactions.Clear();
+            var Results = Task.Run(() => localClient.GetUserTransactions()).Result;
+            foreach (var transaction in Results)
+            {
+                transactions.Add(transaction);
+            }
         }
 
         async void Selected_Handler(object sender, SelectedItemChangedEventArgs e)
@@ -38,6 +45,13 @@ namespace BlockchainApp
 
             var packages = e.SelectedItem as CreatePackage;
             await Navigation.PushAsync(new HistoryDetailPage(packages, client));
+        }
+
+        void Handle_Refreshing(object sender, EventArgs e)
+        {
+            UpdateTransactionList(client);
+
+            listView.EndRefresh();
         }
     }
 }
