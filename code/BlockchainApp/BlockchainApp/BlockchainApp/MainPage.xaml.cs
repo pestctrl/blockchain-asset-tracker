@@ -50,7 +50,6 @@ namespace BlockchainApp
             switch (loginCode)
             {
                 case 0:
-                    await DisplayAlert("Alert", "Login Successful\n" + login_id.Text + "\n", "OK");
                     await Navigation.PushAsync(new TabbedPage1(client));
                     break;
                 case 1:
