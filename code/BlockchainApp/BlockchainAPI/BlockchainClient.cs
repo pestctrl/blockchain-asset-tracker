@@ -16,12 +16,6 @@ using System.Diagnostics;
 
 namespace BlockchainAPI
 {
-    public class SelectedData<T>
-    {
-        public T data { get; set; }
-        public bool selected { get; set; }
-    }
-
     public class BlockchainClient
     {
         public Trader thisTrader;

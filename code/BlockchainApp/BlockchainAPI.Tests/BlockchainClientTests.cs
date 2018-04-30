@@ -492,5 +492,16 @@ namespace BlockchainAPI.Tests
 
             Assert.IsNull(results);
         }
+
+        [TestMethod]
+        public void DataIsNotNullWhenSetSelectedData()
+        {
+            SelectedData<Property> selectedData = new SelectedData<Property>();
+
+            selectedData.data = new Property();
+            selectedData.selected = true;
+
+            Assert.IsNotNull(selectedData);
+        }
     }
 }
