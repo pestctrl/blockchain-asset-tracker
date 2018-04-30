@@ -5,16 +5,29 @@
              x:Class="BlockchainApp.UserPage"
              BackgroundImage="background.png">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="60,5,5,5">
+                <Label x:Name="titlename" Text="Property ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
+                <Label Text="Description" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
+            </StackLayout>
+
             <ListView x:Name="current_asset_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Style="{StaticResource ListLayoutStyle}" BackgroundColor="Transparent">
-                                <Switch IsToggled="False" x:Name="isToggled"/>
-                                <Label x:Name="titlename" Text="{Binding PropertyId}" Style="{StaticResource ListLabelStyle}"/>
-                                <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
-                            </StackLayout>
+                            <ContentView>
+                                <StackLayout Style="{StaticResource ListLayoutStyle}">
+                                    <Frame VerticalOptions="Center" HorizontalOptions="Start">
+                                        <Image Source="boxImage.png"/>
+                                    </Frame>
+                                    <Frame VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label x:Name="titlename" Text="{Binding PropertyId}" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
+                                            <Label Text="{Binding description}" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </ContentView>
                         </ViewCell>
 
                     </DataTemplate>
