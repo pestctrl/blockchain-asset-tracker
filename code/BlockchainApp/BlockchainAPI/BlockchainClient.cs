@@ -240,7 +240,6 @@ namespace BlockchainAPI
 
         public async Task CreatePackage(CreatePackage package)
         {
-            //mailtQrCodeToSender(propertyID);
             await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
         }
 
