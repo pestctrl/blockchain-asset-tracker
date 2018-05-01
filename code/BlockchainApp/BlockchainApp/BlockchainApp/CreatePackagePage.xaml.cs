@@ -21,8 +21,10 @@ namespace BlockchainApp
 		{
             this.client = client;
             SelectedDataList = new ObservableCollection<SelectedData<Property>>();
+
             props.ForEach(prop => SelectedDataList.Add(new SelectedData<Property>() {data = prop, selected = false }));
 			InitializeComponent ();
+
             NavigationPage.SetHasNavigationBar(this, false);
             property_list.ItemsSource = SelectedDataList;
 		}

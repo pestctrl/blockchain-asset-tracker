@@ -30,7 +30,7 @@ namespace BlockchainApp
 
             using (UserDialogs.Instance.Loading("Loading"))
             {
-                loginSuccess = await client.login(user);
+                loginSuccess = await client.Login(user);
             }
 
             if (loginSuccess)

@@ -35,7 +35,7 @@ namespace BlockchainApp
         void updateAssetList(BlockchainClient localClient)
         {
             properties.Clear();
-            var props = Task.Run(() => localClient.getMyProperties()).Result;
+            var props = Task.Run(() => localClient.GetMyProperties()).Result;
 
             foreach (Property obj in props)
             {
