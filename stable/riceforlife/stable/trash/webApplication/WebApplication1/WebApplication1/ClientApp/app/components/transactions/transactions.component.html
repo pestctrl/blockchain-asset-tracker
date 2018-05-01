@@ -1,0 +1,32 @@
+﻿<h1>Transaction History</h1>
+
+
+<br/>
+<br/>
+
+<p>This is a list of all the transactions</p>
+
+<table class="table" *ngIf="transactions">
+    <thead>
+        <tr>
+            <th>Date, Time</th>
+            <th>Entry Type</th>
+            <th>Participant</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.getDate }}</td>
+            <td>{{ transaction.entry }}</td>
+            <td>{{ transaction.firstName }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<br/>
+
+
+
+          

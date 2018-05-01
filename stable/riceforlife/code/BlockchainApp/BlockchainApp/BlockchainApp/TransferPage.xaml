@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlockchainApp.TransferPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame>
+                <Label x:Name="propertyId"/>
+                </Frame>
+            <Frame>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="Latitude: "/>
+                    <Label x:Name="latitude" Text="Unknown" />
+                    <Label Text=" Longitude: "/>
+                    <Label x:Name="longitude" Text="Unknown"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <Entry x:Name="RecipientID" Placeholder="Enter Recipient ID"/>
+            </Frame>
+            <Frame>
+                <Button Text="Send" Clicked="sendAsset"/>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

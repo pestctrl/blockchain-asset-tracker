@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlockchainApp.HistoryPage"
+             BackgroundImage="background.png">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="5">
+                    <Label Text="Package ID" HorizontalOptions="StartAndExpand" Style="{StaticResource ListLabelStyle}"/>
+                    <Label Text="Date/Time" HorizontalOptions="End" HorizontalTextAlignment="Start" Style="{StaticResource ListLabelStyle}" WidthRequest="70"/>
+                </StackLayout>
+                <ListView x:Name="listView" ItemSelected="Selected_Handler" Refreshing="Handle_Refreshing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView Padding="0,2,0,2">
+                                <StackLayout Style="{StaticResource ListLayoutStyle}" VerticalOptions="FillAndExpand">
+                                    <Label Text="{Binding packageId}" Style="{StaticResource ListLabelStyle}"/>
+                                    <Label Text="{Binding timestamp}" Style="{StaticResource ListLabelStyle}"/>
+                                </StackLayout>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
