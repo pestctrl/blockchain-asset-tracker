@@ -1,4 +1,5 @@
-﻿using BlockchainAPI;
+﻿using Acr.UserDialogs;
+using BlockchainAPI;
 using BlockchainAPI.Models;
 using System;
 using Xamarin.Forms;
@@ -20,6 +21,7 @@ namespace BlockchainApp
 
         async void CreateProperty(object sender, EventArgs e)
 	    {
+            BlockchainClient.Result error;
             Property proeprty = new Property
             {
                 PropertyId = property_id.Text,
@@ -27,8 +29,10 @@ namespace BlockchainApp
                 owner = client.thisTrader.traderId
             };
 
-            BlockchainClient.Result error;
-            error = await client.RegisterNewProperty(proeprty);
+            using (UserDialogs.Instance.Loading("Creating"))
+            {
+                error = await client.RegisterNewProperty(proeprty);
+            }
 
             switch (error)
             {

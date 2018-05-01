@@ -229,9 +229,17 @@ namespace BlockchainAPI
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
 
-        public async Task CreatePackage(CreatePackage package)
+        public async Task<Result> CreatePackage(CreatePackage package)
         {
-            await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
+            try
+            {
+                var results = await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
+                return Result.SUCCESS;
+            }
+            catch (HttpRequestException)
+            {
+                return Result.NETWORK;
+            }
         }
 
         public async Task SendQRCode(string emailAddress, string propertyID)

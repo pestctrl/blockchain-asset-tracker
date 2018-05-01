@@ -34,20 +34,31 @@ namespace BlockchainApp
 
         async void CreatePackage()
         {
-            CreatePackage package = new CreatePackage();
-            // May need to change this
-            package.packageId = Guid.NewGuid().ToString();
-            package.sender = client.thisTrader.traderId;
-            package.recipient = recipient.Text;
-            package.contents = SelectedDataList.Where(prop => prop.selected)
+            BlockchainClient.Result error;
+            CreatePackage package = new CreatePackage
+            {
+                packageId = Guid.NewGuid().ToString(),
+                sender = client.thisTrader.traderId,
+                recipient = recipient.Text,
+                contents = SelectedDataList.Where(prop => prop.selected)
                                          .Select(prop => prop.data.PropertyId)
-                                         .ToList();
-            // Error checking needed
+                                         .ToList()
+            };
+
             using (UserDialogs.Instance.Loading("Creating"))
             {
-                await client.CreatePackage(package);
+                error = await client.CreatePackage(package);
             }
-            await DisplayAlert("Success","Package created!","Confirm");
+
+            switch (error)
+            {
+                case BlockchainClient.Result.SUCCESS:
+                    await DisplayAlert("Alert", "Sucessful create Package", "Ok");
+                    break;
+                case BlockchainClient.Result.NETWORK:
+                    await DisplayAlert("Alert", "Error: Network down. Please try again.", "Ok");
+                    break;
+            }
 
             await Navigation.PopAsync();
         }
