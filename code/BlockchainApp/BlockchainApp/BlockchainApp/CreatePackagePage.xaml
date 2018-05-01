@@ -25,7 +25,13 @@
                 </ListView>
             </Frame>
             <Entry Placeholder="Recipient ID" Keyboard="Text" x:Name="recipient"/>
-            <Button Clicked="CreatePackage" Text="Create Package"></Button>
+
+            <Frame Padding = "0" VerticalOptions="EndAndExpand" BackgroundColor="White">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                    <Button Clicked="Back" Text="Back" FontSize="9" WidthRequest="80" />
+                    <Button Clicked="CreatePackage" Text="Create Package" FontSize="9" WidthRequest="80"/>
+                </StackLayout>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -51,5 +51,10 @@ namespace BlockchainApp
 
             await Navigation.PopAsync();
         }
-	}
+
+        async void Back(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+    }
 }

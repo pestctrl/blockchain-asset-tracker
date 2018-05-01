@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BlockchainApp.RegisterPropertyPage"
-             xmlns:local="clr-namespace:BlockchainApp">
+             xmlns:local="clr-namespace:BlockchainApp"
+             BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" BackgroundColor="White">
             <Frame Style="{StaticResource FrameHeadingStyle}" VerticalOptions="Start">
@@ -16,9 +17,10 @@
                     <Entry Placeholder="Description" Keyboard="Text" x:Name="description"/>
                 </StackLayout>
             </Frame>
-            <Frame Style="{StaticResource BottomMenuFrameStyle}">
-                <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
-                    <Button Text="Register Property"  Clicked="CreateProperty"/>
+            <Frame Padding = "0" VerticalOptions="EndAndExpand" BackgroundColor="White">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                    <Button Clicked="Back" Text="Back" FontSize="9" WidthRequest="80" />
+                    <Button Text="Register Property"  Clicked="CreateProperty" FontSize="9" WidthRequest="80"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
