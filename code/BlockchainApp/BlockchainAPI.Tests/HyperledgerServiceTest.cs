@@ -27,7 +27,7 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
-        public async Task TestInvokeGetMethod()
+        public async Task getTraderInformationWhenCallingQueryWithTraderID()
         {
             var results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("TRADER1"));
             Trader trader = JsonConvert.DeserializeObject<Trader>(results);
@@ -35,32 +35,89 @@ namespace BlockchainAPI.Tests
             Assert.AreEqual("TRADER1", trader.traderId);
         }
 
-        
         [TestMethod]
-        public async Task TestInokePostMethod()
+        public async Task WhenCallingInvalidUserIDReturnHttpException()
         {
-            var expectResult = "error";
-
-            var result = await hyperledgerService.InvokePost(HyperledgerConsts.TraderUrl, "Fail");
-
-            Assert.AreEqual(expectResult , result.Substring(2,5));
+            try
+            {
+                var results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("Invalid"));
+                Assert.IsNull(results);
+            }
+            catch(HttpRequestException e)
+            {
+                Assert.IsTrue(true);
+            }
         }
 
         [TestMethod]
-        public async Task TestInvokeHeadMethod()
+        public async Task callInvokePostToCreateANewProperty()
         {
-            Assert.IsTrue(await hyperledgerService.InvokeHead(HyperledgerConsts.TraderUrl, "TRADER1"));
-        }  
+            Property property = new Property
+            {
+                PropertyId = "Property KKK",
+                owner = "testOwner",
+                description = "test"
+            };
+
+            await hyperledgerService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(property));
+            var result = await hyperledgerService.InvokeHead(HyperledgerConsts.PropertyUrl, property.PropertyId);
+
+            Assert.IsTrue(result);
+        }
 
         [TestMethod]
-        public async Task TestInvokeAuthenticationMethod()
+        public async Task CallInValidPropertyWillReturnFalse()
         {
-            var expectResult = "Failed to decode JSON object: Expecting value: line 1 column 1 (char 0)";
+            Property property = new Property
+            {
+                PropertyId = "InvalidProperty"
+            };
 
-            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, "Fail");
+            var result = await hyperledgerService.InvokeHead(HyperledgerConsts.PropertyUrl, property.PropertyId);
+            
+            Assert.IsFalse(result);
+        } 
+
+        [TestMethod]
+        public async Task loginFailWithNonExistUser()
+        {
+            var expectResult = "User notExist doesn't exist";
+            User user = new User();
+            user.username = "notExist";
+            user.password = "notExist";
+
+            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
             var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
 
             Assert.AreEqual(expectResult, checkUser.message);
+        }
+
+        [TestMethod]
+        public async Task acessTokenIsNullWhenLoginWithInvalidUser()
+        {
+
+            User user = new User();
+            user.username = "InvalidUser";
+            user.password = "InvalidUser";
+
+            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
+            var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
+
+            Assert.IsNull(checkUser.access_token);
+        }
+
+        [TestMethod]
+        public async Task accessTokenisNotNullWhenLoginWithValidUser()
+        {
+
+            User user = new User();
+            user.username = "TRADER1";
+            user.password = "test";
+
+            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
+            var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
+
+            Assert.IsNotNull(checkUser.access_token);
         }
     }
 }
