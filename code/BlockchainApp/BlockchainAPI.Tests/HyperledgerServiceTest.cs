@@ -41,9 +41,8 @@ namespace BlockchainAPI.Tests
             try
             {
                 var results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("Invalid"));
-                Assert.IsNull(results);
             }
-            catch(HttpRequestException e)
+            catch(HttpRequestException)
             {
                 Assert.IsTrue(true);
             }
@@ -82,9 +81,11 @@ namespace BlockchainAPI.Tests
         public async Task loginFailWithNonExistUser()
         {
             var expectResult = "User notExist doesn't exist";
-            User user = new User();
-            user.username = "notExist";
-            user.password = "notExist";
+            User user = new User
+            {
+                username = "notExist",
+                password = "notExist"
+            };
 
             var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
             var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
@@ -95,10 +96,11 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task acessTokenIsNullWhenLoginWithInvalidUser()
         {
-
-            User user = new User();
-            user.username = "InvalidUser";
-            user.password = "InvalidUser";
+            User user = new User
+            {
+                username = "InvalidUser",
+                password = "InvalidUser"
+            };
 
             var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
             var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
@@ -109,10 +111,11 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task accessTokenisNotNullWhenLoginWithValidUser()
         {
-
-            User user = new User();
-            user.username = "TRADER1";
-            user.password = "test";
+            User user = new User
+            {
+                username = "TRADER1",
+                password = "test"
+            };
 
             var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
             var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
