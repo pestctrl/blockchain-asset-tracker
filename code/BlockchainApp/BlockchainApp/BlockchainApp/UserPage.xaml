@@ -37,7 +37,6 @@
             <Frame Style="{StaticResource BottomMenuFrameStyle}">
                 <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
                     <Button x:Name="button_createAsset" Text="Create Asset" FontSize="9" WidthRequest="80" Clicked="CreateAsset" AutomationId="asset"/>
-                    <Button x:Name="button_completed" Text="Completed" Clicked="TransactionButton" FontSize="9" WidthRequest="80"/>
                     <Button Text="Logout" Clicked="logout" FontSize="9" WidthRequest="80"/>
                 </StackLayout>
             </Frame>
