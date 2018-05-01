@@ -59,7 +59,7 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<bool> login(User user)
+        public async Task<bool> Login(User user)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace BlockchainAPI
         }
 
 
-        public async Task<Result> sendProperty(Transaction transaction)
+        public async Task<Result> SendProperty(Transaction transaction)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace BlockchainAPI
             }
         }
 
-        public async Task<List<Property>> getMyProperties()
+        public async Task<List<Property>> GetMyProperties()
         {
             try
             {
