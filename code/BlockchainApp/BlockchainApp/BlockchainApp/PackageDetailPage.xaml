@@ -23,12 +23,14 @@
                 <Entry Placeholder="Transfer Package To" Keyboard="Text" x:Name="transferTo"  />
             </Frame>
             <Frame VerticalOptions="FillAndExpand" >
-                <StackLayout Style="{StaticResource BottomMenuLayoutStyle}" VerticalOptions="End">
-                    <Button Text="Email QR Code" FontSize="9" WidthRequest="80" Clicked="EmailQRCode"/>
-                    <Button x:Name="back" Text="Back" FontSize="9" WidthRequest="80" Clicked="Back"  AutomationId="asset"/>
-                    <Button x:Name="Send" Text="Send"  FontSize="9" WidthRequest="80"/>
-                    <Button Text="Unbox" Clicked="Unbox" FontSize="9" WidthRequest="80"/>
-                </StackLayout>
+                <Frame  Style="{StaticResource BottomMenuFrameStyle}"  VerticalOptions="End">
+                    <StackLayout Style="{StaticResource BottomMenuLayoutStyle}" VerticalOptions="End">
+                        <Button Text="Email QR Code" FontSize="9" WidthRequest="80" Clicked="EmailQRCode"/>
+                        <Button x:Name="back" Text="Back" FontSize="9" WidthRequest="80" Clicked="Back"  AutomationId="asset"/>
+                        <Button x:Name="Send" Text="Send"  FontSize="9" WidthRequest="80"/>
+                        <Button Text="Unbox" Clicked="Unbox" FontSize="9" WidthRequest="80"/>
+                    </StackLayout>
+                </Frame>
             </Frame>
         </StackLayout>
     </ContentPage.Content>
