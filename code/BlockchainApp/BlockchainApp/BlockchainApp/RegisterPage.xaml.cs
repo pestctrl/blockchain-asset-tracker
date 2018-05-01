@@ -1,12 +1,6 @@
 ﻿using BlockchainAPI;
 using BlockchainAPI.Models;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -34,12 +28,13 @@ namespace BlockchainApp
                 if (userId.Text != "" && fName.Text != "" && lName.Text != "" 
                     && userId.Text != null && fName.Text != null && lName.Text != null)
                 {
-
-                    User user = new User();
-                    user.username = userId.Text;
-                    user.firstName = fName.Text;
-                    user.lastName = lName.Text;
-                    user.password = password.Text;
+                    User user = new User
+                    {
+                        username = userId.Text,
+                        firstName = fName.Text,
+                        lastName = lName.Text,
+                        password = password.Text
+                    };
 
                     await client.RegisterNewTrader(user);
                     await DisplayAlert("Alert", "Sucessful register with user ID" + userId.Text, "Ok");

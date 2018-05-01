@@ -7,7 +7,6 @@ namespace BlockchainApp
 {
     public interface IQRServices
     {
-        //Stream GenerateQRImage(string codeText);
         void SaveQRImage(Stream imageStream, string fileName);
     }
 }

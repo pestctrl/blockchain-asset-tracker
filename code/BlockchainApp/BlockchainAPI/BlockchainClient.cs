@@ -5,14 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Net.Mail;
-using System.Net;
 using System.IO;
 using QRCoder;
 using System.Net.Mime;
-using System.Diagnostics;
 
 namespace BlockchainAPI
 {
@@ -21,6 +18,7 @@ namespace BlockchainAPI
         public Trader thisTrader;
         public IBlockchainService blockchainService;
         public enum Result {SUCCESS, FAILED, NETWORK, EXISTS}
+
         public BlockchainClient(IBlockchainService blockChain)
         {
             blockchainService = blockChain;
@@ -166,7 +164,7 @@ namespace BlockchainAPI
                 var results = await blockchainService.InvokeGet(HyperledgerConsts.MyPackagesUrl(thisTrader.traderId));
                 return JsonConvert.DeserializeObject<List<Package>>(results);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return null;
             }
@@ -179,7 +177,7 @@ namespace BlockchainAPI
                 var results = await blockchainService.InvokeGet(Flurl.Url.Combine(HyperledgerConsts.PackageUrl,packageId));
                 return JsonConvert.DeserializeObject<Package>(results);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 return null;
             }
@@ -188,12 +186,10 @@ namespace BlockchainAPI
         public async Task<List<CreatePackage>> GetUserTransactions()
         {
             var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.CreatePackageUrl);
-
             var transactions = JsonConvert.DeserializeObject<List<CreatePackage>>(resultsString);
 
             for (int i = transactions.Count - 1; i >= 0; i--)
             {
-                
                 if (transactions[i].recipient.Substring(35) == thisTrader.traderId || transactions[i].sender.Substring(35) == thisTrader.traderId)
                 {
                     for(int j = 0; j < transactions[i].contents.Count; j++)
@@ -207,6 +203,7 @@ namespace BlockchainAPI
                     transactions.Remove(transactions[i]);
                 }
             }
+
             return transactions;
         }
 
@@ -247,12 +244,12 @@ namespace BlockchainAPI
             mail.Subject = "Test Mail - 1";
             mail.Body = "mail with attachment";
 
-            AlternateView av = AlternateView.CreateAlternateViewFromString(mail.Body, null, MediaTypeNames.Text.Html);
+            AlternateView alternateView = AlternateView.CreateAlternateViewFromString(mail.Body, null, MediaTypeNames.Text.Html);
             LinkedResource headerImage = new LinkedResource(GenerateQRCode(propertyID), MediaTypeNames.Image.Jpeg);
             headerImage.ContentId = "QRCode";
             headerImage.ContentType = new ContentType("image/jpg");
-            av.LinkedResources.Add(headerImage);
-            mail.AlternateViews.Add(av);
+            alternateView.LinkedResources.Add(headerImage);
+            mail.AlternateViews.Add(alternateView);
 
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("BlockChainMessenger@gmail.com", "riceforlife1");

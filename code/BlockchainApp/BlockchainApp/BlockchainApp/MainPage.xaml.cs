@@ -1,13 +1,7 @@
 ﻿using Acr.UserDialogs;
 using BlockchainAPI;
 using BlockchainAPI.Models;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,19 +23,16 @@ namespace BlockchainApp
         async void LoginButton(object sender, EventArgs args)
         {
             User user = new User();
+            bool loginSuccess = true;
 
             user.username = login_id.Text;
             user.password = login_password.Text;
 
-
-
-            bool loginSuccess = true;
             using (UserDialogs.Instance.Loading("Loading"))
             {
                 loginSuccess = await client.login(user);
             }
 
-  
             if (loginSuccess)
                 loginCode = 0;
             else

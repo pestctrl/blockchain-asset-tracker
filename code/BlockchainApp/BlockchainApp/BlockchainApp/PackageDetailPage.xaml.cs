@@ -3,11 +3,7 @@ using BlockchainAPI;
 using BlockchainAPI.Models;
 using BlockchainAPI.Transactions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,8 +18,10 @@ namespace BlockchainApp
 		{
             this.client = client;
             this.package = package;
+
 			InitializeComponent ();
             NavigationPage.SetHasNavigationBar(this, false);
+
             BindingContext = package;
             recipient.Text = "Recipient: " + package.recipient.Substring(35);
             contents.Text = "Properties: " + GetProperties(package);
@@ -32,6 +30,7 @@ namespace BlockchainApp
         string GetProperties(Package package)
         {
             string properties = "";
+
             for (int i = 0; i < package.contents.Count; i++)
             {
                 string property =  package.contents[i].Substring(37);
@@ -49,17 +48,18 @@ namespace BlockchainApp
         {
             using (UserDialogs.Instance.Loading("Unboxing"))
             {
-                UnboxPackage p = new UnboxPackage();
-                p.package = this.package.PackageId;
-                p.recipient = client.thisTrader.traderId;
+                UnboxPackage unboxPackage = new UnboxPackage();
+                unboxPackage.package = this.package.PackageId;
+                unboxPackage.recipient = client.thisTrader.traderId;
                 string expectedRecipient = package.recipient.Substring(35);
-                if(expectedRecipient != p.recipient)
+
+                if(expectedRecipient != unboxPackage.recipient)
                 {
                     await DisplayAlert("Error", "You are not the recipient, and are not allowed to unbox this package", "Ok");
                 }
                 else
                 {
-                    await client.UnboxPackage(p);
+                    await client.UnboxPackage(unboxPackage);
                     await DisplayAlert("Success", "The contents have been added to your package", "Ok");
                     await Navigation.PopAsync();
                 }

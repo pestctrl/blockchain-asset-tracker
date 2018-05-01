@@ -1,11 +1,6 @@
 ﻿using BlockchainAPI;
 using BlockchainAPI.Transactions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,9 +15,11 @@ namespace BlockchainApp
 		{
             this.client = client;
             this.package = package;
+
             InitializeComponent ();
             NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = package;
+
             recipient.Text = "Recipient: " + package.recipient.Substring(35);
             sender.Text = "Sender: " + package.sender.Substring(35);
             contents.Text = "Properties: " + GetProperties(package);
@@ -31,6 +28,7 @@ namespace BlockchainApp
         string GetProperties(CreatePackage package)
         {
             string properties = "";
+
             for (int i = 0; i < package.contents.Count; i++)
             {
                 string property = package.contents[i];

@@ -20,6 +20,7 @@ namespace BlockchainAPI
         public async Task<String> InvokeGet(String request)
         {
             var url = Url.Combine(HyperledgerConsts.ipAddress, request);
+
             return await client.GetStringAsync(url);
         }
 
@@ -28,6 +29,7 @@ namespace BlockchainAPI
         {
             var url = Url.Combine(HyperledgerConsts.ipAddress, Uri.EscapeUriString(request));
             var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));
+
             return await results.Content.ReadAsStringAsync();
         }
 
@@ -43,6 +45,7 @@ namespace BlockchainAPI
         {
             var url = Url.Combine(FlaskConsts.IPAddress, Uri.EscapeUriString(request));
             var results = await client.PostAsync(url, new StringContent(jsonObject, Encoding.UTF8, "application/json"));
+
             return await results.Content.ReadAsStringAsync();
         }
     }

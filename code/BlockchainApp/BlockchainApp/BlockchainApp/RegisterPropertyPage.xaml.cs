@@ -1,11 +1,6 @@
 ﻿using BlockchainAPI;
 using BlockchainAPI.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,12 +20,16 @@ namespace BlockchainApp
 
         async void CreateProperty(object sender, EventArgs e)
 	    {
-            Property p = new Property();
-            p.PropertyId = property_id.Text;
-            p.description = description.Text;
-            p.owner = client.thisTrader.traderId;
+            Property proeprty = new Property
+            {
+                PropertyId = property_id.Text,
+                description = description.Text,
+                owner = client.thisTrader.traderId
+            };
+
             BlockchainClient.Result error;
-            error = await client.RegisterNewProperty(p);
+            error = await client.RegisterNewProperty(proeprty);
+
             switch (error)
             {
                 case BlockchainClient.Result.SUCCESS:

@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using BlockchainAPI;
 using BlockchainAPI.Transactions;
-using BlockchainAPI.Models;
-using BlockchainAPI.Transactions;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ZXing.Net.Mobile.Forms;
 
 namespace BlockchainApp
 {
@@ -27,15 +20,15 @@ namespace BlockchainApp
             
 			InitializeComponent();
             propertyId.Text = pid;
-            //SetPageQRImage();
+
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
         public async Task<TransferPage> CreateTransferPage(BlockchainClient client, String pid)
         {
-            TransferPage p = new TransferPage(client,pid);
-            await p.getLocation();
-            return p;
+            TransferPage package = new TransferPage(client,pid);
+            await package.getLocation();
+            return package;
         }
 
         public async Task getLocation()
@@ -51,14 +44,16 @@ namespace BlockchainApp
             BlockchainClient.Result error;
             using (UserDialogs.Instance.Loading("Sending"))
             {
-                Transaction tr = new Transaction();
-                tr.property = propertyId.Text;
-                tr.origOwner = client.thisTrader.traderId;
-                tr.newOwner = RecipientID.Text;
-                tr.latitude = Double.Parse(latitude.Text);
-                tr.longitude = Double.Parse(longitude.Text);
-                
-                error = await client.sendProperty(tr);
+                Transaction transaction = new Transaction
+                {
+                    property = propertyId.Text,
+                    origOwner = client.thisTrader.traderId,
+                    newOwner = RecipientID.Text,
+                    latitude = Double.Parse(latitude.Text),
+                    longitude = Double.Parse(longitude.Text)
+                };
+
+                error = await client.sendProperty(transaction);
             }
             switch (error)
             {

@@ -1,12 +1,8 @@
 ﻿using Acr.UserDialogs;
 using BlockchainAPI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,6 +23,7 @@ namespace BlockchainApp
         public async Task SendEmail()
         {
             Regex matcher = new Regex(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b");
+
             if (matcher.Match(EmailAddress.Text.Trim().ToUpper()).Success)
             {
                 using (UserDialogs.Instance.Loading("Sending"))
@@ -34,6 +31,7 @@ namespace BlockchainApp
                     await client.SendQRCode(EmailAddress.Text.Trim(), packageId);
                     await DisplayAlert("Success", "Email was sent", "Ok");
                 }
+
                 await Navigation.PopAsync();
             }
             else

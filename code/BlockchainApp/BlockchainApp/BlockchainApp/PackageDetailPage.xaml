@@ -30,8 +30,6 @@
                     <Button Text="Unbox" Clicked="Unbox" FontSize="9" WidthRequest="80"/>
                 </StackLayout>
             </Frame>
-
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

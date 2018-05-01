@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using BlockchainAPI.Transactions;
-using BlockchainAPI.Models;
 using BlockchainAPI;
 using System.Collections.ObjectModel;
 
@@ -22,8 +17,10 @@ namespace BlockchainApp
 		{
             this.client = client;
             transactions = new ObservableCollection<CreatePackage>();
+
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent ();
+
             UpdateTransactionList(client);
             listView.ItemsSource = transactions;
 		}
@@ -32,6 +29,7 @@ namespace BlockchainApp
         {
             transactions.Clear();
             var Results = Task.Run(() => localClient.GetUserTransactions()).Result;
+
             foreach (var transaction in Results)
             {
                 transactions.Add(transaction);
