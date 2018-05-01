@@ -11,10 +11,15 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout BackgroundColor="#eee" Orientation="Horizontal" Padding="0, 1, 5, 2" >
-                                    <Label x:Name="titlename" Text="{Binding data.PropertyId}" TextColor="#611" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
-                                    <Switch HorizontalOptions="End" IsToggled="{Binding selected}" x:Name="isToggled" />
-                                </StackLayout>
+                                <ContentView Padding="0,2,0,2">
+                                    <StackLayout Style="{StaticResource ListLayoutStyle}">
+                                        <Frame VerticalOptions="Center" HorizontalOptions="Start">
+                                            <Image Source="boxImage.png"/>
+                                        </Frame>
+                                        <Label x:Name="titlename" Text="{Binding data.PropertyId}" TextColor="#611" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                        <Switch HorizontalOptions="End" IsToggled="{Binding selected}" x:Name="isToggled" />
+                                    </StackLayout>
+                                </ContentView>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
