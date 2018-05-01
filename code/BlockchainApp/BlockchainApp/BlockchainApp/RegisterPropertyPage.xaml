@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:BlockchainApp"
              BackgroundImage="background.png">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" BackgroundColor="White">
+        <StackLayout Orientation="Vertical">
             <Frame Style="{StaticResource FrameHeadingStyle}" VerticalOptions="Start">
                 <StackLayout Orientation="Vertical">
                     <Label Style="{StaticResource HeadingStyle}" Text="Register a Property"/>
