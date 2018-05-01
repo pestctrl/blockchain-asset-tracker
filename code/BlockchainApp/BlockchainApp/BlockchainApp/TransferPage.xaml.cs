@@ -53,7 +53,7 @@ namespace BlockchainApp
                     longitude = Double.Parse(longitude.Text)
                 };
 
-                error = await client.sendProperty(transaction);
+                error = await client.SendProperty(transaction);
             }
             switch (error)
             {
