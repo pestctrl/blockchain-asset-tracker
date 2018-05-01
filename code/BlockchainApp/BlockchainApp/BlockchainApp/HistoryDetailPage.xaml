@@ -4,7 +4,7 @@
              x:Class="BlockchainApp.HistoryDetailPage"
              BackgroundImage="background.png">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Orientation="Vertical">
             <Label Text="{Binding packageId}"
                 VerticalOptions="Start" 
                 HorizontalTextAlignment="Center"
@@ -18,10 +18,12 @@
                     <Label x:Name="contents"/>
                 </StackLayout>
             </Frame>
-            <Frame Padding = "0" VerticalOptions="EndAndExpand" BackgroundColor="Gray">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button Clicked="Back" BackgroundColor="#555" TextColor="White" Text="Back" />
-                </StackLayout>
+            <Frame VerticalOptions="FillAndExpand" >
+                <Frame  Style="{StaticResource BottomMenuFrameStyle}"  VerticalOptions="End">
+                    <StackLayout Style="{StaticResource BottomMenuLayoutStyle}" VerticalOptions="End">
+                        <Button Clicked="Back" Text="Back" />
+                    </StackLayout>
+                </Frame>
             </Frame>
         </StackLayout>
     </ContentPage.Content>
