@@ -222,6 +222,19 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
+        public async Task If_PropertyId_and_description_is_null_return_Empty()
+        {
+            Property property = new Property();
+
+            mockBlockService.Setup(m => m.InvokePost(HyperledgerConsts.PropertyUrl, It.IsAny<String>()))
+                            .ThrowsAsync(new HttpRequestException());
+
+            BlockchainClient.Result error = await clientWithMock.RegisterNewProperty(property);
+
+            Assert.AreEqual(BlockchainClient.Result.EMPTY, error);
+        }
+
+        [TestMethod]
         public async Task cant_register_new_property_if_it_exist()
         {
             Property property = new Property();
@@ -266,18 +279,25 @@ namespace BlockchainAPI.Tests
         public async Task GetUserTransactionsWillInvokeCreatePackageUrl()
         {
             mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl))
-                            .ReturnsAsync("[]");
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.trader1ID)))
-                            .ReturnsAsync(TestJsonObjectConsts.trader1);
-            mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
-                            .ReturnsAsync(TestJsonObjectConsts.trader1AuthenticationMessage);
+                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
 
-            await clientWithMock.Login(user);
-            await clientWithMock.GetUserTransactions();
+
+            var result = await clientWithMock.GetUserTransactions();
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl));
         }
 
+        [TestMethod]
+        public async Task GettingAllTransactionsWillNowInvokeTheTransactionsInOrder()
+        {
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
+
+            await clientWithMock.Login(user);
+            await clientWithMock.GetUserTransactions();
+
+            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl));
+        }
 
         [TestMethod]
         public async Task GetAllTransactionsWillInvokeGet()
@@ -324,16 +344,16 @@ namespace BlockchainAPI.Tests
         public async Task CreatePackageShouldInvokeTheRightURL()
         {
             CreatePackage package = new CreatePackage();
+
             package.packageId = "testID";
             package.sender = "sender";
             package.recipient = "recipient";
-
+           
+            mockBlockService.Setup(m => m.InvokeHead(HyperledgerConsts.TraderUrl, It.IsAny<String>()))
+                            .ReturnsAsync(true);
             await clientWithMock.CreatePackage(package);
 
-            mockBlockService.Setup(m => m.InvokeHead(HyperledgerConsts.TraderUrl, TestJsonObjectConsts.trader1ID))
-                            .ReturnsAsync(true);
-
-            mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package)));
+            mockBlockService.Verify(m => m.InvokePost(HyperledgerConsts.CreatePackageUrl, It.IsAny<String>()));
         }
 
         [TestMethod]
@@ -347,7 +367,7 @@ namespace BlockchainAPI.Tests
             };
 
             mockBlockService.Setup(m => m.InvokeHead(It.IsAny<String>(), It.IsAny<String>()))
-                            .ReturnsAsync(true);
+                            .ReturnsAsync(false);
 
             BlockchainClient.Result notExist = await clientWithMock.CreatePackage(package);
 
@@ -364,8 +384,12 @@ namespace BlockchainAPI.Tests
                 recipient = "recipient"
             };
 
+            mockBlockService.Setup(m => m.InvokeHead(HyperledgerConsts.TraderUrl, It.IsAny<String>()))
+                            .ReturnsAsync(true);
+
             mockBlockService.Setup(m => m.InvokePost(HyperledgerConsts.CreatePackageUrl, It.IsAny<String>()))
                             .ThrowsAsync(new HttpRequestException());
+
 
             BlockchainClient.Result networkError = await clientWithMock.CreatePackage(package);
 
@@ -495,6 +519,18 @@ namespace BlockchainAPI.Tests
         }
 
         [TestMethod]
+        public async Task addNewTrasferReturnNetWorkErrorWhenNetWorkIsDown()
+        {
+            mockBlockService.Setup(m => m.InvokePost(HyperledgerConsts.NewTransferUrl, It.IsAny<String>()))
+                           .ThrowsAsync(new HttpRequestException());
+            NewTransfer transfer = new NewTransfer();
+
+            var error = await clientWithMock.AddNewTransfer(transfer);
+
+            Assert.AreEqual(BlockchainClient.Result.NETWORK, error);
+        }
+
+        [TestMethod]
         public async Task GetAllTransfersWillBeInReverseOrder()
         {
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
@@ -562,10 +598,11 @@ namespace BlockchainAPI.Tests
             Assert.IsNotNull(selectedData);
         }
 
-        //[TestMethod]
-        //public void CreatePackageWithUserThatDoesNotExist()
-        //{
-        //    Assert.AreEqual(BlockchainClient.Result.EXISTS,)
-        //}
+        [TestMethod]
+        public async Task testSendQrCodeWillNotThrowAnyException()
+        {
+            await clientWithMock.SendQRCode("email@gmail.com", "propertyId");
+            Assert.IsTrue(true);
+        }
     }
 }
