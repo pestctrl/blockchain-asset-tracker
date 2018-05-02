@@ -15,7 +15,10 @@
                 <StackLayout Orientation="Vertical">
                     <Entry Placeholder="Property ID" Keyboard="Text" x:Name="property_id"/>
                     <Entry Placeholder="Description" Keyboard="Text" x:Name="description"/>
-                    <Image x:Name="PhotoImage" />
+                    <Frame WidthRequest="480" HeightRequest="320">
+                        <Image x:Name="PhotoImage" />
+                    </Frame>
+                    
                     <Button x:Name="CameraButton" Text="Take Photo" Grid.Row="1" Clicked="CameraButton_Clicked"/>
                 </StackLayout>
             </Frame>
