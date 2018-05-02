@@ -5,6 +5,12 @@
              BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout>
+            <Frame>
+                <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="55,5,5,5">
+                    <Label Text="Property ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
+                    <Label Text="Selected" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
+                </StackLayout>
+            </Frame>
             <Frame Padding="0" VerticalOptions="FillAndExpand">
                 <ListView x:Name="property_list" ItemSelected="OnSelection">
                     <ListView.ItemTemplate>
@@ -24,12 +30,17 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Frame>
-            <Entry Placeholder="Recipient ID" Keyboard="Text" x:Name="recipient"/>
+            <Frame BackgroundColor="White">
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10,0,10,0">
+                    <Label Style="{StaticResource FieldLabel}" Text="Recipient:"/>
+                    <Entry Placeholder="Enter Recipient ID" Keyboard="Text" x:Name="recipient"/>
+                </StackLayout>
+            </Frame>
 
-            <Frame Padding = "0" VerticalOptions="EndAndExpand" BackgroundColor="White">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button Clicked="Back" Text="Back" FontSize="9" WidthRequest="80" />
-                    <Button Clicked="CreatePackage" Text="Create Package" FontSize="9" WidthRequest="80"/>
+            <Frame Style="{StaticResource BottomMenuFrameStyle}">
+                <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
+                    <Button Clicked="Back" Text="Back" Style="{StaticResource BottomMenuButtonStyle}"/>
+                    <Button Clicked="CreatePackage" Text="Create Package" Style="{StaticResource BottomMenuButtonStyle}"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

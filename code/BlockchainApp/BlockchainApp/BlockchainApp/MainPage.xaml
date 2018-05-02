@@ -12,11 +12,13 @@
                 </StackLayout>
             </Frame>
 
-            <Frame VerticalOptions="CenterAndExpand">
+            <Frame VerticalOptions="CenterAndExpand" Padding="20,0,20,0">
                 <StackLayout Orientation="Vertical">
                     <Label Style="{StaticResource TitleStyle}" VerticalOptions="Start" Text="Login Information"/>
-                    <Entry x:Name="login_id" Placeholder="Login ID" AutomationId="login"/>
-                    <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" AutomationId="password"/>
+                    <StackLayout Orientation="Vertical" Padding="50,0,50,0">
+                        <Entry x:Name="login_id" Placeholder="Login ID" AutomationId="login"/>
+                        <Entry x:Name="login_password" IsPassword="True" Placeholder="Password" AutomationId="password"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
 

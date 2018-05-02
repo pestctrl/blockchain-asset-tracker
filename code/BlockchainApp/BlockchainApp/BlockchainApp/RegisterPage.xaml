@@ -5,14 +5,24 @@
              xmlns:local="clr-namespace:BlockchainApp"
              Title="Register">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="10">
-            <Entry Placeholder="UserID" Keyboard="Text" x:Name="userId" HorizontalTextAlignment="Center"/>
-            <Entry Placeholder="First Name" Keyboard="Text" x:Name="fName" HorizontalTextAlignment="Center"/>
-            <Entry Placeholder="Last Name" Keyboard="Text" x:Name="lName" HorizontalTextAlignment="Center"/>
-            <Entry Placeholder="Password" Keyboard="Text" x:Name="password" HorizontalTextAlignment="Center"/>
-            <Frame Padding = "1" VerticalOptions="End" BackgroundColor="{StaticResource ButtonBackground}">
+        <StackLayout>
+            <Frame Style="{StaticResource FrameHeadingStyle}" VerticalOptions="Start">
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource HeadingStyle}" Text="New User Registration"/>
+                </StackLayout>
+            </Frame>
+            <Frame VerticalOptions="CenterAndExpand">
+                <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="10">
+                    <Entry Placeholder="UserID" Keyboard="Text" x:Name="userId" HorizontalTextAlignment="Center"/>
+                    <Entry Placeholder="First Name" Keyboard="Text" x:Name="fName" HorizontalTextAlignment="Center"/>
+                    <Entry Placeholder="Last Name" Keyboard="Text" x:Name="lName" HorizontalTextAlignment="Center"/>
+                    <Entry Placeholder="Password" Keyboard="Text" x:Name="password" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" VerticalOptions="End">
                 <StackLayout>
                     <Button Text="Register"  Clicked="CompletedRegister"/>
+                    <Button Text="Cancel"  Clicked="CancelRegistration"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

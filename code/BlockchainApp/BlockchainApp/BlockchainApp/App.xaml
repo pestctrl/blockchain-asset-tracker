@@ -19,13 +19,14 @@
             <Color x:Key ="OracleGrey">#939699</Color>
             <Color x:Key ="OracleDarkGrey">#4e5052</Color>
             
+            <!--Defaults-->
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource OracleDarkSlate}"/>
                 <Setter Property="TextColor" Value="White"/>
             </Style>
-
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource OracleBlack}"/>
+                <Setter Property="Margin" Value="0"/>
             </Style>
             <Style TargetType="Entry">
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
@@ -43,12 +44,40 @@
                 <Setter Property="Padding" Value="0"/>
             </Style>
 
-            <Style TargetType="Label" x:Key="TitleStyle">
-                <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="24"/>
-                <Setter Property="FontAttributes" Value="Bold"/>
+            <!--Bottom Navigation Menu-->
+            <Style TargetType="Frame" x:Key="BottomMenuFrameStyle">
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource OracleLightSlate}"/>
+                <Setter Property="OutlineColor" Value="Transparent"/>
             </Style>
+            <Style TargetType="StackLayout" x:Key="BottomMenuLayoutStyle">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Button" x:Key="BottomMenuButtonStyle">
+                <Setter Property="FontSize" Value="9"/>
+                <Setter Property="WidthRequest" Value="80"/>
+            </Style>
+            
+            <!--Listview items-->
+            <Style TargetType="ListView">
+                <Setter Property="IsPullToRefreshEnabled" Value="True"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="SeparatorVisibility" Value="None"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="ListLayoutStyle">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="Padding" Value="10,0,10,0"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ListLabelStyle">
+                <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            
+            <!--Page Headings-->
             <Style TargetType="Label" x:Key="HeadingStyle">
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
@@ -59,38 +88,20 @@
                 <Setter Property="VerticalOptions" Value="Start"/>
                 <Setter Property="BackgroundColor" Value="{StaticResource OracleDarkSlate}"/>
                 <Setter Property="Padding" Value="10"/>
-                <Setter Property="Margin" Value="0"/>
                 <Setter Property="OutlineColor" Value="Transparent"/>
             </Style>
-            <Style TargetType="Frame" x:Key="BottomMenuFrameStyle">
-                <Setter Property="VerticalOptions" Value="End"/>
-                <Setter Property="BackgroundColor" Value="{StaticResource OracleLightSlate}"/>
-                <Setter Property="Padding" Value="0"/>
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="OutlineColor" Value="Transparent"/>
-            </Style>
-            <Style TargetType="StackLayout" x:Key="BottomMenuLayoutStyle">
-                <Setter Property="Orientation" Value="Horizontal"/>
-                <Setter Property="HorizontalOptions" Value="Center"/>
-                <Setter Property="Margin" Value="0"/>
-            </Style>
             
-            <Style TargetType="ListView">
-                <Setter Property="IsPullToRefreshEnabled" Value="True"/>
-                <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="SeparatorVisibility" Value="None"/>
-                <Setter Property="Margin" Value="0"/>
-            </Style>
-            
-            <Style TargetType="StackLayout" x:Key="ListLayoutStyle">
-                <Setter Property="Orientation" Value="Horizontal"/>
-                <Setter Property="BackgroundColor" Value="White"/>
-                <Setter Property="Padding" Value="10,0,10,0"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
-            </Style>
-            <Style TargetType="Label" x:Key="ListLabelStyle">
+            <!--Uncategorized-->
+            <Style TargetType="Label" x:Key="TitleStyle">
                 <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="FieldLabel">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

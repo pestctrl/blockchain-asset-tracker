@@ -34,7 +34,11 @@ namespace BlockchainApp
             }
 
             if (loginSuccess)
+            {
+                user.password = "";
+                login_password.Text = "";
                 loginCode = 0;
+            }
             else
                 loginCode = 1;
 
@@ -57,6 +61,7 @@ namespace BlockchainApp
 
         async void RegisterButton(object sender, EventArgs args)
         {
+            login_password.Text = "";
             await Navigation.PushAsync(new RegisterPage(client));
         }
     }

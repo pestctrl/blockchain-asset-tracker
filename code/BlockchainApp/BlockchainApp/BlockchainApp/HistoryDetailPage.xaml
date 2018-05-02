@@ -1,29 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BlockchainApp.HistoryDetailPage"
-             BackgroundImage="background.png">
+
+             x:Class="BlockchainApp.HistoryDetailPage">
     <ContentPage.Content>
+
         <StackLayout Orientation="Vertical">
-            <Label Text="{Binding packageId}"
-                VerticalOptions="Start" 
-                HorizontalTextAlignment="Center"
-                FontSize="18" FontAttributes="Bold"
-                />
-            <Frame Padding="10">
-                <StackLayout>
-                    <Label x:Name="recipient" />
-                    <Label x:Name="sender" />
-                    <Label Text="{Binding timestamp, StringFormat='Time Created: {0}'}" />
-                    <Label x:Name="contents"/>
+            <Frame Style="{StaticResource FrameHeadingStyle}" VerticalOptions="Start">
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource HeadingStyle}" Text="Package History Details"/>
                 </StackLayout>
             </Frame>
-            <Frame VerticalOptions="FillAndExpand" >
-                <Frame  Style="{StaticResource BottomMenuFrameStyle}"  VerticalOptions="End">
-                    <StackLayout Style="{StaticResource BottomMenuLayoutStyle}" VerticalOptions="End">
-                        <Button Clicked="Back" Text="Back" />
+            <Frame Padding="10">
+
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                        <Label Text="Package ID:" Style="{StaticResource FieldLabel}" Margin="5,0,0,0"/>
+                        <Label Text="{Binding PackageId}" FontSize="12" VerticalTextAlignment="Center"/>
                     </StackLayout>
-                </Frame>
+                    <StackLayout Orientation="Vertical" Padding="5">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Recipient:" Style="{StaticResource FieldLabel}"/>
+                            <Label x:Name="recipient" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Sender:" Style="{StaticResource FieldLabel}"/>
+                            <Label x:Name="sender" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Created Date/Time:" Style="{StaticResource FieldLabel}"/>
+                            <Label Text="{Binding timestamp, StringFormat='{0}'}"/>
+                        </StackLayout>
+                        <Label Text="Package Contents:" Style="{StaticResource FieldLabel}"/>
+                        <StackLayout Orientation="Vertical">
+                            <ListView x:Name="propertyListView" IsPullToRefreshEnabled="False">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding .}" VerticalTextAlignment="Center" Margin="10,0,10,0"/>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame Style="{StaticResource BottomMenuFrameStyle}">
+                <StackLayout  Style="{StaticResource BottomMenuLayoutStyle}" >
+                    <Button Style="{StaticResource BottomMenuButtonStyle}" Clicked="Back" Text="Back" />
+                </StackLayout>
             </Frame>
         </StackLayout>
     </ContentPage.Content>

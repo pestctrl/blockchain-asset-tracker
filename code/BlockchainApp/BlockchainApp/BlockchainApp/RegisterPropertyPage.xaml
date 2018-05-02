@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BlockchainApp.RegisterPropertyPage"
-             xmlns:local="clr-namespace:BlockchainApp"
-             BackgroundImage="background.png">
+             xmlns:local="clr-namespace:BlockchainApp">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Frame Style="{StaticResource FrameHeadingStyle}" VerticalOptions="Start">
@@ -12,7 +11,7 @@
                 </StackLayout>
             </Frame>
             <Frame VerticalOptions="CenterAndExpand">
-                <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Vertical" Margin="50">
                     <Entry Placeholder="Property ID" Keyboard="Text" x:Name="property_id"/>
                     <Entry Placeholder="Description" Keyboard="Text" x:Name="description"/>
                     <Frame WidthRequest="480" HeightRequest="320">
@@ -22,10 +21,10 @@
                     <Button x:Name="CameraButton" Text="Take Photo" Grid.Row="1" Clicked="CameraButton_Clicked"/>
                 </StackLayout>
             </Frame>
-            <Frame Padding = "0" VerticalOptions="EndAndExpand" BackgroundColor="White">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <Button Clicked="Back" Text="Back" FontSize="9" WidthRequest="80" />
-                    <Button Text="Register Property"  Clicked="CreateProperty" FontSize="9" WidthRequest="80"/>
+            <Frame Style="{StaticResource BottomMenuFrameStyle}" VerticalOptions="EndAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Style="{StaticResource BottomMenuLayoutStyle}">
+                    <Button Clicked="Back" Text="Back" Style="{StaticResource BottomMenuButtonStyle}"/>
+                    <Button Text="Register Property"  Clicked="CreateProperty" Style="{StaticResource BottomMenuButtonStyle}"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

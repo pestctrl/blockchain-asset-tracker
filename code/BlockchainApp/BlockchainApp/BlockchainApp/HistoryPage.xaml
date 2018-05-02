@@ -14,10 +14,12 @@
                     <DataTemplate>
                         <ViewCell>
                             <ContentView Padding="0,2,0,2">
+                                <!--<StackLayout BackgroundColor="#eee" Orientation="Vertical">-->
                                 <StackLayout Style="{StaticResource ListLayoutStyle}" VerticalOptions="FillAndExpand">
                                     <Label Text="{Binding packageId}" Style="{StaticResource ListLabelStyle}"/>
-                                    <Label Text="{Binding timestamp}" Style="{StaticResource ListLabelStyle}"/>
+                                    <Label Text="{Binding timestamp, StringFormat='{0}'}}" Style="{StaticResource ListLabelStyle}"/>
                                 </StackLayout>
+                                <!--</StackLayout>-->
                             </ContentView>
                         </ViewCell>
                     </DataTemplate>

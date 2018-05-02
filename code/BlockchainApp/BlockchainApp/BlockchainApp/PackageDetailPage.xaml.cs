@@ -14,6 +14,7 @@ namespace BlockchainApp
 	{
         BlockchainClient client;
         Package package;
+        
 		public PackageDetailPage (Package package, BlockchainClient client)
 		{
             this.client = client;
@@ -23,9 +24,11 @@ namespace BlockchainApp
             NavigationPage.SetHasNavigationBar(this, false);
 
             BindingContext = package;
-            recipient.Text = "Recipient: " + package.recipient.Substring(35);
-            contents.Text = "Properties: " + GetProperties(package);
-		}
+            recipient.Text = package.recipient.Substring(35);
+            propertyListView.ItemsSource = GetProperties(package).Split(new char[] { ',' });
+
+
+        }
 
         string GetProperties(Package package)
         {
@@ -36,7 +39,7 @@ namespace BlockchainApp
                 string property =  package.contents[i].Substring(37);
                 property = property.Replace("%20", " ");
                 if (i == package.contents.Count - 1)
-                    properties = properties + property + ".";
+                    properties = properties + property;
                 else
                     properties = properties + property + ", ";
             }

@@ -48,5 +48,10 @@ namespace BlockchainApp
                 
             }
         }
+
+        async void CancelRegistration(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
     }
 }

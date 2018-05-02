@@ -6,7 +6,7 @@
              BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="60,5,5,5">
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="55,5,5,5">
                 <Label Text="Package ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
             </StackLayout>
 
@@ -33,9 +33,9 @@
 
             <Frame Style="{StaticResource BottomMenuFrameStyle}">
                 <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
-                    <Button Text="Receive Package" FontSize="9" WidthRequest="80" Clicked="ScanCode_Receive"/>
-                    <Button x:Name="create_package" Text="Create Package" FontSize="9" WidthRequest="80" Clicked="CreatePackage"/>
-                    <Button Text="Send Package" FontSize="9" WidthRequest="80" Clicked="ScanCode_Send"/>
+                    <Button Text="Arrival Scan" Style="{StaticResource BottomMenuButtonStyle}" Clicked="ScanCode_Receive"/>
+                    <Button x:Name="create_package" Text="Create Package" Style="{StaticResource BottomMenuButtonStyle}" Clicked="CreatePackage"/>
+                    <Button Text="Departure Scan" Style="{StaticResource BottomMenuButtonStyle}" Clicked="ScanCode_Send"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
