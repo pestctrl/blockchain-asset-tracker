@@ -7,9 +7,9 @@ using Xamarin.Forms.Xaml;
 
 namespace BlockchainApp
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RegisterPropertyPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class RegisterPropertyPage : ContentPage
+    {
         private BlockchainClient client;
 
         public RegisterPropertyPage(BlockchainClient blockchainclient)
@@ -20,7 +20,7 @@ namespace BlockchainApp
         }
 
         async void CreateProperty(object sender, EventArgs e)
-	    {
+        {
             BlockchainClient.Result error;
             Property proeprty = new Property
             {
@@ -50,6 +50,14 @@ namespace BlockchainApp
             await Navigation.PopAsync();
         }
 
+        private async void CameraButton_Clicked(object sender, EventArgs e)
+        {
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+            if (photo != null)
+                PhotoImage.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
+        }
+        
         async void Back(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
