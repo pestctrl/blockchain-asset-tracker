@@ -55,7 +55,7 @@ namespace BlockchainApp
             switch (error)
             {
                 case BlockchainClient.Result.SUCCESS:
-                    await DisplayAlert("Alert", "Sucessful create Package", "Ok");
+                    await DisplayAlert("Alert", "Sucessful create Package. Please print label before initial departure scan", "Ok");
                     break;
                 case BlockchainClient.Result.NETWORK:
                     await DisplayAlert("Alert", "Error: Network down. Please try again.", "Ok");
