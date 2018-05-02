@@ -33,7 +33,8 @@ namespace BlockchainApp
                         username = userId.Text,
                         firstName = fName.Text,
                         lastName = lName.Text,
-                        password = password.Text
+                        password = password.Text,
+                        TraderType = traderType.Text
                     };
 
                     await client.RegisterNewTrader(user);
