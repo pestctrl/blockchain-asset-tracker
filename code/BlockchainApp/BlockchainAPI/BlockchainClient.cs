@@ -17,7 +17,8 @@ namespace BlockchainAPI
     {
         public Trader thisTrader;
         public IBlockchainService blockchainService;
-        public enum Result {SUCCESS, NETWORK, EXISTERROR, EMPTY}
+        public enum Result {SUCCESS, NETWORK, EXISTERROR, EMPTY
+        }
 
         public BlockchainClient(IBlockchainService blockChain)
         {

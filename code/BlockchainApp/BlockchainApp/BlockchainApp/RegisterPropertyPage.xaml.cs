@@ -42,7 +42,7 @@ namespace BlockchainApp
                 case BlockchainClient.Result.SUCCESS:
                     await DisplayAlert("Alert", "Sucessful create Asset", "Ok");
                     break;
-                case BlockchainClient.Result.EXISTS:
+                case BlockchainClient.Result.EXISTERROR:
                     await DisplayAlert("Alert", "Unsucessful create Asset: Asset id already exists", "Ok");
                     break;
                 case BlockchainClient.Result.NETWORK:
