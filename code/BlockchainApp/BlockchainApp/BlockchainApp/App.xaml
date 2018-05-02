@@ -73,6 +73,7 @@
             <Style TargetType="Label" x:Key="ListLabelStyle">
                 <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="10" />
             </Style>
             <!--Page Headings-->
             <Style TargetType="Label" x:Key="HeadingStyle">
@@ -95,7 +96,7 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
             <Style TargetType="Label" x:Key="FieldLabel">
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="10" />
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>

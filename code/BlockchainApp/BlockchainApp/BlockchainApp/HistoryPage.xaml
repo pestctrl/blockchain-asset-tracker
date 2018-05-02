@@ -5,26 +5,48 @@
              BackgroundImage="background.png">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="5">
-                    <Label Text="Transaction ID" HorizontalOptions="StartAndExpand" Style="{StaticResource ListLabelStyle}"/>
-                    <Label Text="Date/Time" HorizontalOptions="End" HorizontalTextAlignment="Start" Style="{StaticResource ListLabelStyle}" WidthRequest="70"/>
-                </StackLayout>
-                <ListView x:Name="listView" ItemSelected="Selected_Handler" Refreshing="Handle_Refreshing">
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal">
+                <Label Text="Transaction ID" HorizontalOptions="StartAndExpand" Style="{StaticResource ListLabelStyle}"/>
+                <Label Text="Date/Time" HorizontalOptions="End" HorizontalTextAlignment="Start" Style="{StaticResource ListLabelStyle}" WidthRequest="70"/>
+            </StackLayout>
+            
+            <ListView x:Name="listView" ItemSelected="Selected_Handler" Refreshing="Handle_Refreshing">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ContentView Padding="0,2,0,2">
-                                <!--<StackLayout BackgroundColor="#eee" Orientation="Vertical">-->
-                                <StackLayout Style="{StaticResource ListLayoutStyle}" VerticalOptions="FillAndExpand">
-                                    <Label Text="{Binding transactionId}" Style="{StaticResource ListLabelStyle}"/>
-                                    <Label Text="{Binding timestamp, StringFormat='{0}'}}" Style="{StaticResource ListLabelStyle}"/>
+                                <StackLayout Style="{StaticResource ListLayoutStyle}">
+                                    <Frame>
+                                        <StackLayout Orientation="Vertical">
+                                            <StackLayout Orientation="Horizontal">
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                                    <Label Style="{StaticResource FieldLabel}" Text="Sender:" VerticalTextAlignment="Center" MinimumWidthRequest="50"/>
+                                                    <Label Style="{StaticResource ListLabelStyle}" Text="{Binding sender}" LineBreakMode="HeadTruncation" VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                                    <Label Style="{StaticResource FieldLabel}" Text="Recipient:" VerticalTextAlignment="Center" MinimumWidthRequest="75"/>
+                                                    <Label Style="{StaticResource ListLabelStyle}" Text="{Binding recipient}" LineBreakMode="HeadTruncation" VerticalTextAlignment="Center"/>
+
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Style="{StaticResource FieldLabel}" Text="Transaction ID:" VerticalTextAlignment="Center"  MinimumWidthRequest="75"/>
+                                                <Label Text="{Binding transactionId}" Style="{StaticResource ListLabelStyle}" LineBreakMode="TailTruncation"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame>
+                                        <StackLayout VerticalOptions="StartAndExpand">
+                                            <Label Text="{Binding timestamp, StringFormat='{0}'}}" Style="{StaticResource ListLabelStyle}"/>
+                                        </StackLayout>
+                                    </Frame>
                                 </StackLayout>
-                                <!--</StackLayout>-->
                             </ContentView>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

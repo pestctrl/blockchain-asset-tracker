@@ -20,8 +20,21 @@
                                         <Image Source="boxImage.png"/>
                                     </Frame>
                                     <Frame VerticalOptions="Center">
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding PackageId}" VerticalTextAlignment="Center"/>
+                                        <StackLayout Orientation="Vertical">
+                                            <StackLayout Orientation="Horizontal">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Style="{StaticResource FieldLabel}" Text="Sender:" VerticalTextAlignment="Center"  MinimumWidthRequest="50"/>
+                                                    <Label Style="{StaticResource ListLabelStyle}" Text="{Binding sender}" LineBreakMode="HeadTruncation" VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Style="{StaticResource FieldLabel}" Text="Recipient:" VerticalTextAlignment="Center"  MinimumWidthRequest="75"/>
+                                                    <Label Style="{StaticResource ListLabelStyle}" Text="{Binding recipient}" LineBreakMode="HeadTruncation" VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Style="{StaticResource FieldLabel}" Text="Package ID:" VerticalTextAlignment="Center"/>
+                                                <Label Style="{StaticResource ListLabelStyle}" Text="{Binding PackageId}" LineBreakMode="TailTruncation" VerticalTextAlignment="Center"/>
+                                        </StackLayout>
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>

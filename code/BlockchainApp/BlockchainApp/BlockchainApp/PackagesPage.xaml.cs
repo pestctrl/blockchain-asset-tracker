@@ -19,14 +19,6 @@ namespace BlockchainApp
         private BlockchainClient client;
         ObservableCollection<Package> packagesOwn;
 
-        public class PackageView
-        {
-            public string title { get; set; }
-            public string subtitle { get; set; }
-        }
-
-
-
         public PackagesPage(BlockchainClient client)
         {
             this.client = client;
@@ -34,7 +26,7 @@ namespace BlockchainApp
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-
+            
             UpdatePackageList(client);
             listView.ItemsSource = packagesOwn;
         }
