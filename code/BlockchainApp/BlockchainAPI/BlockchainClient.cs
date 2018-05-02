@@ -43,7 +43,7 @@ namespace BlockchainAPI
 
         public async Task<List<NewTransfer>> GetAllTransfers()
         {
-            var results = await blockchainService.InvokeGet(HyperledgerConsts.NewTransferUrl);
+            string results = await blockchainService.InvokeGet(HyperledgerConsts.NewTransferUrl);
             return JsonConvert.DeserializeObject<List<NewTransfer>>(results);
         }
 
@@ -68,7 +68,7 @@ namespace BlockchainAPI
 
                 if (!string.IsNullOrEmpty(checkUser.access_token))
                 {
-                    var request = HyperledgerConsts.TraderQueryURL(user.username);
+                    string request = HyperledgerConsts.TraderQueryURL(user.username);
                     results = await blockchainService.InvokeGet(request);
                     thisTrader = JsonConvert.DeserializeObject<Trader>(results);
                     return true;
@@ -138,7 +138,7 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokePost(HyperledgerConsts.NewTransferUrl, JsonConvert.SerializeObject(t));
+                string results = await blockchainService.InvokePost(HyperledgerConsts.NewTransferUrl, JsonConvert.SerializeObject(t));
                 return Result.SUCCESS;
             }
             catch (HttpRequestException)
@@ -213,13 +213,13 @@ namespace BlockchainAPI
         public async Task<List<NewTransfer>> GetPropertyHistory(string property)
         {
             List<NewTransfer> finalList = new List<NewTransfer>();
-            var results = await blockchainService.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property)));
-            var list = JsonConvert.DeserializeObject<List<Package>>(results);
+            string results = await blockchainService.InvokeGet(HyperledgerConsts.PropertyPackageUrl(Uri.EscapeDataString(property)));
+            List<Package> list = JsonConvert.DeserializeObject<List<Package>>(results);
 
             foreach(Package package in list)
             {
-                var res2 = await blockchainService.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(package.PackageId)));
-                var packageHistory = JsonConvert.DeserializeObject<List<NewTransfer>>(res2);
+                string res2 = await blockchainService.InvokeGet(HyperledgerConsts.PackageHistoryUrl(Uri.EscapeDataString(package.PackageId)));
+                List<NewTransfer> packageHistory = JsonConvert.DeserializeObject<List<NewTransfer>>(res2);
                 finalList.AddRange(packageHistory);
             }
 
@@ -228,7 +228,7 @@ namespace BlockchainAPI
 
         public async Task<IEnumerable<Transaction>> GetAllTransactions()
         {
-            var results = await blockchainService.InvokeGet(HyperledgerConsts.OrderedTransactionUrl);
+            string results = await blockchainService.InvokeGet(HyperledgerConsts.OrderedTransactionUrl);
             return JsonConvert.DeserializeObject<List<Transaction>>(results);
         }
 
@@ -236,7 +236,7 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
+                string results = await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
                 return Result.SUCCESS;
             }
             catch (HttpRequestException)
