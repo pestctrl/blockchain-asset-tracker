@@ -17,7 +17,7 @@ namespace BlockchainAPI
     {
         public Trader thisTrader;
         public IBlockchainService blockchainService;
-        public enum Result {SUCCESS, FAILED, NETWORK, EXISTS, EMPTY}
+        public enum Result {SUCCESS, NETWORK, EXISTERROR, EMPTY}
 
         public BlockchainClient(IBlockchainService blockChain)
         {
@@ -105,7 +105,7 @@ namespace BlockchainAPI
                     await blockchainService.InvokePost(HyperledgerConsts.TransactionUrl, JsonConvert.SerializeObject(transaction));
                     return Result.SUCCESS;
                 }
-                else { return Result.EXISTS; }
+                else { return Result.EXISTERROR; }
             }
             catch (HttpRequestException)
             {
@@ -126,10 +126,11 @@ namespace BlockchainAPI
                     await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(property));
                     return Result.SUCCESS;
                 }
-                else { return Result.EXISTS; }
+                else { return Result.EXISTERROR; }
             }
             catch (HttpRequestException)
             {
+                
                 return Result.NETWORK;
             }
         }
@@ -195,7 +196,7 @@ namespace BlockchainAPI
             {
                 if (transactions[i].recipient.Substring(35) == thisTrader.traderId || transactions[i].sender.Substring(35) == thisTrader.traderId)
                 {
-                    for(int j = 0; j < transactions[i].contents.Count; j++)
+                    for (int j = 0; j < transactions[i].contents.Count; j++)
                     {
                         transactions[i].contents[j] = transactions[i].contents[j].Substring(37);
                         transactions[i].contents[j] = transactions[i].contents[j].Replace("%20", " ");
@@ -236,8 +237,16 @@ namespace BlockchainAPI
         {
             try
             {
-                string results = await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
-                return Result.SUCCESS;
+                bool flag = await UserExists(package.recipient);
+                if (!flag)
+                {
+                    string results = await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
+                    return Result.SUCCESS;
+                }
+                else
+                {
+                    return Result.EXISTERROR;
+                }
             }
             catch (HttpRequestException)
             {
