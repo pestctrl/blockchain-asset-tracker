@@ -25,6 +25,7 @@ namespace BlockchainApp
             }
             else
             {
+                //if(client.UserExists())
                 if (userId.Text != "" && fName.Text != "" && lName.Text != "" 
                     && userId.Text != null && fName.Text != null && lName.Text != null)
                 {

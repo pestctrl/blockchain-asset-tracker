@@ -17,7 +17,7 @@ namespace BlockchainAPI
     {
         public Trader thisTrader;
         public IBlockchainService blockchainService;
-        public enum Result {SUCCESS, FAILED, NETWORK, EXISTS}
+        public enum Result {SUCCESS, FAILED, NETWORK, EXISTS, EMPTY}
 
         public BlockchainClient(IBlockchainService blockChain)
         {
@@ -63,8 +63,8 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
-                var checkUser = JsonConvert.DeserializeObject<messageCredential>(results);
+                string results = await blockchainService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
+                messageCredential checkUser = JsonConvert.DeserializeObject<messageCredential>(results);
 
                 if (!string.IsNullOrEmpty(checkUser.access_token))
                 {
@@ -117,11 +117,14 @@ namespace BlockchainAPI
         {
             try
             {
+                if (String.IsNullOrEmpty(property.PropertyId) || String.IsNullOrEmpty(property.description))
+                    return Result.EMPTY;
+
                 bool flag = await PropertyExists(property.PropertyId);
                 if (!flag)
                 {
                     await blockchainService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(property));
-                     return Result.SUCCESS;
+                    return Result.SUCCESS;
                 }
                 else { return Result.EXISTS; }
             }
@@ -148,7 +151,7 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokeGet(HyperledgerConsts.MyAssetsUrl(thisTrader.traderId));
+                string results = await blockchainService.InvokeGet(HyperledgerConsts.MyAssetsUrl(thisTrader.traderId));
                 return JsonConvert.DeserializeObject<List<Property>>(results);
             }
             catch (HttpRequestException)
@@ -161,7 +164,7 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokeGet(HyperledgerConsts.MyPackagesUrl(thisTrader.traderId));
+                string results = await blockchainService.InvokeGet(HyperledgerConsts.MyPackagesUrl(thisTrader.traderId));
                 return JsonConvert.DeserializeObject<List<Package>>(results);
             }
             catch (HttpRequestException)
@@ -174,7 +177,7 @@ namespace BlockchainAPI
         {
             try
             {
-                var results = await blockchainService.InvokeGet(Flurl.Url.Combine(HyperledgerConsts.PackageUrl,packageId));
+                string results = await blockchainService.InvokeGet(Flurl.Url.Combine(HyperledgerConsts.PackageUrl,packageId));
                 return JsonConvert.DeserializeObject<Package>(results);
             }
             catch (HttpRequestException)
@@ -185,8 +188,8 @@ namespace BlockchainAPI
 
         public async Task<List<CreatePackage>> GetUserTransactions()
         {
-            var resultsString = await blockchainService.InvokeGet(HyperledgerConsts.CreatePackageUrl);
-            var transactions = JsonConvert.DeserializeObject<List<CreatePackage>>(resultsString);
+            string resultsString = await blockchainService.InvokeGet(HyperledgerConsts.CreatePackageUrl);
+            List<CreatePackage> transactions = JsonConvert.DeserializeObject<List<CreatePackage>>(resultsString);
 
             for (int i = transactions.Count - 1; i >= 0; i--)
             {
