@@ -189,9 +189,9 @@ namespace BlockchainAPI.Tests
         public void JsonConvertCanDeserializeEvenWhenThereAreExtraFields()
         {
             Trader trader = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.trader1);
-            string expectResult = String.Format("{0} {1}", trader.firstName, trader.lastName);
+            string expectedResult = String.Format("{0} {1}", trader.firstName, trader.lastName);
 
-            Assert.AreEqual(expectResult, trader.fullName);
+            Assert.AreEqual(expectedResult, trader.fullName);
         }
 
         [TestMethod]
@@ -238,7 +238,7 @@ namespace BlockchainAPI.Tests
                             .ThrowsAsync(new HttpRequestException());
 
             await clientWithMock.Login(user);
-            var results = await clientWithMock.GetMyProperties();
+            List<Property> results = await clientWithMock.GetMyProperties();
 
             Assert.IsNull(results);
         }
@@ -285,7 +285,7 @@ namespace BlockchainAPI.Tests
         public async Task PropertyHistoryWillCallPackageHistoryOnEveryReturnedPackage()
         {
             string property = "Property A";
-            var packageList = "[{\"PackageId\": \"PackageA\"}, {\"PackageId\": \"PackageB\"}]";
+            string packageList = "[{\"PackageId\": \"PackageA\"}, {\"PackageId\": \"PackageB\"}]";
             List<Package> actualList = JsonConvert.DeserializeObject<List<Package>>(packageList);
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync("[]");
@@ -326,7 +326,7 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task UserExistsShouldInsteadUseHead()
         {
-            var username = It.IsAny<String>();
+            string username = It.IsAny<String>();
 
             await clientWithMock.UserExists(username);
 
@@ -339,7 +339,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeHead(HyperledgerConsts.TraderUrl, TestJsonObjectConsts.trader1ID))
                             .ThrowsAsync(new HttpRequestException());
 
-            var isUserExist = await clientWithMock.UserExists(TestJsonObjectConsts.trader1ID);
+            bool isUserExist = await clientWithMock.UserExists(TestJsonObjectConsts.trader1ID);
 
             Assert.IsFalse(isUserExist);
         }
@@ -347,11 +347,11 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task PropertyExistsReturnFailWhenServiceIsDown()
         {
-            var propertyId = It.IsAny<String>();
+            string propertyId = It.IsAny<String>();
             mockBlockService.Setup(m => m.InvokeHead(HyperledgerConsts.PropertyUrl, propertyId))
                             .ThrowsAsync(new HttpRequestException());
 
-            var isPropertyExist = await clientWithMock.PropertyExists(propertyId);
+            bool isPropertyExist = await clientWithMock.PropertyExists(propertyId);
 
             Assert.IsFalse(isPropertyExist);
         }
@@ -359,7 +359,7 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task PropertyExistsShouldInsteadUseHead()
         {
-            var propertyId = It.IsAny<String>();
+            string propertyId = It.IsAny<String>();
 
             await clientWithMock.PropertyExists(propertyId);
 
@@ -441,7 +441,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
                             .ReturnsAsync("[{\"timestamp\":\"2018-04-21T19:47:54.368Z\"},{\"timestamp\":\"2018-04-21T19:46:54.368Z\"}]");
 
-            var results = await clientWithMock.GetAllTransfers();
+            List<NewTransfer> results = await clientWithMock.GetAllTransfers();
 
             for (int i = 0; i < results.Count() - 1; i++)
             {
@@ -470,7 +470,7 @@ namespace BlockchainAPI.Tests
 
             await clientWithMock.Login(user);
 
-            var results = await clientWithMock.GetMyPackages();
+            List<Package> results = await clientWithMock.GetMyPackages();
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.MyPackagesUrl(TestJsonObjectConsts.trader1ID)));
         }
@@ -487,7 +487,7 @@ namespace BlockchainAPI.Tests
 
             await clientWithMock.Login(user);
 
-            var results = await clientWithMock.GetMyPackages();
+            List<Package> results = await clientWithMock.GetMyPackages();
 
             Assert.IsNull(results);
         }

@@ -16,7 +16,7 @@
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                         <Label Text="Package ID:" Style="{StaticResource FieldLabel}" Margin="5,0,0,0"/>
-                        <Label Text="{Binding PackageId}" FontSize="12" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding packageId}" FontSize="12" VerticalTextAlignment="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" Padding="5">
                         <StackLayout Orientation="Horizontal">

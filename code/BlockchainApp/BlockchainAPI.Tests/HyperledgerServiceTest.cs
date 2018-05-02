@@ -29,7 +29,7 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task getTraderInformationWhenCallingQueryWithTraderID()
         {
-            var results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("TRADER1"));
+            string results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("TRADER1"));
             Trader trader = JsonConvert.DeserializeObject<Trader>(results);
 
             Assert.AreEqual("TRADER1", trader.traderId);
@@ -40,7 +40,7 @@ namespace BlockchainAPI.Tests
         {
             try
             {
-                var results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("Invalid"));
+                string results = await hyperledgerService.InvokeGet(HyperledgerConsts.TraderQueryURL("Invalid"));
             }
             catch(HttpRequestException)
             {
@@ -59,7 +59,7 @@ namespace BlockchainAPI.Tests
             };
 
             await hyperledgerService.InvokePost(HyperledgerConsts.PropertyUrl, JsonConvert.SerializeObject(property));
-            var result = await hyperledgerService.InvokeHead(HyperledgerConsts.PropertyUrl, property.PropertyId);
+            bool result = await hyperledgerService.InvokeHead(HyperledgerConsts.PropertyUrl, property.PropertyId);
 
             Assert.IsTrue(result);
         }
@@ -72,7 +72,7 @@ namespace BlockchainAPI.Tests
                 PropertyId = "InvalidProperty"
             };
 
-            var result = await hyperledgerService.InvokeHead(HyperledgerConsts.PropertyUrl, property.PropertyId);
+            bool result = await hyperledgerService.InvokeHead(HyperledgerConsts.PropertyUrl, property.PropertyId);
             
             Assert.IsFalse(result);
         } 
@@ -80,15 +80,15 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task loginFailWithNonExistUser()
         {
-            var expectResult = "User notExist doesn't exist";
+            string expectResult = "User notExist doesn't exist";
             User user = new User
             {
                 username = "notExist",
                 password = "notExist"
             };
 
-            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
-            var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
+            string Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
+            messageCredential checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
 
             Assert.AreEqual(expectResult, checkUser.message);
         }
@@ -102,8 +102,8 @@ namespace BlockchainAPI.Tests
                 password = "InvalidUser"
             };
 
-            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
-            var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
+            string Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
+            messageCredential checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
 
             Assert.IsNull(checkUser.access_token);
         }
@@ -117,8 +117,8 @@ namespace BlockchainAPI.Tests
                 password = "test"
             };
 
-            var Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
-            var checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
+            string Results = await hyperledgerService.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user));
+            messageCredential checkUser = JsonConvert.DeserializeObject<messageCredential>(Results);
 
             Assert.IsNotNull(checkUser.access_token);
         }
