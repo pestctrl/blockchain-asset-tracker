@@ -11,6 +11,7 @@ namespace BlockchainApp
     public partial class RegisterPropertyPage : ContentPage
     {
         private BlockchainClient client;
+        Plugin.Media.Abstractions.MediaFile photo;
 
         public RegisterPropertyPage(BlockchainClient blockchainclient)
         {
@@ -19,14 +20,22 @@ namespace BlockchainApp
             client = blockchainclient;
         }
 
+        private String empty(String s)
+        {
+            if (s == null)
+                return "";
+            else
+                return s;
+        }
+
         async void CreateProperty(object sender, EventArgs e)
         {
             BlockchainClient.Result error;
             Property property = new Property
             {
-                PropertyId = property_id.Text,
-                description = description.Text,
-                owner = client.thisTrader.traderId
+                PropertyId = empty(property_id.Text),
+                description = empty(description.Text),
+                owner = empty(client.thisTrader.traderId)
             };
 
             using (UserDialogs.Instance.Loading("Creating"))
@@ -58,7 +67,7 @@ namespace BlockchainApp
             Plugin.Media.Abstractions.StoreCameraMediaOptions options = new Plugin.Media.Abstractions.StoreCameraMediaOptions();
             options.SaveToAlbum = true;
 
-            Plugin.Media.Abstractions.MediaFile photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(options);
+            photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(options);
 
             if (photo != null)
                 PhotoImage.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
