@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BlockchainApp"
+             x:Class="BlockchainApp.UserPage"
+             BackgroundImage="background.png">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+            <StackLayout Style="{StaticResource ListLayoutStyle}" Orientation="Horizontal" Padding="60,5,5,5">
+                <Label Text="Property ID" HorizontalOptions="Start" Style="{StaticResource ListLabelStyle}"/>
+                <Label Text="Description" HorizontalOptions="EndAndExpand" Style="{StaticResource ListLabelStyle}"/>
+            </StackLayout>
+
+            <ListView x:Name="current_asset_list" IsPullToRefreshEnabled="True" Refreshing="Handle_Refreshing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView Padding="0,2,0,2">
+                                <StackLayout Style="{StaticResource ListLayoutStyle}">
+                                    <Frame VerticalOptions="Center" HorizontalOptions="Start">
+                                        <Image Source="boxImage.png"/>
+                                    </Frame>
+                                    <Frame VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding PropertyId}" HorizontalOptions="Start"/>
+                                            <Label Style="{StaticResource ListLabelStyle}" Text="{Binding description}" HorizontalOptions="EndAndExpand"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </ContentView>
+                        </ViewCell>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Frame Style="{StaticResource BottomMenuFrameStyle}">
+                <StackLayout Style="{StaticResource BottomMenuLayoutStyle}">
+                    <Button x:Name="button_createAsset" Text="Create Asset" FontSize="9" WidthRequest="80" Clicked="CreateAsset" AutomationId="asset"/>
+                    <Button Text="Logout" Clicked="logout" FontSize="9" WidthRequest="80"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
