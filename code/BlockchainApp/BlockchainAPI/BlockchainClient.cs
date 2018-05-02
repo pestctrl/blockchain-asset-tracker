@@ -239,7 +239,7 @@ namespace BlockchainAPI
             try
             {
                 bool flag = await UserExists(package.recipient);
-                if (!flag)
+                if (flag)
                 {
                     string results = await blockchainService.InvokePost(HyperledgerConsts.CreatePackageUrl, JsonConvert.SerializeObject(package));
                     return Result.SUCCESS;
