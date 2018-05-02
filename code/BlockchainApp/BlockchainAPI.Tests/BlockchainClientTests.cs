@@ -79,6 +79,17 @@ namespace BlockchainAPI.Tests
             Assert.IsNull(clientWithMock.thisTrader);
         }
 
+        [TestMethod]
+        public async Task NetworkFailWhenLogin()
+        {
+            mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(new User() { username = "exist", password = "password", firstName = "f", lastName = "l" })))
+                            .ThrowsAsync(new HttpRequestException());
+
+            bool result = await clientWithMock.Login(new User() { username = "exist", password="password", firstName = "f", lastName = "l" });
+
+            Assert.AreEqual(false, result);
+        }
+
         public void AssertTradersEqual(Trader t1, Trader t2)
         {
             Assert.AreEqual(t1.firstName, t2.firstName);
@@ -267,6 +278,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl));
         }
 
+
         [TestMethod]
         public async Task GetAllTransactionsWillInvokeGet()
         {
@@ -315,7 +327,7 @@ namespace BlockchainAPI.Tests
             package.packageId = "testID";
             package.sender = "sender";
             package.recipient = "recipient";
-            
+
             await clientWithMock.CreatePackage(package);
 
             mockBlockService.Setup(m => m.InvokeHead(HyperledgerConsts.TraderUrl, TestJsonObjectConsts.trader1ID))
