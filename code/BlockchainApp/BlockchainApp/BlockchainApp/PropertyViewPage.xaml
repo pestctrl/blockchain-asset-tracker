@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlockchainApp.PropertyViewPage">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical">
+            <Image x:Name="propertyImage" WidthRequest="480" HeightRequest="320"/>
+
+            <Frame Style="{StaticResource BottomMenuFrameStyle}" VerticalOptions="EndAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Style="{StaticResource BottomMenuLayoutStyle}">
+                    <Button Clicked="Back" Text="Back" Style="{StaticResource BottomMenuButtonStyle}"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
