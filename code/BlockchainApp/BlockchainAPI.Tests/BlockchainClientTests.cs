@@ -278,25 +278,13 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public async Task GetUserTransactionsWillInvokeCreatePackageUrl()
         {
-            mockBlockService.Setup(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl))
-                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
+            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
+                            .ReturnsAsync("[]");
 
 
             var result = await clientWithMock.GetUserTransactions();
 
-            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.CreatePackageUrl));
-        }
-
-        [TestMethod]
-        public async Task GettingAllTransactionsWillNowInvokeTheTransactionsInOrder()
-        {
-            mockBlockService.Setup(m => m.InvokeGet(It.IsAny<String>()))
-                            .ReturnsAsync(TestJsonObjectConsts.listOfTransactions);
-
-            await clientWithMock.Login(user);
-            await clientWithMock.GetUserTransactions();
-
-            mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.OrderedTransactionUrl));
+            mockBlockService.Verify(m => m.InvokeGet(It.IsAny<String>()));
         }
 
         [TestMethod]
