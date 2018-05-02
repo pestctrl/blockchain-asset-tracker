@@ -63,7 +63,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(new User() { username = "notExist" })))
                             .ReturnsAsync(TestJsonObjectConsts.messageFromFailLogin);
 
-            var loginSucess = await clientWithMock.Login(new User() { username = "notExist" });
+            bool loginSucess = await clientWithMock.Login(new User() { username = "notExist" });
 
             Assert.IsFalse(loginSucess);
         }
@@ -74,7 +74,7 @@ namespace BlockchainAPI.Tests
             mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(new User() { username = "notExist" })))
                             .ReturnsAsync(TestJsonObjectConsts.messageFromFailLogin);
 
-            var loginSuccess = await clientWithMock.Login(new User() { username = "notExist" });
+            bool loginSuccess = await clientWithMock.Login(new User() { username = "notExist" });
 
             Assert.IsNull(clientWithMock.thisTrader);
         }
@@ -94,9 +94,9 @@ namespace BlockchainAPI.Tests
                             .ReturnsAsync(TestJsonObjectConsts.trader1);
             mockBlockService.Setup(m => m.InvokePostAuthentication(FlaskConsts.LoginUrl, JsonConvert.SerializeObject(user)))
                             .ReturnsAsync(TestJsonObjectConsts.trader1AuthenticationMessage);
-            var expectedTrader = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.trader1);
+            Trader expectedTrader = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.trader1);
 
-            var results = await clientWithMock.Login(user);
+            bool results = await clientWithMock.Login(user);
 
             AssertTradersEqual(expectedTrader, clientWithMock.thisTrader);
         }
@@ -112,7 +112,7 @@ namespace BlockchainAPI.Tests
                             .ReturnsAsync("[]");
 
             await clientWithMock.Login(user);
-            var results = await clientWithMock.GetMyProperties();
+            List<Property> results = await clientWithMock.GetMyProperties();
 
             mockBlockService.Verify(m => m.InvokeGet(HyperledgerConsts.TraderQueryURL(TestJsonObjectConsts.trader1ID)));
         }
@@ -124,7 +124,7 @@ namespace BlockchainAPI.Tests
 
             t.firstName = "Hello";
             t.lastName = "World";
-            var expectResult = String.Format("{0} {1}", t.firstName, t.lastName);
+            string expectResult = String.Format("{0} {1}", t.firstName, t.lastName);
 
             Assert.AreEqual(expectResult, t.fullName);
         }
@@ -188,10 +188,10 @@ namespace BlockchainAPI.Tests
         [TestMethod]
         public void JsonConvertCanDeserializeEvenWhenThereAreExtraFields()
         {
-            var results = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.trader1);
-            var expectResult = String.Format("{0} {1}", results.firstName, results.lastName);
+            Trader trader = JsonConvert.DeserializeObject<Trader>(TestJsonObjectConsts.trader1);
+            string expectResult = String.Format("{0} {1}", trader.firstName, trader.lastName);
 
-            Assert.AreEqual(expectResult, results.fullName);
+            Assert.AreEqual(expectResult, trader.fullName);
         }
 
         [TestMethod]
