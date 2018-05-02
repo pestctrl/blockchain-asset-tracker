@@ -9,7 +9,7 @@
             <Color x:Key ="DarkBackground">#011627</Color>
             <Color x:Key ="WhiteBackground">#FDFFC</Color>
             <Color x:Key ="ButtonBackground">#E6E8E6</Color>
-
+            <!--Oracle Colors-->
             <Color x:Key ="OracleRed">#f80000</Color>
             <Color x:Key ="OracleBlack">#000000</Color>
             <Color x:Key ="OracleLightSlate">#cad9de</Color>
@@ -18,7 +18,6 @@
             <Color x:Key ="OracleLightGrey">#dee0e0</Color>
             <Color x:Key ="OracleGrey">#939699</Color>
             <Color x:Key ="OracleDarkGrey">#4e5052</Color>
-            
             <!--Defaults-->
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource OracleDarkSlate}"/>
@@ -35,6 +34,7 @@
             <Style TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="OutlineColor" Value="Transparent"/>
+                <Setter Property="HasShadow" Value="False"/>
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="Margin" Value="0"/>
             </Style>
@@ -43,7 +43,6 @@
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
             </Style>
-
             <!--Bottom Navigation Menu-->
             <Style TargetType="Frame" x:Key="BottomMenuFrameStyle">
                 <Setter Property="VerticalOptions" Value="End"/>
@@ -58,7 +57,6 @@
                 <Setter Property="FontSize" Value="9"/>
                 <Setter Property="WidthRequest" Value="80"/>
             </Style>
-            
             <!--Listview items-->
             <Style TargetType="ListView">
                 <Setter Property="IsPullToRefreshEnabled" Value="True"/>
@@ -76,7 +74,6 @@
                 <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
-            
             <!--Page Headings-->
             <Style TargetType="Label" x:Key="HeadingStyle">
                 <Setter Property="TextColor" Value="White"/>
@@ -90,7 +87,6 @@
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="OutlineColor" Value="Transparent"/>
             </Style>
-            
             <!--Uncategorized-->
             <Style TargetType="Label" x:Key="TitleStyle">
                 <Setter Property="TextColor" Value="{StaticResource OracleDarkSlate}"/>
