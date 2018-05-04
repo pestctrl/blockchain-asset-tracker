@@ -1,0 +1,32 @@
+Our project provides an alternative to package tracking and and systems for departure/arrival scans in the transfer of an asset. 
+It utilizes blockchain technology as a proof of concept. 
+Asset tracking was touted as one of the problems this technology could solve however our sponsor, Faysal, has never seen and actual app developed.
+
+
+Description below may or may not be needed as it is technical. It is not clear what short description entail but i believe the above provides enough context.
+Please remove as y'all see fit.
+
+FROM HERE
+
+Our project has two applications available to the user: 
+1. A web app (Angular) that lists all transactions made on the blockhain and also shows the location history of any one asset. 
+2. A mobile app (Xamarin) that handles the transfer of an asset and shows currently owned assets and past transaction history to the logged in user.
+
+Our blockchain uses Hyperledger Fabric and Hyperledger composer and there is a web api that handles the communication between our apps and the blockchain.
+The blockchain, the web app, and a flask authentication server is hosted on an oracle cloud instance.
+
+TO HERE
+
+Challenges faced:
+The technologies we chose for the sake of being cross-platform and open source were new to all of our members.
+
+Personal methods go here...
+
+If needed we can mention the midterm peer review and the group's opinion on how that was resolved.
+
+The lease on our instance expiring posed a major challenge to us as without being able to login we could not make UI changes effectively.
+In hindsight we could have set up a way to mock data for the purpose of being able to use the app when the blockchain is down.
+
+
+
+
