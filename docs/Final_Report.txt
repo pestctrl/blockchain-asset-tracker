@@ -43,6 +43,9 @@ Many of the team members had to reinstall Visual Studio and Android SDKs multipl
 All the team members had no experience developing with Xamarin and we were using Xamarin forms to develop it as a cross platform app. 
 Some of us had some mobile app developing experience but it was not the same as Xamarin mobile development.
 
+There were difficulties in trying to apply some specific UI interfaces that we had to give up on, as Xamarin did not provide enough support. Such as adding a sliding feature on a text to reveal a button underneath.
+We found support for android and ios but not for Xamarin. There just wasn't as much support for Xamarin as we had hoped.
+
 Personal methods go here...
 
 If needed we can mention the midterm peer review and the group's opinion on how that was resolved.
