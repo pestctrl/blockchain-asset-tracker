@@ -5,6 +5,9 @@ It utilizes blockchain technology as a proof of concept.
 Asset tracking was touted as one of the problems this technology could solve however our sponsor, Faysal, has never seen and actual app developed.
 
 
+
+
+
 Description below may or may not be needed as it is technical. It is not clear what short description entail but i believe the above provides enough context.
 Please remove as y'all see fit.
 
@@ -18,6 +21,15 @@ Our blockchain uses Hyperledger Fabric and Hyperledger composer and there is a w
 The blockchain, the web app, and a flask authentication server is hosted on an oracle cloud instance.
 
 TO HERE
+
+
+
+
+Walkthrough of Mobile app features if needed
+
+
+
+
 =======================================================================================
 B. Details of challenges faced, how they were resolved or not resolved, any workarounds: 
 The technologies we chose for the sake of being cross-platform and open source were new to all of our members.
@@ -31,4 +43,10 @@ In hindsight we could have set up a way to mock data for the purpose of being ab
 
 =======================================================================================
 C. Anything else interesting/significant the team likes to report, lessons learned, etc. 
+
+
+
+While a lot of the merits of this technology is aready realized in cryptocurrency today, not all of these things necessarily translate to the tracking of physical assets.
+Our app handles the transfer of virtual packages that are associated with a physical package via a QR code.
+We can verify any transactions made by the app but anything involving the physical package is out of our control.
 
