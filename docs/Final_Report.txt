@@ -1,3 +1,4 @@
+A. A short description of our project, to give the context. 
 Our project provides an alternative to package tracking and and systems for departure/arrival scans in the transfer of an asset. 
 It utilizes blockchain technology as a proof of concept. 
 Asset tracking was touted as one of the problems this technology could solve however our sponsor, Faysal, has never seen and actual app developed.
@@ -16,8 +17,8 @@ Our blockchain uses Hyperledger Fabric and Hyperledger composer and there is a w
 The blockchain, the web app, and a flask authentication server is hosted on an oracle cloud instance.
 
 TO HERE
-
-Challenges faced:
+=======================================================================================
+B. Details of challenges faced, how they were resolved or not resolved, any workarounds: 
 The technologies we chose for the sake of being cross-platform and open source were new to all of our members.
 
 Personal methods go here...
@@ -27,6 +28,6 @@ If needed we can mention the midterm peer review and the group's opinion on how 
 The lease on our instance expiring posed a major challenge to us as without being able to login we could not make UI changes effectively.
 In hindsight we could have set up a way to mock data for the purpose of being able to use the app when the blockchain is down.
 
-
-
+=======================================================================================
+C. Anything else interesting/significant the team likes to report, lessons learned, etc. 
 
