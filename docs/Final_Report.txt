@@ -1,54 +1,24 @@
 ======================================================================================
 A. A short description of our project, to give the context. 
 
-The project is simply an asset tracker similar to what you would find when typing in a tracking number for UPS, USPS, or FedEx.
-We are emulating the current system using blockchain technology as a proof of concept.
+The project is simply an asset tracker similar to what you would find when ordering a product from Amazon, or ebay, and having it shipped through UPS, USPS, or FedEx.
+We are emulating the existing relationship between a provider of products and a shipping company using blockchain technology as a proof of concept.
 Our project provides an alternative to package tracking and systems for departure/arrival scans in the transfer of an asset. 
-Asset tracking was touted as one of the problems this technology could solve however our sponsor, Faysal, has never seen and actual app developed.
-
-
-
-
-Description below may or may not be needed as it is technical. It is not clear what short description entail but i believe the above provides enough context.
-Please remove as y'all see fit.
-
-FROM HERE
-
-Our project consists of two applications: 
-1. A web app (Angular) is used to display the transactions performed on the blockchain as well as let users view the locations of where transactions were made. 
-2. A mobile app (Xamarin) is used to log into an account, and perform transactions into the blockchain. It allows the users to create a property/package and perform releasing/accepting ownership of a package.
-
-Our project uses Hyperledger Fabric and Hyperledger composer with a web API that handles the communication between the apps and the blockchain.
-The blockchain, the web app, and a flask authentication server is hosted on an oracle cloud instance.
-
-TO HERE
-
-
-
-
-Walkthrough of Mobile app features if needed
-
-
-
 
 =======================================================================================
 B. Details of challenges faced, how they were resolved or not resolved, any workarounds: 
 
-The sponsor originally had hoped that we were able to deploy it on Android and Apple devices, however, none of us had Apple devices so we were unable to develop it for Apple due to it’s requirements. 
-Thus, we concentrated our efforts to mainly deploying under Android. Even then it was difficult.
-We spent a good few weeks trying to get environmental setup to work correctly. We had many problems trying to get Hyperledger and Visual Studio to work correctly.
-Since Hyperledger was relatively new there was little help available online. 
-While Visual Studio was relatively straight forward in setting it up, and with plenty of help online, sometimes it would work and other types it wouldn’t. 
-Many of the team members had to reinstall Visual Studio and Android SDKs multiple times to get them to function correctly when using Visual Studio.
-All the team members had no experience developing with Xamarin and we were using Xamarin forms to develop it as a cross platform app. 
-Some of us had some mobile app developing experience but it was not the same as Xamarin mobile development.
+Most of our difficulties fit into 2 major categories:
+1. Development environment issues
+2. Lack of documentation and support
 
-There were difficulties in trying to apply some specific UI interfaces that we had to give up on, as Xamarin did not provide enough support. Such as adding a sliding feature on a text to reveal a button underneath.
-We found support for android and ios but not for Xamarin. There just wasn't as much support for Xamarin as we had hoped.
+For problem #1, we had problems on both our mobile app and our blockchain.
+For the mobile app, we were using the Xamarin framework to build apps that were cross platform. However, our project solution would only ever build on one computer at a time, and never on any others. For us, a majority of time was spent just trying to get everyone's computer to build the app. Problems ranging from Android SDK issues to Visual Studio issues were very common in these early weeks. 
+With our blockchain, there was an interesting problem we ran into throughout development. We didn't really have a convenient way to transition between updates to the blockchain, so everytime an update needed to be pushed, the blockchain would need to be taken down for about 5-10 minutes at a time, which caused inconvenience at times. We also weren't really sure whether the time invested in setting up backup solutions like apiary or just setting up another instance were going to be that helpful, so we didn't, and development of our UI had to stop when the blockchain was down. Also, we ran into an issue where our cloud service had expired, leaving us without anything to do for a few days.
 
-Personal methods go here...
-
-If needed we can mention the midterm peer review and the group's opinion on how that was resolved.
+For problem #2, again the mobile app and blockchain were the main issues here.
+For our mobile app, Xamarin is a relatively new framework it seems, with not as much support or documentation as we'd like. When it came to add UI features like swiping to reveal a button, while there were countless examples on how to do this for Android and iOS, nothing popped up for Xamarin. It was understood near the end that there were ways to bring these features to Xamarin if we wrote the middleware ourselves, but none of the team had ever worked with Xamarin in the past, and didn't really have the time to learn this aspect of it.
+On the blockchain, our sponsor had recommended we use hyperldeger composer because of how easy it was to get started with. While this worked exceptionally well for us in the beginning, when the sponsor began asking for more complex features on our blockchain, the limitations of the Composer really started to show. The technology was new, and the documentation, while not terrible, was definitely not mature, and it wasn't always clear the difference between something that wasn't possible and something that wasn't documented, like the halting problem. Thus, a lot of time was spent in trying to add the features requested, and while some of the effort led to discoveries of features that were not documented, a lot of time was spent trying to accomplish tasks that weren't even possible to begin with. 
 
 =======================================================================================
 C. Anything else interesting/significant the team likes to report, lessons learned, etc. 
