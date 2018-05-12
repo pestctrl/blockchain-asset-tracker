@@ -20,10 +20,16 @@ asset Property identified by PropertyId {
     --> Trader owner
 }
 
+enum UserRole {
+    o CONSUMER
+    o DISTRIBUTOR
+    o DELIVERER
+}
 participant Trader identified by traderId {
     o String traderId
     o String firstName
     o String lastName
+    o UserRole Role
 }
 
 transaction Trade {
