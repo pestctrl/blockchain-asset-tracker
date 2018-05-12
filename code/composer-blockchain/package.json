@@ -1,6 +1,5 @@
 {
   "name": "oracle-asset-track",
-  "version": "0.0.8",
   "version": "0.0.1",
   "description": "Track assets in a USPS type system",
   "scripts": {
