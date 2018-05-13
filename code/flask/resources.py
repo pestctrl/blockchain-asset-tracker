@@ -11,6 +11,8 @@ registerParser.add_argument('username', help = 'This field cannot be blank', req
 registerParser.add_argument('firstName', help = 'This field cannot be blank', required = True)
 registerParser.add_argument('lastName', help = 'This field cannot be blank', required = True)
 registerParser.add_argument('password', help = 'This field cannot be blank', required = True)
+registerParser.add_argument('Role', help = 'This field cannot be blank', required = True)
+
 
 loginParser = reqparse.RequestParser()
 loginParser.add_argument('username', help = 'This field cannot be blank', required = True)
@@ -28,7 +30,8 @@ class UserRegistration(Resource):
             username = data['username'],
             password = UserModel.generate_hash(data['password']),
             firstname = data['firstName'],
-            lastname = data['lastName']
+            lastname = data['lastName'],
+            Role = data['Role']
         )
 
 
@@ -37,7 +40,7 @@ class UserRegistration(Resource):
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
             url='http://129.213.87.202:3000/api/org.example.biznet.Trader'
-            payload={"$class": "org.example.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'] }
+            payload={"$class": "org.example.biznet.Trader", "traderId": data['username'], "firstName": data['firstName'], "lastName": data['lastName'], 'Role': data['Role'] }
             headers={'Content-Type': 'application/json'}
             response = requests.post(url, data=json.dumps(payload), headers=headers)
 

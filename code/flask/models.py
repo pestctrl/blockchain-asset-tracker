@@ -9,7 +9,7 @@ class UserModel(db.Model):
     password = db.Column(db.String(120), nullable = False)
     firstname = db.Column(db.String(120), nullable = False)
     lastname = db.Column(db.String(120), nullable = False)
-
+    Role = db.Column(db.String(120), nullable = True)
 
     def save_to_db(self):
         db.session.add(self)
@@ -26,7 +26,8 @@ class UserModel(db.Model):
                 'username': x.username,
                 'password': x.password,
                 'firstname': x.firstname,
-                'lastname': x.lastname
+                'lastname': x.lastname,
+                'Role': x.Role
             }
         return {'user': list(map(lambda x: to_json(x), cls.query.filter_by(username = username)))}
 
@@ -39,7 +40,8 @@ class UserModel(db.Model):
                 'username': x.username,
                 'password': x.password,
                 'firstname': x.firstname,
-                'lastname': x.lastname
+                'lastname': x.lastname,
+                'Role': x.Role
             }
         return {'users': list(map(lambda x: to_json(x), UserModel.query.all()))}
 
